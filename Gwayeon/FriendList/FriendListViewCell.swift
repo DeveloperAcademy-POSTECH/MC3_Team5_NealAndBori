@@ -9,7 +9,7 @@ import UIKit
 
 class FriendListViewCell: UITableViewCell {
     
-    static let cellId = "ProfileCell"
+    static let cellId = "FriendCell"
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,7 +52,6 @@ class FriendListViewCell: UITableViewCell {
         
         return stackView
     }()
-    
     
     func render() {
         
