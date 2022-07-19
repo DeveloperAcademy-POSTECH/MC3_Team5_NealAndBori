@@ -38,6 +38,8 @@ class FriendListViewController: UIViewController {
         tableView = UITableView(frame: frame, style: UITableView.Style(rawValue: 0)!)
         self.view.addSubview(tableView)
         
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
