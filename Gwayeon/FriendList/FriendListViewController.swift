@@ -31,14 +31,14 @@ class FriendListViewController: UIViewController {
         FriendData(name: "닐", fruit: "orange", friendsCount: 28)
     ]
     
-//    var tableTitle : UILabel = {
-//        let label = UILabel()
-//        label.font = .systemFont(ofSize: 14, weight: .medium)
-//        label.textColor = UIColor(red: 76/256, green: 76/256, blue: 76/256, alpha: 1.00)
-//        label.text = "과연을 이용 중인 친구들"
-//
-//        return label
-//    }()
+    var tableTitle : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14, weight: .medium)
+        label.textColor = UIColor(red: 76/256, green: 76/256, blue: 76/256, alpha: 1.00)
+        label.text = "과연을 이용 중인 친구들"
+
+        return label
+    }()
     
     var tableView : UITableView = {
         let frame = UIScreen.main.bounds
@@ -63,15 +63,24 @@ class FriendListViewController: UIViewController {
     
     func setupFriendListView() {
         
-//        self.view.addSubview(tableTitle)
+        view.backgroundColor = .systemBackground
+        
+        self.view.addSubview(tableTitle)
         self.view.addSubview(tableView)
         
+        tableTitle.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // table title layout
+        tableTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48).isActive = true
+        tableTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
         // table view layout
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: tableTitle.bottomAnchor, constant: 10).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        
+
         // table view data
         tableView.dataSource = self
         tableView.delegate = self
