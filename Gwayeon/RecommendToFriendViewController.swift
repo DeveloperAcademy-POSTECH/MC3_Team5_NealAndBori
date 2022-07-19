@@ -56,7 +56,15 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-  
+    lazy var completionButton:UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
+        button.setTitle("완료", for: UIControl.State.normal)
+        
+        return button
+    }()
+    
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
     lazy var textView: UITextView = {
         let textView = UITextView()
@@ -91,6 +99,7 @@ class RecommendToFriendViewController: UIViewController {
         view.addSubview(recommendLabel)
         view.addSubview(recommendMessageLabel)
         view.addSubview(textView)
+        view.addSubview(completionButton)
 
         farmLabel.translatesAutoresizingMaskIntoConstraints = false
         fruitLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -99,6 +108,7 @@ class RecommendToFriendViewController: UIViewController {
         recommendLabel.translatesAutoresizingMaskIntoConstraints = false
         recommendMessageLabel.translatesAutoresizingMaskIntoConstraints = false
         textView.translatesAutoresizingMaskIntoConstraints = false
+        completionButton.translatesAutoresizingMaskIntoConstraints = false
         
         farmLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 149).isActive = true
         farmLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
@@ -126,6 +136,10 @@ class RecommendToFriendViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
         view.addGestureRecognizer(tapGesture)
         
+        completionButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 217).isActive = true
+        completionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        completionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        completionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     @objc
