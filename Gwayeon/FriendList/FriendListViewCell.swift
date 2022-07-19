@@ -20,32 +20,67 @@ class FriendListViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let nameLabel = UILabel()
     let fruitImage = UIImageView()
-    let friendLabel = UILabel()
+    
+    let nameLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        return label
+    }()
+    
+    let friendNumberLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .bold)
+        label.textColor = UIColor(red: 246/256, green: 104/256, blue: 94/256, alpha: 1.00)
+        return label
+    }()
+    
+    let friendTextLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .medium)
+        label.textColor = UIColor(red: 151/256, green: 151/256, blue: 151/256, alpha: 1.00)
+        label.text = "명의 과연이 있어요"
+        return label
+    }()
+    
+    let friendView : UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .horizontal
+        stackView.alignment = .leading
+        stackView.spacing = 0
+        
+        return stackView
+    }()
+    
     
     func render() {
-//        contentView.addSubview([nameLabel, fruitImage, friendLabel])
+        
+        self.friendView.addArrangedSubview(friendNumberLabel)
+        self.friendView.addArrangedSubview(friendTextLabel)
+        
         self.addSubview(nameLabel)
         self.addSubview(fruitImage)
-        self.addSubview(friendLabel)
+        self.addSubview(friendView)
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         fruitImage.translatesAutoresizingMaskIntoConstraints = false
-        friendLabel.translatesAutoresizingMaskIntoConstraints = false
+        friendNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+        friendTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        friendView.translatesAutoresizingMaskIntoConstraints = false
         
-        nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        fruitImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
+        fruitImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 18).isActive = true
+        fruitImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -18).isActive = true
+        fruitImage.widthAnchor.constraint(equalToConstant: 64).isActive = true
+        fruitImage.heightAnchor.constraint(equalToConstant: 64).isActive = true
         
-        friendLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10).isActive = true
-        friendLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-    
-        fruitImage.leadingAnchor.constraint(equalTo: friendLabel.trailingAnchor, constant: 10).isActive = true
-        fruitImage.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        fruitImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        fruitImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24).isActive = true
+        nameLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5).isActive = true
+        
+        friendView.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24).isActive = true
+        friendView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5).isActive = true
         
     }
 
 }
-

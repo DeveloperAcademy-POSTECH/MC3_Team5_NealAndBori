@@ -64,12 +64,9 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.nameLabel.text = friendsList[indexPath.row].name
         cell.fruitImage.image = UIImage(named: "apple")
-        cell.friendLabel.text = String(friendsList[indexPath.row].friendsCount)
+        cell.friendNumberLabel.text = String(friendsList[indexPath.row].friendsCount)
         
         return cell
     }
     
 }
-
-
-
