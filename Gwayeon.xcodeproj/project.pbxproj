@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504DF287FB0D30048B3F0 /* AppDelegate.swift */; };
 		764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E1287FB0D30048B3F0 /* SceneDelegate.swift */; };
-		764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E3287FB0D30048B3F0 /* ViewController.swift */; };
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
+		DDF625962885C372008E441D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625952885C372008E441D /* DetailViewController.swift */; };
+		DDF6259A28864BF3008E441D /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6259928864BF3008E441D /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,11 +21,12 @@
 		764504DC287FB0D30048B3F0 /* Gwayeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gwayeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		764504DF287FB0D30048B3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		764504E1287FB0D30048B3F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		764504E3287FB0D30048B3F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		764504E6287FB0D30048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		764504E8287FB0D50048B3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDF625952885C372008E441D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DDF6259928864BF3008E441D /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +62,12 @@
 			children = (
 				764504DF287FB0D30048B3F0 /* AppDelegate.swift */,
 				764504E1287FB0D30048B3F0 /* SceneDelegate.swift */,
-				764504E3287FB0D30048B3F0 /* ViewController.swift */,
 				764504E5287FB0D30048B3F0 /* Main.storyboard */,
 				764504E8287FB0D50048B3F0 /* Assets.xcassets */,
 				764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */,
 				764504ED287FB0D50048B3F0 /* Info.plist */,
+				DDF625952885C372008E441D /* DetailViewController.swift */,
+				DDF6259928864BF3008E441D /* ColorExtension.swift */,
 			);
 			path = Gwayeon;
 			sourceTree = "<group>";
@@ -161,9 +164,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
+				DDF625962885C372008E441D /* DetailViewController.swift in Sources */,
+				DDF6259A28864BF3008E441D /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
