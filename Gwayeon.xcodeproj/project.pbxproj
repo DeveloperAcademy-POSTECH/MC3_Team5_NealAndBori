@@ -7,20 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0012885381400D66F41 /* MainTabBarViewController.swift */; };
+		7605A0042885383000D66F41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0032885383000D66F41 /* HomeViewController.swift */; };
+		7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0052885383D00D66F41 /* MyPageViewController.swift */; };
+		7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A00A2885703F00D66F41 /* Color+Extension.swift */; };
 		764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504DF287FB0D30048B3F0 /* AppDelegate.swift */; };
 		764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E1287FB0D30048B3F0 /* SceneDelegate.swift */; };
-		764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E3287FB0D30048B3F0 /* ViewController.swift */; };
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7605A0012885381400D66F41 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		7605A0032885383000D66F41 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7605A0052885383D00D66F41 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		7605A00A2885703F00D66F41 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		76059FFE2884D17D00D66F41 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		764504DC287FB0D30048B3F0 /* Gwayeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gwayeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		764504DF287FB0D30048B3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		764504E1287FB0D30048B3F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		764504E3287FB0D30048B3F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		764504E6287FB0D30048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		764504E8287FB0D50048B3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +44,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7605A000288537CA00D66F41 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7605A0012885381400D66F41 /* MainTabBarViewController.swift */,
+				7605A0032885383000D66F41 /* HomeViewController.swift */,
+				7605A0052885383D00D66F41 /* MyPageViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7605A00728856C6100D66F41 /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				7605A00928856F7A00D66F41 /* Resources */,
+				7605A00828856F4F00D66F41 /* Extension */,
+			);
+			path = Globals;
+			sourceTree = "<group>";
+		};
+		7605A00828856F4F00D66F41 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7605A00A2885703F00D66F41 /* Color+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		7605A00928856F7A00D66F41 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				764504E8287FB0D50048B3F0 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		764504D3287FB0D30048B3F0 = {
 			isa = PBXGroup;
 			children = (
@@ -58,11 +99,11 @@
 		764504DE287FB0D30048B3F0 /* Gwayeon */ = {
 			isa = PBXGroup;
 			children = (
+				7605A00728856C6100D66F41 /* Globals */,
+				7605A000288537CA00D66F41 /* Controllers */,
 				764504DF287FB0D30048B3F0 /* AppDelegate.swift */,
 				764504E1287FB0D30048B3F0 /* SceneDelegate.swift */,
-				764504E3287FB0D30048B3F0 /* ViewController.swift */,
 				764504E5287FB0D30048B3F0 /* Main.storyboard */,
-				764504E8287FB0D50048B3F0 /* Assets.xcassets */,
 				764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */,
 				764504ED287FB0D50048B3F0 /* Info.plist */,
 			);
@@ -161,9 +202,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */,
+				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
+				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
+				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
+				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
