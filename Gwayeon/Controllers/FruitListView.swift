@@ -37,7 +37,6 @@ final class FruitListView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(FruitCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FruitCollectionViewCell.cellId)
@@ -60,10 +59,13 @@ final class FruitListView: UIView {
         
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        listCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        listCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        listCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        listCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
+        let listCollectionViewConstraints = [
+            listCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+            listCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            listCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            listCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+        ]
+        NSLayoutConstraint.activate(listCollectionViewConstraints)
     }
 }
 
@@ -74,21 +76,12 @@ extension FruitListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitCollectionViewCell.cellId, for: indexPath)
-        
-        guard let cell = dequeuedCell as? FruitCollectionViewCell else {
+        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitCollectionViewCell.cellId, for: indexPath) as? FruitCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
-        cell.nameLabel.text = data[indexPath.item]
+        dequeuedCell.nameLabel.text = data[indexPath.item]
         
-        return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-extension FruitListView: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        return dequeuedCell
     }
 }

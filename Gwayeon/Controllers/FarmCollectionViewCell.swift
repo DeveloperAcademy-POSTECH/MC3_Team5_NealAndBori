@@ -13,7 +13,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
     
     // MARK: - property
     
-    let peoplePickLabel: UILabel = {
+    private let peoplePickLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.textColor = .grey001
@@ -21,7 +21,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let fruitLabel: UILabel = {
+    private let fruitLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
         label.textColor = .mainRed
@@ -29,7 +29,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let farmLabel: UILabel = {
+    private let farmLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textColor = .black
@@ -37,7 +37,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let fruitInfoLabel: UILabel = {
+    private let fruitInfoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textColor = .black
@@ -45,19 +45,18 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private var fruitImageView: UIImageView = {
-        let imageView = UIImageView(frame: .zero)
+    private var fruitImageView: UIImageView = { imageView in
         imageView.image = UIImage(named: "peach")
         imageView.contentMode = .scaleAspectFill
         return imageView
-    }()
+    }(UIImageView(frame: .zero))
     
     // MARK: - init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        render()
-        configUI()
+        setCollectionViewLayout()
+        setConfigureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -77,37 +76,48 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return layoutAttributes
     }
     
-    func render() {
-        contentView.addSubview(peoplePickLabel)
-        contentView.addSubview(fruitLabel)
-        contentView.addSubview(farmLabel)
-        contentView.addSubview(fruitInfoLabel)
-        contentView.addSubview(fruitImageView)
+    private func setCollectionViewLayout() {
+        [peoplePickLabel, fruitLabel, farmLabel, fruitInfoLabel, fruitImageView].forEach { component in
+            contentView.addSubview(component)
+        }
         
         peoplePickLabel.translatesAutoresizingMaskIntoConstraints = false
+        let peoplePickLabelConstraints = [
+            peoplePickLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
+            peoplePickLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+        ]
+        
         fruitLabel.translatesAutoresizingMaskIntoConstraints = false
+        let fruitLabelConstraints = [
+            fruitLabel.topAnchor.constraint(equalTo: peoplePickLabel.bottomAnchor, constant: 16),
+            fruitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+        ]
+                
         farmLabel.translatesAutoresizingMaskIntoConstraints = false
+        let farmLabelConstraints = [
+            farmLabel.topAnchor.constraint(equalTo: fruitLabel.bottomAnchor, constant: 6),
+            farmLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+        ]
+        
         fruitInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        let fruitInfoLabelConstraints = [
+            fruitInfoLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor, constant: 24),
+            fruitInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+        ]
+        
         fruitImageView.translatesAutoresizingMaskIntoConstraints = false
+        let fruitImageViewConstraints = [
+            fruitImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            fruitImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            fruitImageView.widthAnchor.constraint(equalToConstant: 80)
+        ]
         
-        peoplePickLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17).isActive = true
-        peoplePickLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17).isActive = true
-        
-        fruitLabel.topAnchor.constraint(equalTo: peoplePickLabel.bottomAnchor, constant: 16).isActive = true
-        fruitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17).isActive = true
-        
-        farmLabel.topAnchor.constraint(equalTo: fruitLabel.bottomAnchor, constant: 6).isActive = true
-        farmLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17).isActive = true
-        
-        fruitInfoLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor, constant: 24).isActive = true
-        fruitInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17).isActive = true
-        
-        fruitImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        fruitImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
-        fruitImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        [peoplePickLabelConstraints, fruitLabelConstraints, farmLabelConstraints, fruitInfoLabelConstraints, fruitImageViewConstraints].forEach { constraints in
+            NSLayoutConstraint.activate(constraints)
+        }
     }
     
-    func configUI() {
+    private func setConfigureUI() {
         clipsToBounds = true
         backgroundColor = .white
         layer.masksToBounds = false

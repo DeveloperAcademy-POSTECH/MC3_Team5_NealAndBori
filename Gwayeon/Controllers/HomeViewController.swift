@@ -44,7 +44,6 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(FarmCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FarmCollectionViewCell.cellId)
@@ -55,26 +54,35 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        view.addSubview(titleLabel)
-        view.addSubview(fruitListView)
-        view.addSubview(listCollectionView)
+        [titleLabel, fruitListView, listCollectionView].forEach { component in
+            view.addSubview(component)
+        }
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        let titleLabelConstraints = [
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ]
+        
         fruitListView.translatesAutoresizingMaskIntoConstraints = false
+        let fruitListViewConstraints = [
+            fruitListView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            fruitListView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            fruitListView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            fruitListView.heightAnchor.constraint(equalToConstant: 45)
+        ]
+        
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        let listCollectionViewConstraints = [
+            listCollectionView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 20),
+            listCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            listCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ]
         
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        
-        fruitListView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24).isActive = true
-        fruitListView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        fruitListView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        fruitListView.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        
-        listCollectionView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 20).isActive = true
-        listCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        listCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        [titleLabelConstraints, fruitListViewConstraints, listCollectionViewConstraints].forEach { constraints in
+            NSLayoutConstraint.activate(constraints)
+        }
     }
 }
 
@@ -85,18 +93,10 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.cellId, for: indexPath)
-        
-        guard let cell = dequeuedCell as? FarmCollectionViewCell else {
+        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.cellId, for: indexPath) as? FarmCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
-        return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-extension HomeViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        return dequeuedCell
     }
 }

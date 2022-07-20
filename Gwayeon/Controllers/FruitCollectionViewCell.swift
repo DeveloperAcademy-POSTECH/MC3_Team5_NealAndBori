@@ -25,8 +25,8 @@ final class FruitCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        render()
-        configUI()
+        setCollectionViewLayout()
+        setConfigureUI()
     }
     
     required init?(coder: NSCoder) {
@@ -46,16 +46,19 @@ final class FruitCollectionViewCell: UICollectionViewCell {
         return layoutAttributes
     }
     
-    func render() {
+    private func setCollectionViewLayout() {
         contentView.addSubview(nameLabel)
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        let nameLabelConstraints = [
+            nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ]
+        NSLayoutConstraint.activate(nameLabelConstraints)
     }
     
-    func configUI() {
+    private func setConfigureUI() {
         clipsToBounds = true
         contentView.backgroundColor = .mainRed.withAlphaComponent(0.15)
         contentView.layer.cornerRadius = 22.5
