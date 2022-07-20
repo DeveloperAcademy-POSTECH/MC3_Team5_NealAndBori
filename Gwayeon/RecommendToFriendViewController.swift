@@ -10,14 +10,15 @@ import UIKit
 class RecommendToFriendViewController: UIViewController {
     
     // MARK: Properties
-    lazy var farmLabel: UILabel = {
+    let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
+   private lazy var farmLabel: UILabel = {
         let label = UILabel()
         label.text = "자연농원의"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    lazy var fruitLabel: UILabel = {
+    private lazy var fruitLabel: UILabel = {
         let label = UILabel()
         label.text = "청송사과"
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -25,21 +26,21 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var objLabel: UILabel = {
+    private lazy var objLabel: UILabel = {
         let label = UILabel()
         label.text = "를"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    lazy var myFriendsLabel: UILabel = {
+    private lazy var myFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "내 과연"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    lazy var numOfFriendsLabel: UILabel = {
+    private lazy var numOfFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "213"
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -47,14 +48,14 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var recommendLabel: UILabel = {
+    private lazy var recommendLabel: UILabel = {
         let label = UILabel()
         label.text = " 명에게 추천합니다"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    lazy var recommendMessageLabel: UILabel = {
+   private lazy var recommendMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "추천 한마디"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -72,7 +73,6 @@ class RecommendToFriendViewController: UIViewController {
         return button
     }()
     
-    let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
     lazy var textView: UITextView = {
         let textView = UITextView()
         textView.layer.borderWidth = 0.5
