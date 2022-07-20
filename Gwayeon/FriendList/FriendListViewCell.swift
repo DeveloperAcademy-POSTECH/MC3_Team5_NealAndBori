@@ -76,7 +76,7 @@ class FriendListViewCell: UITableViewCell {
         
         nameLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24).isActive = true
         nameLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5).isActive = true
-        
+
         friendView.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24).isActive = true
         friendView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5).isActive = true
         

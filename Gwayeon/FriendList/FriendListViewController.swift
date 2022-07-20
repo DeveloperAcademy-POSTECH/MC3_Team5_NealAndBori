@@ -99,7 +99,9 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
-                                                 for: indexPath) as! FriendListViewCell
+                                                 for: indexPath)
+                                                as? FriendListViewCell
+                                                ?? FriendListViewCell(style: UITableViewCell.CellStyle(rawValue: 0)!, reuseIdentifier: FriendListViewCell.cellId)
         
         cell.nameLabel.text = friendsList[indexPath.row].name
         cell.fruitImage.image = UIImage(named: "apple")
