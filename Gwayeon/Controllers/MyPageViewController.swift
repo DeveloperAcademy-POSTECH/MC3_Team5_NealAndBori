@@ -8,7 +8,7 @@
 import UIKit
 
 class MyPageViewController: UIViewController {
-    private let textLabel: UILabel = {
+    private let navigationTitleLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = "나의 농장생활"
         lbl.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -52,10 +52,9 @@ class MyPageViewController: UIViewController {
     }
     
     private func setNavigationTitle() {
-//        view.addSubview(textLabel)
         view.backgroundColor = .white
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: textLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: navigationTitleLabel)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
     }
