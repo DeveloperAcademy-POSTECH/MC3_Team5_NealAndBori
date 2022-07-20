@@ -82,13 +82,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		7605A01828878BD900D66F41 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		764504D3287FB0D30048B3F0 = {
 			isa = PBXGroup;
 			children = (
@@ -110,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				7605A00728856C6100D66F41 /* Globals */,
-				7605A01828878BD900D66F41 /* View */,
 				7605A000288537CA00D66F41 /* Controllers */,
 				764504DF287FB0D30048B3F0 /* AppDelegate.swift */,
 				764504E1287FB0D30048B3F0 /* SceneDelegate.swift */,
