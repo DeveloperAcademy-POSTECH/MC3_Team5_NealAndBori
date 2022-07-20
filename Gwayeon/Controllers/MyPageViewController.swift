@@ -62,10 +62,10 @@ class MyPageViewController: UIViewController {
     
     private func setMyStatusView() {
         [myProfileImageView, myNameLabel, gwayeonCountLabel, disclosureButton].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(component)
         }
         
-        myProfileImageView.translatesAutoresizingMaskIntoConstraints = false
         let myProfileImageViewConstraints = [
             myProfileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             myProfileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
@@ -73,21 +73,18 @@ class MyPageViewController: UIViewController {
             myProfileImageView.heightAnchor.constraint(equalToConstant: 68)
         ]
         
-        myNameLabel.translatesAutoresizingMaskIntoConstraints = false
         let myNameLabelConstraints = [
             myNameLabel.leadingAnchor.constraint(equalTo: myProfileImageView.trailingAnchor, constant: 16),
             myNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             myNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -70)
         ]
         
-        gwayeonCountLabel.translatesAutoresizingMaskIntoConstraints = false
         let gwayeonCountLabelConstraints = [
             gwayeonCountLabel.leadingAnchor.constraint(equalTo: myNameLabel.leadingAnchor),
             gwayeonCountLabel.topAnchor.constraint(equalTo: myNameLabel.bottomAnchor, constant: 6),
             gwayeonCountLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -60)
         ]
         
-        disclosureButton.translatesAutoresizingMaskIntoConstraints = false
         let disclosureButtonConstraints = [
             disclosureButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26),
             disclosureButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 57)
