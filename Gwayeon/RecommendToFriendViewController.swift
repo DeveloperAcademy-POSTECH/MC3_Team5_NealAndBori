@@ -19,9 +19,16 @@ class RecommendToFriendViewController: UIViewController {
     
     lazy var fruitLabel: UILabel = {
         let label = UILabel()
-        label.text = "청송사과를"
+        label.text = "청송사과"
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
+        return label
+    }()
+    
+    lazy var objLabel: UILabel = {
+        let label = UILabel()
+        label.text = "를"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
@@ -56,7 +63,7 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var completionButton: UIButton = {
+    lazy var completionButton:UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
@@ -94,6 +101,7 @@ class RecommendToFriendViewController: UIViewController {
         
         view.addSubview(farmLabel)
         view.addSubview(fruitLabel)
+        view.addSubview(objLabel)
         view.addSubview(myFriendsLabel)
         view.addSubview(numOfFriendsLabel)
         view.addSubview(recommendLabel)
@@ -103,6 +111,7 @@ class RecommendToFriendViewController: UIViewController {
 
         farmLabel.translatesAutoresizingMaskIntoConstraints = false
         fruitLabel.translatesAutoresizingMaskIntoConstraints = false
+        objLabel.translatesAutoresizingMaskIntoConstraints = false
         myFriendsLabel.translatesAutoresizingMaskIntoConstraints = false
         numOfFriendsLabel.translatesAutoresizingMaskIntoConstraints = false
         recommendLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -115,6 +124,9 @@ class RecommendToFriendViewController: UIViewController {
         
         fruitLabel.bottomAnchor.constraint(equalTo: farmLabel.bottomAnchor).isActive = true
         fruitLabel.leftAnchor.constraint(equalTo: farmLabel.rightAnchor, constant: 7).isActive = true
+        
+        objLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 149).isActive = true
+        objLabel.leftAnchor.constraint(equalTo: fruitLabel.rightAnchor).isActive = true
         
         myFriendsLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor,constant: 11).isActive = true
         myFriendsLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
