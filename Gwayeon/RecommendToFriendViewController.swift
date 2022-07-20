@@ -10,14 +10,14 @@ import UIKit
 class RecommendToFriendViewController: UIViewController {
     
     // MARK: Properties
-    lazy var farmLabel:UILabel = {
+    lazy var farmLabel: UILabel = {
         let label = UILabel()
         label.text = "자연농원의"
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
-    lazy var fruitLabel:UILabel = {
+    lazy var fruitLabel: UILabel = {
         let label = UILabel()
         label.text = "청송사과를"
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -25,14 +25,14 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var myFriendsLabel:UILabel = {
+    lazy var myFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "내 과연"
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
-    lazy var numOfFriendsLabel:UILabel = {
+    lazy var numOfFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "213"
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -40,14 +40,14 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var recommendLabel:UILabel = {
+    lazy var recommendLabel: UILabel = {
         let label = UILabel()
         label.text = " 명에게 추천합니다"
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
-    lazy var recommendMessageLabel:UILabel = {
+    lazy var recommendMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "추천 한마디"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -56,7 +56,7 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var completionButton:UIButton = {
+    lazy var completionButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
