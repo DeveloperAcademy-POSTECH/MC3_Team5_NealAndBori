@@ -13,7 +13,7 @@ class RecommendToFriendViewController: UIViewController {
     lazy var farmLabel: UILabel = {
         let label = UILabel()
         label.text = "자연농원의"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
@@ -28,14 +28,14 @@ class RecommendToFriendViewController: UIViewController {
     lazy var objLabel: UILabel = {
         let label = UILabel()
         label.text = "를"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
     lazy var myFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "내 과연"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
@@ -50,7 +50,7 @@ class RecommendToFriendViewController: UIViewController {
     lazy var recommendLabel: UILabel = {
         let label = UILabel()
         label.text = " 명에게 추천합니다"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
