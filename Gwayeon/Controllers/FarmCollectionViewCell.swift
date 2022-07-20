@@ -105,7 +105,6 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         fruitImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         fruitImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         fruitImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-//        fruitImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     func configUI() {

@@ -13,7 +13,7 @@ class HomeViewController: UIViewController {
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
-        static let collectionVerticalSpacing: CGFloat = 40.0
+        static let collectionVerticalSpacing: CGFloat = 20.0
         static let cellWidth: CGFloat = UIScreen.main.bounds.size.width - collectionHorizontalSpacing * 2
         static let cellHeight: CGFloat = 184
         static let collectionInset = UIEdgeInsets(top: collectionVerticalSpacing,
@@ -28,6 +28,8 @@ class HomeViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         return label
     }()
+    
+    private let fruitListView = FruitListView()
     
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -54,15 +56,22 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(titleLabel)
+        view.addSubview(fruitListView)
         view.addSubview(listCollectionView)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        fruitListView.translatesAutoresizingMaskIntoConstraints = false
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         
-        listCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0).isActive = true
+        fruitListView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24).isActive = true
+        fruitListView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        fruitListView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        fruitListView.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        listCollectionView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 20).isActive = true
         listCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         listCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
