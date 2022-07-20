@@ -92,6 +92,7 @@ class RecommendToFriendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "과연에게 추천하기"
         // Do any additional setup after loading the view.
         setComponentLayouts()
     }
