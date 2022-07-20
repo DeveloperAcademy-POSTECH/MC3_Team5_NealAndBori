@@ -136,7 +136,7 @@ class RecommendToFriendViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
         view.addGestureRecognizer(tapGesture)
         
-        completionButton.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 217).isActive = true
+        completionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
         completionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         completionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
         completionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
