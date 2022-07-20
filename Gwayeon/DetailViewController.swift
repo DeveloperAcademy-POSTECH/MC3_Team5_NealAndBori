@@ -7,7 +7,6 @@
 
 import UIKit
 
-@IBDesignable
 class DetailViewController: UIViewController {
     
     // MARK: Properties
