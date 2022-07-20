@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
 		764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504DF287FB0D30048B3F0 /* AppDelegate.swift */; };
 		764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E1287FB0D30048B3F0 /* SceneDelegate.swift */; };
 		764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E3287FB0D30048B3F0 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendToFriendViewController.swift; sourceTree = "<group>"; };
 		76059FFE2884D17D00D66F41 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		764504DC287FB0D30048B3F0 /* Gwayeon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gwayeon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		764504DF287FB0D30048B3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				764504E8287FB0D50048B3F0 /* Assets.xcassets */,
 				764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */,
 				764504ED287FB0D50048B3F0 /* Info.plist */,
+				4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */,
 			);
 			path = Gwayeon;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
 				764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,

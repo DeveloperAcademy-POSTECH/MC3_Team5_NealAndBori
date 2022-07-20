@@ -11,7 +11,7 @@ class RecommendToFriendViewController: UIViewController {
     
     // MARK: Properties
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
-   private lazy var farmLabel: UILabel = {
+    private lazy var farmLabel: UILabel = {
         let label = UILabel()
         label.text = "자연농원의"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -55,7 +55,7 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-   private lazy var recommendMessageLabel: UILabel = {
+    private lazy var recommendMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "추천 한마디"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -93,72 +93,83 @@ class RecommendToFriendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        configureViewComponent()
+        setComponentLayouts()
     }
     
-    func configureViewComponent() {
+    private func setComponentLayouts() {
         view.backgroundColor = .systemBackground
         
-        view.addSubview(farmLabel)
-        view.addSubview(fruitLabel)
-        view.addSubview(objLabel)
-        view.addSubview(myFriendsLabel)
-        view.addSubview(numOfFriendsLabel)
-        view.addSubview(recommendLabel)
-        view.addSubview(recommendMessageLabel)
-        view.addSubview(textView)
-        view.addSubview(completionButton)
-
-        farmLabel.translatesAutoresizingMaskIntoConstraints = false
-        fruitLabel.translatesAutoresizingMaskIntoConstraints = false
-        objLabel.translatesAutoresizingMaskIntoConstraints = false
-        myFriendsLabel.translatesAutoresizingMaskIntoConstraints = false
-        numOfFriendsLabel.translatesAutoresizingMaskIntoConstraints = false
-        recommendLabel.translatesAutoresizingMaskIntoConstraints = false
-        recommendMessageLabel.translatesAutoresizingMaskIntoConstraints = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        completionButton.translatesAutoresizingMaskIntoConstraints = false
+        [farmLabel, fruitLabel, objLabel, myFriendsLabel, numOfFriendsLabel, recommendLabel, recommendMessageLabel, textView, completionButton].forEach { component in
+            view.addSubview(component)
+        }
         
-        farmLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 149).isActive = true
-        farmLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        [farmLabel, fruitLabel, objLabel, myFriendsLabel, numOfFriendsLabel, recommendLabel, recommendMessageLabel, textView, completionButton].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
         
-        fruitLabel.bottomAnchor.constraint(equalTo: farmLabel.bottomAnchor).isActive = true
-        fruitLabel.leftAnchor.constraint(equalTo: farmLabel.rightAnchor, constant: 7).isActive = true
+        let farmLabelConstraints = [
+            farmLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
+            farmLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
+        ]
         
-        objLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 149).isActive = true
-        objLabel.leftAnchor.constraint(equalTo: fruitLabel.rightAnchor).isActive = true
+        let fruitLabelConstraints = [
+            fruitLabel.bottomAnchor.constraint(equalTo: farmLabel.bottomAnchor),
+            fruitLabel.leftAnchor.constraint(equalTo: farmLabel.rightAnchor, constant: 7)
+        ]
         
-        myFriendsLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor,constant: 11).isActive = true
-        myFriendsLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        let objLabelConstraints = [
+            objLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
+            objLabel.leftAnchor.constraint(equalTo: fruitLabel.rightAnchor)
+        ]
         
-        numOfFriendsLabel.bottomAnchor.constraint(equalTo: myFriendsLabel.bottomAnchor, constant: 5).isActive = true
-        numOfFriendsLabel.leftAnchor.constraint(equalTo: myFriendsLabel.rightAnchor,constant: 8).isActive = true
+        let myFriendsLabelConstraints = [
+            myFriendsLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor,constant: 11),
+            myFriendsLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
+        ]
         
-        recommendLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor,constant: 11).isActive = true
-        recommendLabel.leftAnchor.constraint(equalTo: numOfFriendsLabel.rightAnchor, constant: 1).isActive = true
+        let numOfFriendsLabelConstraints = [
+            numOfFriendsLabel.bottomAnchor.constraint(equalTo: myFriendsLabel.bottomAnchor, constant: 5),
+            numOfFriendsLabel.leftAnchor.constraint(equalTo: myFriendsLabel.rightAnchor,constant: 8)
+        ]
         
-        recommendMessageLabel.topAnchor.constraint(equalTo: myFriendsLabel.bottomAnchor, constant: 50).isActive = true
-        recommendMessageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        let recommendLabelConstraints = [
+            recommendLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor,constant: 11),
+            recommendLabel.leftAnchor.constraint(equalTo: numOfFriendsLabel.rightAnchor, constant: 1)
+        ]
         
-        textView.topAnchor.constraint(equalTo: recommendMessageLabel.bottomAnchor, constant: 13).isActive = true
-        textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        textView.heightAnchor.constraint(equalToConstant: 161).isActive = true
+        let recommendMessageLabelConstraints = [
+            recommendMessageLabel.topAnchor.constraint(equalTo: myFriendsLabel.bottomAnchor, constant: 50),
+            recommendMessageLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
+        ]
+        
+        let textViewConstraints = [
+            textView.topAnchor.constraint(equalTo: recommendMessageLabel.bottomAnchor, constant: 13),
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            textView.heightAnchor.constraint(equalToConstant: 161)
+        ]
+        
+        let completionButtonConstraints = [
+            completionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            completionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            completionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            completionButton.heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        [farmLabelConstraints, fruitLabelConstraints, objLabelConstraints, myFriendsLabelConstraints, numOfFriendsLabelConstraints, recommendLabelConstraints, recommendMessageLabelConstraints, textViewConstraints, completionButtonConstraints].forEach { component in
+            NSLayoutConstraint.activate(component)
+        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
         view.addGestureRecognizer(tapGesture)
         
-        completionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
-        completionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        completionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-        completionButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     @objc
     private func didTapTextView(_ sender: Any) {
         view.endEditing(true)
     }
-
+    
 }
 
 extension RecommendToFriendViewController: UITextViewDelegate {
