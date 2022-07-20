@@ -12,7 +12,7 @@ class DetailCollectionCell: UICollectionViewCell {
     // MARK: Properties
     var item: String? {
         didSet {
-            label.text = item
+            self.label.text = item
         }
     }
     
@@ -24,7 +24,6 @@ class DetailCollectionCell: UICollectionViewCell {
     // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         configures()
     }
     
@@ -34,7 +33,7 @@ class DetailCollectionCell: UICollectionViewCell {
     
     // MARK: Configures
     func configures() {
-        backgroundColor = .gray
+        backgroundColor = .systemGray6
         
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
