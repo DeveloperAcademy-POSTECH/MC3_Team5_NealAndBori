@@ -46,7 +46,7 @@ class HomeViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(FarmCollectionViewCell.self,
-                                forCellWithReuseIdentifier: FarmCollectionViewCell.cellId)
+                                forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -93,7 +93,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.cellId, for: indexPath) as? FarmCollectionViewCell else {
+        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
