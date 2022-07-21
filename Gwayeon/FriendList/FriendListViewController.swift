@@ -39,7 +39,7 @@ class FriendListViewController: UIViewController {
 
         return label
     }()
-    
+        
     private lazy var tableView : UITableView = {
         let frame = UIScreen.main.bounds
         let tableView = UITableView(frame: frame, style: .plain)
@@ -52,8 +52,32 @@ class FriendListViewController: UIViewController {
         let separatorHeight = 1 / UIScreen.main.scale
         let separatorFrame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: separatorHeight)
         let line = UIView(frame: separatorFrame)
-        tableView.tableHeaderView = line
         line.backgroundColor = tableView.separatorColor
+        tableView.tableHeaderView = line
+        
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 122))
+        
+        let label = UILabel(frame: footerView.bounds)
+        label.font = .systemFont(ofSize: 22, weight: .medium)
+        label.textColor = UIColor.black
+        label.text = "찾으시는 친구가 없나요?"
+        let label2 = UILabel(frame: footerView.bounds)
+        label2.font = .systemFont(ofSize: 17, weight: .light)
+        label2.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
+        label2.text = "연락처에 있는 친구 과연으로 초대하기"
+        
+        footerView.addSubview(label)
+        footerView.addSubview(label2)
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        
+        label.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 30).isActive = true
+        label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 20).isActive = true
+        label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 14).isActive = true
+        label2.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 20).isActive = true
+        
+        tableView.tableFooterView = footerView
         
         return tableView
     }()
