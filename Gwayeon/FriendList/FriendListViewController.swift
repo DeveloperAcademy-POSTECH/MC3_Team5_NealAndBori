@@ -10,13 +10,13 @@ import UIKit
 class FriendListViewController: UIViewController {
     
     // temporary data
-    struct FriendData {
+    private struct FriendData {
         let name : String
         let fruit : String
         let friendsCount : Int
     }
     
-    let friendsList = [
+    private let friendsList = [
         FriendData(name: "메리", fruit: "apple", friendsCount: 10),
         FriendData(name: "소니", fruit: "pear", friendsCount: 33),
         FriendData(name: "제리", fruit: "grape", friendsCount: 22),
@@ -31,7 +31,7 @@ class FriendListViewController: UIViewController {
         FriendData(name: "닐", fruit: "orange", friendsCount: 28)
     ]
     
-    var tableTitle : UILabel = {
+    private let tableTitleLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor(red: 76/256, green: 76/256, blue: 76/256, alpha: 1.00)
@@ -40,12 +40,15 @@ class FriendListViewController: UIViewController {
         return label
     }()
     
-    var tableView : UITableView = {
+    private lazy var tableView : UITableView = {
         let frame = UIScreen.main.bounds
-        let tableView = UITableView(frame: frame, style: UITableView.Style(rawValue: 0)!)
+        let tableView = UITableView(frame: frame, style: .plain)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(FriendListViewCell.self, forCellReuseIdentifier: FriendListViewCell.cellId)
         
         tableView.separatorInset = UIEdgeInsets.zero
-        
         let separatorHeight = 1 / UIScreen.main.scale
         let separatorFrame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: separatorHeight)
         let line = UIView(frame: separatorFrame)
@@ -58,34 +61,36 @@ class FriendListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupFriendListView()
+        setupComponentLayout()
     }
     
-    func setupFriendListView() {
+    private func setupComponentLayout() {
         
         view.backgroundColor = .systemBackground
         
-        self.view.addSubview(tableTitle)
+        self.view.addSubview(tableTitleLabel)
         self.view.addSubview(tableView)
         
-        tableTitle.translatesAutoresizingMaskIntoConstraints = false
+        tableTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         // table title layout
-        tableTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48).isActive = true
-        tableTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        let tableTitleLabelConstraints = [
+            tableTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            tableTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
         
         // table view layout
-        tableView.topAnchor.constraint(equalTo: tableTitle.bottomAnchor, constant: 10).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        let tableViewConstraints = [
+            tableView.topAnchor.constraint(equalTo: tableTitleLabel.bottomAnchor, constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ]
 
-        // table view data
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(FriendListViewCell.self, forCellReuseIdentifier: FriendListViewCell.cellId)
-        
+        [tableTitleLabelConstraints, tableViewConstraints].forEach { constraints in
+            NSLayoutConstraint.activate(constraints)
+        }
     }
     
 }
@@ -97,11 +102,9 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
-                                                 for: indexPath)
-                                                as? FriendListViewCell
-                                                ?? FriendListViewCell(style: UITableViewCell.CellStyle(rawValue: 0)!, reuseIdentifier: FriendListViewCell.cellId)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
+                                                           for: indexPath) as? FriendListViewCell else { return UITableViewCell() }
         
         cell.nameLabel.text = friendsList[indexPath.row].name
         cell.fruitImage.image = UIImage(named: "apple")

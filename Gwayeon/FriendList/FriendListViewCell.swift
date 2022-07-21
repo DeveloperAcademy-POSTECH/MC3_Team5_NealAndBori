@@ -13,7 +13,7 @@ class FriendListViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        render()
+        setupComponentLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -35,7 +35,7 @@ class FriendListViewCell: UITableViewCell {
         return label
     }()
     
-    let friendTextLabel : UILabel = {
+    private let friendTextLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = UIColor(red: 151/256, green: 151/256, blue: 151/256, alpha: 1.00)
@@ -53,14 +53,15 @@ class FriendListViewCell: UITableViewCell {
         return stackView
     }()
     
-    func render() {
+    private func setupComponentLayout() {
         
-        self.friendView.addArrangedSubview(friendNumberLabel)
-        self.friendView.addArrangedSubview(friendTextLabel)
+        [friendNumberLabel, friendTextLabel].forEach { component in
+            self.friendView.addArrangedSubview(component)
+        }
         
-        self.addSubview(nameLabel)
-        self.addSubview(fruitImage)
-        self.addSubview(friendView)
+        [nameLabel, fruitImage, friendView].forEach { component in
+            self.addSubview(component)
+        }
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         fruitImage.translatesAutoresizingMaskIntoConstraints = false
@@ -68,17 +69,27 @@ class FriendListViewCell: UITableViewCell {
         friendTextLabel.translatesAutoresizingMaskIntoConstraints = false
         friendView.translatesAutoresizingMaskIntoConstraints = false
         
-        fruitImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24).isActive = true
-        fruitImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 18).isActive = true
-        fruitImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -18).isActive = true
-        fruitImage.widthAnchor.constraint(equalToConstant: 64).isActive = true
-        fruitImage.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        let nameLabelConstraints = [
+            nameLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24),
+            nameLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5)
+        ]
         
-        nameLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5).isActive = true
-
-        friendView.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24).isActive = true
-        friendView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5).isActive = true
+        let fruitImageConstraints = [
+            fruitImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            fruitImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 18),
+            fruitImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -18),
+            fruitImage.widthAnchor.constraint(equalToConstant: 64),
+            fruitImage.heightAnchor.constraint(equalToConstant: 64)
+        ]
+                
+        let friendViewConstrains = [
+            friendView.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24),
+            friendView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5)
+        ]
+        
+        [nameLabelConstraints, fruitImageConstraints, friendViewConstrains].forEach { constraints in
+            NSLayoutConstraint.activate(constraints)
+        }
         
     }
 
