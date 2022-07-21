@@ -48,40 +48,51 @@ class FriendListViewController: UIViewController {
         tableView.delegate = self
         tableView.register(FriendListViewCell.self, forCellReuseIdentifier: FriendListViewCell.cellId)
         
+        // seperator edge 조정
         tableView.separatorInset = UIEdgeInsets.zero
+        
+        // table header
         let separatorHeight = 1 / UIScreen.main.scale
         let separatorFrame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: separatorHeight)
         let line = UIView(frame: separatorFrame)
         line.backgroundColor = tableView.separatorColor
         tableView.tableHeaderView = line
         
-        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 122))
-        
-        let label = UILabel(frame: footerView.bounds)
-        label.font = .systemFont(ofSize: 22, weight: .medium)
-        label.textColor = UIColor.black
-        label.text = "찾으시는 친구가 없나요?"
-        let label2 = UILabel(frame: footerView.bounds)
-        label2.font = .systemFont(ofSize: 17, weight: .light)
-        label2.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
-        label2.text = "연락처에 있는 친구 과연으로 초대하기"
-        
-        footerView.addSubview(label)
-        footerView.addSubview(label2)
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label2.translatesAutoresizingMaskIntoConstraints = false
-        
-        label.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 30).isActive = true
-        label.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 20).isActive = true
-        label2.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 14).isActive = true
-        label2.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 20).isActive = true
-        
+        // table footer
+        footerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 122)
+        recommendTextLabel.frame = footerView.bounds
+        recommendLinkLabel.frame = footerView.bounds
+        footerView.addSubview(recommendTextLabel)
+        footerView.addSubview(recommendLinkLabel)
         tableView.tableFooterView = footerView
         
         return tableView
     }()
+    
+    private let footerView : UIView = {
+        let view = UIView()
         
+        return view
+    }()
+    
+    private let recommendTextLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 22, weight: .medium)
+        label.textColor = UIColor.black
+        label.text = "찾으시는 친구가 없나요?"
+
+        return label
+    }()
+
+    private let recommendLinkLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .light)
+        label.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
+        label.text = "연락처에 있는 친구 과연으로 초대하기"
+
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,6 +108,8 @@ class FriendListViewController: UIViewController {
         
         tableTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        recommendTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        recommendLinkLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // table title layout
         let tableTitleLabelConstraints = [
@@ -111,8 +124,19 @@ class FriendListViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
+        
+        // table footer layout
+        let recommendTextLabelConstraints = [
+            recommendTextLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 30),
+            recommendTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
 
-        [tableTitleLabelConstraints, tableViewConstraints].forEach { constraints in
+        let recommendLinkLabelConstraints = [
+            recommendLinkLabel.topAnchor.constraint(equalTo: recommendTextLabel.bottomAnchor, constant: 14),
+            recommendLinkLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
+        
+        [tableTitleLabelConstraints, tableViewConstraints, recommendTextLabelConstraints, recommendLinkLabelConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
