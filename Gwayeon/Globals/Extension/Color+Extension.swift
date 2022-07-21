@@ -10,6 +10,8 @@ import UIKit
 extension UIColor {
     static let pointColor = UIColor(ciColor: .red)
     static let tabBarColor = UIColor(named: "TabBarColor")
+    static let mainColor = UIColor(named: "mainColor")
+    static let peachColor = UIColor(named: "peachColor")
     
     static var mainRed: UIColor {
         return UIColor(hex: "#F6685E")

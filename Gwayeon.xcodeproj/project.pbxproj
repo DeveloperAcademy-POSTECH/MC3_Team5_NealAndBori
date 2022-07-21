@@ -16,6 +16,7 @@
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
+		DDF625A02886D435008E441D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6259F2886D435008E441D /* DetailViewController.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
 		CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */; };
@@ -34,6 +35,7 @@
 		764504E8287FB0D50048B3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DDF6259F2886D435008E441D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
 		CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				7605A0012885381400D66F41 /* MainTabBarViewController.swift */,
 				7605A0032885383000D66F41 /* HomeViewController.swift */,
 				7605A0052885383D00D66F41 /* MyPageViewController.swift */,
+				DDF6259F2886D435008E441D /* DetailViewController.swift */,
 				CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */,
 				CBBAA62E28878639007E77C0 /* FruitListView.swift */,
 				CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */,
@@ -219,6 +222,7 @@
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
+				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
 				CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
