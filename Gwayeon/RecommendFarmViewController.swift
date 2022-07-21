@@ -16,7 +16,7 @@ class RecommendFarmViewController: UIViewController {
         
         return titleLabel
     }()
-    private lazy var cateGorySection = InputSection(frame: .zero, style: .fruitCategory)
+    private lazy var categorySection = InputSection(frame: .zero, style: .fruitCategory)
     private lazy var varietySection = InputSection(frame: .zero, style: .fruitVariety)
     private lazy var farmNameSection = InputSection(frame: .zero, style: .farmName)
     private lazy var farmNumberSection = InputSection(frame: .zero, style: .farmNumber)
@@ -28,7 +28,8 @@ class RecommendFarmViewController: UIViewController {
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        stackView.addArrangedSubview(cateGorySection)
+        // TODO: addArrangedSubviews Extension으로 작성
+        stackView.addArrangedSubview(categorySection)
         stackView.addArrangedSubview(varietySection)
         stackView.addArrangedSubview(farmNameSection)
         stackView.addArrangedSubview(farmNumberSection)
@@ -54,15 +55,18 @@ class RecommendFarmViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        cateGorySection.becomeFirstResponder()
+        categorySection.becomeFirstResponder()
     }
     
+    // TODO: 함수명 통일
     private func configureLayout() {
+        // TODO: addSubviews Extension으로 작성
         view.addSubview(titleLabel)
         view.addSubview(sectionStackView)
         view.addSubview(finishButton)
         view.backgroundColor = .white
         
+        // TODO: 팀원과 상의 후 코드 스타일 변경
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)

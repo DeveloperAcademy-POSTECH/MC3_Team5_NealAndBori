@@ -135,6 +135,7 @@ final class InputSection: UIStackView {
     }
 }
 
+// TODO: Extension 폴더 분리
 extension UIStackView: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == InputStyle.recommendation.placeholder {
