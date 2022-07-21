@@ -9,7 +9,7 @@ import UIKit
 
 final class FruitCollectionViewCell: UICollectionViewCell {
     
-    static let cellId = "FruitCollectionViewCell"
+    static let identifier = "FruitCollectionViewCell"
     
     // MARK: - property
     

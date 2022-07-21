@@ -39,7 +39,7 @@ final class FruitListView: UIView {
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(FruitCollectionViewCell.self,
-                                forCellWithReuseIdentifier: FruitCollectionViewCell.cellId)
+                                forCellWithReuseIdentifier: FruitCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -47,14 +47,14 @@ final class FruitListView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        render()
+        setCollectionViewLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func render() {
+    private func setCollectionViewLayout() {
         self.addSubview(listCollectionView)
         
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ extension FruitListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitCollectionViewCell.cellId, for: indexPath) as? FruitCollectionViewCell else {
+        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitCollectionViewCell.identifier, for: indexPath) as? FruitCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
