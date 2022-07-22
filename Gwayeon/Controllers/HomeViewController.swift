@@ -34,5 +34,7 @@ class HomeViewController: UIViewController {
 
         ]
         NSLayoutConstraint.activate(textLabelConstraints)
+        
     }
 }
+

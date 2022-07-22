@@ -13,4 +13,8 @@ extension UIColor {
     static let tabBarColor = UIColor(named: "TabBarColor")
     static let mainColor = UIColor(named: "mainColor")
     static let peachColor = UIColor(named: "peachColor")
+    
+    func ourFunc() {
+        
+    }
 }
