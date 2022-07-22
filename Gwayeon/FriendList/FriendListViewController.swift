@@ -93,9 +93,19 @@ class FriendListViewController: UIViewController {
         return label
     }()
     
+    private func setNavigationTitle() {
+        self.navigationItem.title = "친구 리스트"
+        
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: nil, action: nil)
+        self.navigationItem.leftBarButtonItem = backButton
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setNavigationTitle()
         setupComponentLayout()
     }
     
