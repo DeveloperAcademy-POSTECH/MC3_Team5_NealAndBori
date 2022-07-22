@@ -45,6 +45,27 @@ class DetailViewController: UIViewController {
         return label
     }()
     
+    private enum Size {
+            static let collectionHorizontalSpacing: CGFloat = 20.0
+            static let collectionVerticalSpacing: CGFloat = 20.0
+            static let cellWidth: CGFloat = UIScreen.main.bounds.size.width - collectionHorizontalSpacing * 2
+            static let cellHeight: CGFloat = 184
+            static let collectionInset = UIEdgeInsets(top: collectionVerticalSpacing,
+                                                      left: collectionHorizontalSpacing,
+                                                      bottom: collectionVerticalSpacing,
+                                                      right: collectionHorizontalSpacing)
+        }
+    
+    private let reviewListView = ReviewListView()
+    private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
+            let flowLayout = UICollectionViewFlowLayout()
+            flowLayout.scrollDirection = .vertical
+            flowLayout.sectionInset = Size.collectionInset
+            flowLayout.itemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
+            flowLayout.minimumLineSpacing = 16
+            return flowLayout
+        }()
+    
     // MARK: Life Cycle Function
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,5 +118,28 @@ class DetailViewController: UIViewController {
             recommendLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
         NSLayoutConstraint.activate(recommendLabelConstraints)
+        
+        view.addSubview(reviewListView)
+        reviewListView.translatesAutoresizingMaskIntoConstraints = false
+        let reviewListViewConstraints = [
+            reviewListView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            reviewListView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        NSLayoutConstraint.activate(reviewListViewConstraints)
     }
 }
+
+// MARK: - UICollectionViewDataSource
+//extension DetailViewController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return data.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.cellId, for: indexPath) as? FarmCollectionViewCell else {
+//            assert(false, "Wrong Cell")
+//        }
+//
+//        return dequeuedCell
+//    }
+//}
