@@ -17,8 +17,8 @@
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
 		DDF625A02886D435008E441D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6259F2886D435008E441D /* DetailViewController.swift */; };
-		DDF625A528879918008E441D /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A428879918008E441D /* DetailCollectionViewCell.swift */; };
-		DDF625AA28899D49008E441D /* ReviewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A928899D49008E441D /* ReviewListView.swift */; };
+		DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */; };
+		DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A928899D49008E441D /* ReviewCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +35,8 @@
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DDF6259F2886D435008E441D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		DDF625A428879918008E441D /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
-		DDF625A928899D49008E441D /* ReviewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListView.swift; sourceTree = "<group>"; };
+		DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		DDF625A928899D49008E441D /* ReviewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,8 +121,8 @@
 		DDF625A3288798EA008E441D /* VIews */ = {
 			isa = PBXGroup;
 			children = (
-				DDF625A428879918008E441D /* DetailCollectionViewCell.swift */,
-				DDF625A928899D49008E441D /* ReviewListView.swift */,
+				DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */,
+				DDF625A928899D49008E441D /* ReviewCollectionView.swift */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -221,9 +221,9 @@
 			files = (
 				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
 				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
-				DDF625A528879918008E441D /* DetailCollectionViewCell.swift in Sources */,
+				DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */,
 				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
-				DDF625AA28899D49008E441D /* ReviewListView.swift in Sources */,
+				DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,

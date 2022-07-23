@@ -7,14 +7,13 @@
 
 import UIKit
 
-class ReviewListView: UIView {
+class ReviewCollectionView: UIView {
     
-    // MARK: Properties
-    private let data = ["사과", "배", "수박", "복숭아"]
+    private let data = ["사과", "자두", "수박", "복숭아"]
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 16.0
-        static let collectionVerticalSpacing: CGFloat = 0.0
+        static let collectionVerticalSpacing: CGFloat = 24.0
         static let cellWidth: CGFloat = 280
         static let cellHeight: CGFloat = 264
         static let collectionInset = UIEdgeInsets(top: collectionVerticalSpacing,
@@ -23,22 +22,24 @@ class ReviewListView: UIView {
                                                   right: collectionHorizontalSpacing)
     }
     
+    // MARK: Properties
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.sectionInset = Size.collectionInset
         flowLayout.itemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
-        flowLayout.minimumLineSpacing = 8
+        flowLayout.minimumLineSpacing = 16
         return flowLayout
     }()
     
     private lazy var listCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 12
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(DetailCollectionViewCell.self,
-                                forCellWithReuseIdentifier: DetailCollectionViewCell.cellId)
+        collectionView.register(ReviewCollectionViewCell.self,
+                                forCellWithReuseIdentifier: ReviewCollectionViewCell.cellIdentifier)
         return collectionView
     }()
     
@@ -65,22 +66,19 @@ class ReviewListView: UIView {
         ]
         NSLayoutConstraint.activate(listCollectionViewConstraints)
     }
-    
 }
 
-// MARK: - UICollectionViewDataSource
-extension ReviewListView: UICollectionViewDataSource {
+extension ReviewCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailCollectionViewCell.cellId, for: indexPath) as? DetailCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReviewCollectionViewCell.cellIdentifier, for: indexPath) as? ReviewCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
-
-        dequeuedCell.dateLabel.text = data[indexPath.item]
-
-        return dequeuedCell
+        cell.backgroundColor = .systemGray6
+        //        dequeuedCell.nameLabel.text = data[indexPath.item]
+        return cell
     }
 }
