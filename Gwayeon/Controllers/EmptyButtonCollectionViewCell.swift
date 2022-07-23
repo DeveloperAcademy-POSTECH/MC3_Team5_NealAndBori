@@ -36,6 +36,7 @@ class EmptyButtonCollectionViewCell: UICollectionViewCell {
     }
     
     private func setButtonLayout() {
+        
         contentView.addSubview(plusButton)
         plusButton.translatesAutoresizingMaskIntoConstraints = false
         
