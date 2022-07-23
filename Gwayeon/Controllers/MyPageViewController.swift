@@ -22,11 +22,11 @@ class MyPageViewController: UIViewController {
         return imageView
     }(UIImageView())
     
-    private let myNameLabel: UILabel = {
-        $0.text = "코비"
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        $0.textAlignment = .left
-        return $0
+    private let myNameLabel: UILabel = { label in
+             label.text = "코비"
+             label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+             label.textAlignment = .left
+             return label
     }(UILabel())
     
     private let gwayeonCountLabel: UILabel = { lbl in
