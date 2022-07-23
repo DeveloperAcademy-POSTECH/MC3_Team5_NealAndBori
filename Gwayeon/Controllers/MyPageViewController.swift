@@ -8,13 +8,12 @@
 import UIKit
 
 class MyPageViewController: UIViewController {
-    private let navigationTitleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "나의 농장생활"
-        lbl.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        lbl.textAlignment = .center
-        return lbl
-    }()
+    private let navigationTitleLabel: UILabel = { label in
+        label.text = "나의 농장생활"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }(UILabel())
     
     private let myProfileImageView: UIImageView = { imageView in
         imageView.image = UIImage(named: "peaches")
