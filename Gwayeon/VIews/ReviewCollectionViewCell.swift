@@ -16,14 +16,18 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .systemGray
-        label.text = "22.07.21"
+        label.text = "19.07.21"
         return label
     }()
     
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.text = "신선해요! 짱맛 복숭아 짱짱짱."
+        label.text = "세상 존맛탱. 이 세상 복숭아가 아니다. 과즙 팡팡이에요. 사장님도 정말 친절하시구요. 저만 먹기 너무 아까워서 모두에게 알려요."
+        label.preferredMaxLayoutWidth = self.bounds.width - 40
+//        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
     
@@ -31,7 +35,7 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.textColor = .systemGray
-        label.text = "쏘니"
+        label.text = "from. 쏘니"
         return label
     }()
     
@@ -55,19 +59,18 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         }
         
         let dateLabelConstraints = [
-            dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+            dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24),
+            dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         ]
         
         let contentLabelConstraints = [
-//            contentLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            contentLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
-//            contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            contentLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            contentLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ]
         
         let authorLabelConstraints = [
-            authorLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 6),
-            authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+            authorLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
+            authorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
         ]
         
         [dateLabelConstraints, contentLabelConstraints, authorLabelConstraints].forEach { constraints in NSLayoutConstraint.activate(constraints)
