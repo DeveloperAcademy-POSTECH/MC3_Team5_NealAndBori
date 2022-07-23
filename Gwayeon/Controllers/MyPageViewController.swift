@@ -45,7 +45,6 @@ class MyPageViewController: UIViewController {
     private let myNameLabel: UILabel = { label in
         label.text = "코비"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
         return label
     }(UILabel())
     
