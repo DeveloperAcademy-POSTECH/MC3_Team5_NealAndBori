@@ -32,7 +32,7 @@ class MyPageViewController: UIViewController {
     private let gwayeonCountLabel: UILabel = { lbl in
         let str = "100명의 과연이 있어요"
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        attributeString.setColor(color: .pointColor, forText: "100")
+        attributeString.setColor(color: .mainColor, forText: "100")
         lbl.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         lbl.attributedText = attributeString
         return lbl
