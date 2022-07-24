@@ -30,7 +30,7 @@ class MyPageViewController: UIViewController {
     
     private let navigationTitleLabel: UILabel = { label in
         label.text = "나의 농장생활"
-        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.fognt = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textAlignment = .center
         return label
     }(UILabel())
