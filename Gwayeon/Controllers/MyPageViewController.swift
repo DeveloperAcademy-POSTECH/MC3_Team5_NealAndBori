@@ -9,7 +9,24 @@ import UIKit
 
 class MyPageViewController: UIViewController {
     
+    private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
+    
     private var segmentButtonStatus: Bool = true
+    
+    private enum Size {
+        static let collectionHorizontalSpacing: CGFloat = 20.0
+        static let collectionVerticalSpacing: CGFloat = 20.0
+        static let cellWidth: CGFloat = UIScreen.main.bounds.size.width - collectionHorizontalSpacing * 2
+        static let cellHeight: CGFloat = 184
+        static let collectionInset = UIEdgeInsets(top: collectionVerticalSpacing,
+                                                  left: collectionHorizontalSpacing,
+                                                  bottom: collectionVerticalSpacing,
+                                                  right: collectionHorizontalSpacing)
+    }
+    
+    private enum Section: Int {
+        case first = 0
+    }
     
     private let navigationTitleLabel: UILabel = { label in
         label.text = "나의 농장생활"
@@ -28,7 +45,6 @@ class MyPageViewController: UIViewController {
     private let myNameLabel: UILabel = { label in
         label.text = "코비"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
         return label
     }(UILabel())
     
@@ -56,7 +72,7 @@ class MyPageViewController: UIViewController {
         button.addTarget(self, action: #selector(segmentButtonClicked(_:)), for: .touchUpInside)
         return button
     }(UIButton())
-     
+    
     lazy private var purchaseListButton: UIButton = { button in
         button.setTitle("구매 리스트", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
@@ -67,11 +83,32 @@ class MyPageViewController: UIViewController {
         return button
     }(UIButton())
     
+    private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.sectionInset = Size.collectionInset
+        flowLayout.itemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
+        flowLayout.minimumLineSpacing = 16
+        return flowLayout
+    }()
+    
+    private lazy var listCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
+        collectionView.backgroundColor = .clear
+        collectionView.dataSource = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.register(FarmCollectionViewCell.self,
+                                forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
+        collectionView.register(EmptyButtonCollectionViewCell.self, forCellWithReuseIdentifier: EmptyButtonCollectionViewCell.identifier)
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationTitle()
         setMyStatusLayout()
         setSegmentControlLayout()
+        setCollectionViewLayout()
     }
     
     @objc func segmentButtonClicked(_ sender: Any) {
@@ -158,6 +195,43 @@ extension MyPageViewController {
         }
         
     }
+    
+    private func setCollectionViewLayout() {
+        view.addSubview(listCollectionView)
+        listCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let listCollectionViewConstraints = [
+            listCollectionView.topAnchor.constraint(equalTo: myRecommendationButton.bottomAnchor, constant: 20),
+            listCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            listCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ]
+        
+        NSLayoutConstraint.activate(listCollectionViewConstraints)
+    }
+    
 }
 
-
+// MARK: - CollectionView DataSource, Delegate
+extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return data.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch indexPath.row {
+        case Section.first.rawValue:
+            guard let dequeueCell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            
+            return dequeueCell
+        default:
+            guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
+                assert(false, "Wrong Cell")
+            }
+            
+            return dequeuedCell
+        }
+    }
+}
