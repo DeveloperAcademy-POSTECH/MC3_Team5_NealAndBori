@@ -7,29 +7,29 @@
 
 import UIKit
 
+// temporary data
+struct FriendData {
+    let name : String
+    let fruit : String
+    let friendsCount : Int
+}
+
+let friendsList = [
+    FriendData(name: "메리", fruit: "apple", friendsCount: 10),
+    FriendData(name: "소니", fruit: "pear", friendsCount: 33),
+    FriendData(name: "제리", fruit: "grape", friendsCount: 22),
+    FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
+    FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
+    FriendData(name: "닐", fruit: "orange", friendsCount: 28),
+    FriendData(name: "메리", fruit: "apple", friendsCount: 10),
+    FriendData(name: "소니", fruit: "pear", friendsCount: 33),
+    FriendData(name: "제리", fruit: "grape", friendsCount: 22),
+    FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
+    FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
+    FriendData(name: "닐", fruit: "orange", friendsCount: 28)
+]
+
 class FriendListViewController: UIViewController {
-    
-    // temporary data
-    private struct FriendData {
-        let name : String
-        let fruit : String
-        let friendsCount : Int
-    }
-    
-    private let friendsList = [
-        FriendData(name: "메리", fruit: "apple", friendsCount: 10),
-        FriendData(name: "소니", fruit: "pear", friendsCount: 33),
-        FriendData(name: "제리", fruit: "grape", friendsCount: 22),
-        FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
-        FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
-        FriendData(name: "닐", fruit: "orange", friendsCount: 28),
-        FriendData(name: "메리", fruit: "apple", friendsCount: 10),
-        FriendData(name: "소니", fruit: "pear", friendsCount: 33),
-        FriendData(name: "제리", fruit: "grape", friendsCount: 22),
-        FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
-        FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
-        FriendData(name: "닐", fruit: "orange", friendsCount: 28)
-    ]
     
     private let tableTitleLabel : UILabel = {
         let label = UILabel()
@@ -164,9 +164,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
                                                            for: indexPath) as? FriendListViewCell else { return UITableViewCell() }
         
-        cell.nameLabel.text = friendsList[indexPath.row].name
-        cell.fruitImage.image = UIImage(named: "apple")
-        cell.friendNumberLabel.text = String(friendsList[indexPath.row].friendsCount)
+        cell.setupData(rowNumber: indexPath.row)
         
         return cell
     }

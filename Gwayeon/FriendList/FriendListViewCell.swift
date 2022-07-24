@@ -20,15 +20,15 @@ class FriendListViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let fruitImage = UIImageView()
+    private let fruitImage = UIImageView()
     
-    let nameLabel : UILabel = {
+    private let nameLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         return label
     }()
     
-    let friendNumberLabel : UILabel = {
+    private let friendNumberLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .bold)
         label.textColor = UIColor(red: 246/256, green: 104/256, blue: 94/256, alpha: 1.00)
@@ -43,7 +43,7 @@ class FriendListViewCell: UITableViewCell {
         return label
     }()
     
-    let friendView : UIStackView = {
+    private let friendView : UIStackView = {
         let stackView = UIStackView()
         
         stackView.axis = .horizontal
@@ -52,6 +52,13 @@ class FriendListViewCell: UITableViewCell {
         
         return stackView
     }()
+    
+    func setupData(rowNumber : Int) {
+     
+        self.nameLabel.text = friendsList[rowNumber].name
+        self.fruitImage.image = UIImage(named: "apple")
+        self.friendNumberLabel.text = String(friendsList[rowNumber].friendsCount)
+    }
     
     private func setupComponentLayout() {
         
