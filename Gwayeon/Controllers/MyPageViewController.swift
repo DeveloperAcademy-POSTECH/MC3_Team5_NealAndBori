@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum CollectionViewCellSection: Int {
+    case addingFarm = 0
+}
+
 class MyPageViewController: UIViewController {
     
     private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
@@ -57,9 +61,10 @@ class MyPageViewController: UIViewController {
         return label
     }(UILabel())
     
-    private let disclosureButton: UIButton = { button in
+    lazy private var disclosureButton: UIButton = { button in
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(disclosureButtonClicked(_:)), for: .touchUpInside)
         return button
     }(UIButton())
     
@@ -96,6 +101,7 @@ class MyPageViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(FarmCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
@@ -109,6 +115,15 @@ class MyPageViewController: UIViewController {
         setMyStatusLayout()
         setSegmentControlLayout()
         setCollectionViewLayout()
+    }
+    
+    @objc func disclosureButtonClicked(_ sender: Any) {
+        let friendListViewController = FriendListViewController()
+        
+        let backButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
+        backButtonItem.tintColor = .mainColor
+        self.navigationItem.backBarButtonItem = backButtonItem
+        self.navigationController?.pushViewController(friendListViewController, animated: true)
     }
     
     @objc func segmentButtonClicked(_ sender: Any) {
@@ -212,8 +227,8 @@ extension MyPageViewController {
     
 }
 
-// MARK: - CollectionView DataSource, Delegate
-extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+// MARK: - CollectionView DataSource
+extension MyPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count + 1
     }
@@ -221,17 +236,32 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.row {
         case Section.first.rawValue:
-            guard let dequeueCell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
                 return UICollectionViewCell()
             }
+            cell.setParentViewController(viewController: self)
             
-            return dequeueCell
+            return cell
         default:
-            guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
                 assert(false, "Wrong Cell")
             }
             
-            return dequeuedCell
+            return cell
+        }
+    }
+}
+
+// MARK: - CollectionView Delegate
+extension MyPageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case CollectionViewCellSection.addingFarm.rawValue:
+            let recommendFarmViewController = RecommendFarmViewController()
+            self.navigationController?.pushViewController(recommendFarmViewController, animated: true)
+        default:
+            let detailViewController = DetailViewController()
+            self.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
 }
