@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(FarmCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
@@ -52,8 +53,20 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
+        setNavigationBackButton()
+        setComponentLayouts()
+        
+    }
+    
+    private func setNavigationBackButton() {
+        view.backgroundColor = .systemBackground
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .label
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+    }
+    private func setComponentLayouts() {
         [titleLabel, fruitListView, listCollectionView].forEach { component in
             view.addSubview(component)
         }
@@ -83,6 +96,7 @@ class HomeViewController: UIViewController {
         [titleLabelConstraints, fruitListViewConstraints, listCollectionViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
+        
     }
 }
 
@@ -101,3 +115,10 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController()
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}

@@ -82,7 +82,7 @@ class DetailViewController: UIViewController {
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
         
-        [fruitImageView, fruitName, farmName, whiteView, recommendLabel, callButton].forEach { component in
+        [fruitImageView, fruitName, farmName, whiteView, recommendLabel, callButton, messageButton].forEach { component in
             view.addSubview(component)
             (component).translatesAutoresizingMaskIntoConstraints = false
         }
@@ -94,36 +94,36 @@ class DetailViewController: UIViewController {
         
         let fruitNameConstraints = [
             fruitName.topAnchor.constraint(equalTo: fruitImageView.bottomAnchor, constant: 24),
-            fruitName.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            fruitName.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ]
         
         let farmNameConstraints = [
             farmName.topAnchor.constraint(equalTo: fruitName.bottomAnchor, constant: 8),
-            farmName.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            farmName.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ]
         
         let whiteViewConstraints = [
-            whiteView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            whiteView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            whiteView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            whiteView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             whiteView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.58),
             whiteView.widthAnchor.constraint(equalToConstant: view.frame.width)
         ]
         
         let recommendLabelConstraints = [
             recommendLabel.topAnchor.constraint(equalTo: whiteView.topAnchor, constant: 48),
-            recommendLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            recommendLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         ]
         
         let messageButtonConstraints = [
             messageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-            messageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            messageButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             messageButton.heightAnchor.constraint(equalToConstant: 56),
             messageButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.35)
         ]
         
         let callButtonConstraints = [
             callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
-            callButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            callButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             callButton.leadingAnchor.constraint(equalTo: messageButton.trailingAnchor, constant: 8),
             callButton.heightAnchor.constraint(equalToConstant: 56),
             callButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65)
