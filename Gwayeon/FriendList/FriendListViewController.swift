@@ -116,10 +116,9 @@ class FriendListViewController: UIViewController {
         self.view.addSubview(tableTitleLabel)
         self.view.addSubview(tableView)
         
-        tableTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        recommendTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        recommendLinkLabel.translatesAutoresizingMaskIntoConstraints = false
+        [tableTitleLabel, tableView, recommendTextLabel, recommendLinkLabel].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         // table title layout
         let tableTitleLabelConstraints = [
@@ -164,7 +163,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
                                                            for: indexPath) as? FriendListViewCell else { return UITableViewCell() }
         
-        cell.setupData(rowNumber: indexPath.row)
+        cell.configure(index: indexPath.row)
         
         return cell
     }

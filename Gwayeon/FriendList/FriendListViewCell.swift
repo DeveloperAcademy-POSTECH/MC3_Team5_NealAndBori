@@ -4,6 +4,7 @@
 //
 //  Created by Kimhwiwon on 2022/07/19.
 //
+// TODO: Color+Extension 적용
 
 import UIKit
 
@@ -53,11 +54,11 @@ class FriendListViewCell: UITableViewCell {
         return stackView
     }()
     
-    func setupData(rowNumber : Int) {
+    func configure(index : Int) {
      
-        self.nameLabel.text = friendsList[rowNumber].name
+        self.nameLabel.text = friendsList[index].name
         self.fruitImage.image = UIImage(named: "apple")
-        self.friendNumberLabel.text = String(friendsList[rowNumber].friendsCount)
+        self.friendNumberLabel.text = String(friendsList[index].friendsCount)
     }
     
     private func setupComponentLayout() {
@@ -70,11 +71,9 @@ class FriendListViewCell: UITableViewCell {
             self.addSubview(component)
         }
         
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        fruitImage.translatesAutoresizingMaskIntoConstraints = false
-        friendNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        friendTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        friendView.translatesAutoresizingMaskIntoConstraints = false
+        [nameLabel, fruitImage, friendNumberLabel, friendTextLabel,friendView].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         let nameLabelConstraints = [
             nameLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24),
