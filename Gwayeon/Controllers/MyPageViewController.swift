@@ -8,13 +8,15 @@
 import UIKit
 
 class MyPageViewController: UIViewController {
-    private let navigationTitleLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "나의 농장생활"
-        lbl.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        lbl.textAlignment = .center
-        return lbl
-    }()
+    
+    private var segmentButtonStatus: Bool = true
+    
+    private let navigationTitleLabel: UILabel = { label in
+        label.text = "나의 농장생활"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }(UILabel())
     
     private let myProfileImageView: UIImageView = { imageView in
         imageView.image = UIImage(named: "peaches")
@@ -23,20 +25,20 @@ class MyPageViewController: UIViewController {
         return imageView
     }(UIImageView())
     
-    private let myNameLabel: UILabel = {
-        $0.text = "코비"
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        $0.textAlignment = .left
-        return $0
+    private let myNameLabel: UILabel = { label in
+        label.text = "코비"
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
     }(UILabel())
     
-    private let gwayeonCountLabel: UILabel = { lbl in
+    private let gwayeonCountLabel: UILabel = { label in
         let str = "100명의 과연이 있어요"
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         attributeString.setColor(color: .pointColor, forText: "100")
-        lbl.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        lbl.attributedText = attributeString
-        return lbl
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.attributedText = attributeString
+        return label
     }(UILabel())
     
     private let disclosureButton: UIButton = { button in
@@ -45,12 +47,48 @@ class MyPageViewController: UIViewController {
         return button
     }(UIButton())
     
+    lazy private var myRecommendationButton: UIButton = { button in
+        button.setTitle("나의 추천 과일", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setButtonHighlight()
+        // MARK: - closure에서 self를 쓰고자 한다면 lazy여야 한다.
+        button.addTarget(self, action: #selector(segmentButtonClicked(_:)), for: .touchUpInside)
+        return button
+    }(UIButton())
+     
+    lazy private var purchaseListButton: UIButton = { button in
+        button.setTitle("구매 리스트", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setButtonBlur()
+        // MARK: - closure에서 self를 쓰고자 한다면 lazy여야 한다.
+        button.addTarget(self, action: #selector(segmentButtonClicked(_:)), for: .touchUpInside)
+        return button
+    }(UIButton())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationTitle()
-        setMyStatusView()
+        setMyStatusLayout()
+        setSegmentControlLayout()
     }
     
+    @objc func segmentButtonClicked(_ sender: Any) {
+        if segmentButtonStatus {
+            myRecommendationButton.setButtonBlur()
+            purchaseListButton.setButtonHighlight()
+        } else {
+            myRecommendationButton.setButtonHighlight()
+            purchaseListButton.setButtonBlur()
+        }
+        segmentButtonStatus.toggle()
+    }
+    
+}
+
+// MARK: Layout 설정함수
+extension MyPageViewController {
     private func setNavigationTitle() {
         view.backgroundColor = .white
         
@@ -59,7 +97,33 @@ class MyPageViewController: UIViewController {
         self.navigationController?.navigationBar.tintColor = .black
     }
     
-    private func setMyStatusView() {
+    private func setSegmentControlLayout() {
+        [myRecommendationButton, purchaseListButton].forEach { button in
+            view.addSubview(button)
+            button.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        let myRecommendationButtonConstraints = [
+            myRecommendationButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            myRecommendationButton.topAnchor.constraint(equalTo: myProfileImageView.bottomAnchor, constant: 51),
+            myRecommendationButton.widthAnchor.constraint(equalToConstant: 119),
+            myRecommendationButton.heightAnchor.constraint(equalToConstant: 22)
+        ]
+        
+        let purchaseListButtonConstraints = [
+            purchaseListButton.leadingAnchor.constraint(equalTo: myRecommendationButton.trailingAnchor, constant: 16),
+            purchaseListButton.topAnchor.constraint(equalTo: myRecommendationButton.topAnchor),
+            purchaseListButton.widthAnchor.constraint(equalToConstant: 119),
+            purchaseListButton.heightAnchor.constraint(equalToConstant: 22)
+            
+        ]
+        
+        [myRecommendationButtonConstraints, purchaseListButtonConstraints].forEach { constraint in
+            NSLayoutConstraint.activate(constraint)
+        }
+    }
+    
+    private func setMyStatusLayout() {
         [myProfileImageView, myNameLabel, gwayeonCountLabel, disclosureButton].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(component)
@@ -92,6 +156,8 @@ class MyPageViewController: UIViewController {
         [myProfileImageViewConstraints, myNameLabelConstraints, gwayeonCountLabelConstraints, disclosureButtonConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
-    
+        
     }
 }
+
+
