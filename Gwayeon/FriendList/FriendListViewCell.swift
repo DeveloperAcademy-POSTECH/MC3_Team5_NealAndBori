@@ -54,11 +54,11 @@ class FriendListViewCell: UITableViewCell {
         return stackView
     }()
     
-    func configure(index : Int) {
+    func configure(data : FriendData) {
      
-        self.nameLabel.text = friendsList[index].name
+        self.nameLabel.text = data.name
         self.fruitImage.image = UIImage(named: "apple")
-        self.friendNumberLabel.text = String(friendsList[index].friendsCount)
+        self.friendNumberLabel.text = String(data.friendsCount)
     }
     
     private func setupComponentLayout() {
