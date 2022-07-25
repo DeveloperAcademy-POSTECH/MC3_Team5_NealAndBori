@@ -9,7 +9,22 @@ import UIKit
 
 class ReviewCollectionView: UIView {
     
-    private let data = ["사과", "자두", "수박", "복숭아"]
+//    private struct ReviewData {
+//        var date: String
+//        var contents: String
+//        var authors: String
+//    }
+//
+//    private var reviewData = [
+//        ReviewData(date: "22.07.21", contents: "세상 존맛탱. 이 세상 복숭아가 아니다. 과즙 팡팡이에요. 사장님도 정말 친절하시구요. 저만 먹기 너무 아까워서 모두에게 알려요.", authors: "쏘니"),
+//        ReviewData(date: "22.07.01", contents: "너무 맛있어요 짱짱 추천!", authors: "에이든"),
+//        ReviewData(date: "22.06.29", contents: "모두가 눈물 흘리며 먹을 복숭아맛. 여기가 바로 무릉도원!", authors: "메리"),
+//        ReviewData(date: "22.06.17", contents: "물복계의 성지입니다.", authors: "제리")
+//    ]
+    
+    private var date = ["22.07.21", "22.07.01", "22.06.29", "22.06.17"]
+    private var contents = ["세상 존맛탱. 이 세상 복숭아가 아니다. 과즙 팡팡이에요. 사장님도 정말 친절하시구요. 저만 먹기 너무 아까워서 모두에게 알려요.", "너무 맛있어요 짱짱 추천!", "모두가 눈물 흘리며 먹을 복숭아맛. 여기가 바로 무릉도원!", "물복계의 성지입니다."]
+    private var authors = ["쏘니", "에이든", "메리", "제리"]
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 16.0
@@ -18,7 +33,7 @@ class ReviewCollectionView: UIView {
         static let cellHeight: CGFloat = 264
         static let collectionInset = UIEdgeInsets(top: collectionVerticalSpacing,
                                                   left: collectionHorizontalSpacing,
-                                                  bottom: collectionVerticalSpacing,
+                                                  bottom: 100,
                                                   right: collectionHorizontalSpacing)
     }
     
@@ -27,7 +42,7 @@ class ReviewCollectionView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.sectionInset = Size.collectionInset
-        flowLayout.itemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
+        flowLayout.estimatedItemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
         flowLayout.minimumLineSpacing = 16
         return flowLayout
     }()
@@ -59,10 +74,10 @@ class ReviewCollectionView: UIView {
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         let listCollectionViewConstraints = [
-            listCollectionView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            listCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            listCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            listCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
+            listCollectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            listCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            listCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            listCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ]
         NSLayoutConstraint.activate(listCollectionViewConstraints)
     }
@@ -70,7 +85,7 @@ class ReviewCollectionView: UIView {
 
 extension ReviewCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return date.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,7 +93,9 @@ extension ReviewCollectionView: UICollectionViewDataSource {
             assert(false, "Wrong Cell")
         }
         cell.backgroundColor = .systemGray6
-        //        dequeuedCell.nameLabel.text = data[indexPath.item]
+        cell.dateLabel.text = date[indexPath.item]
+        cell.contentLabel.text = contents[indexPath.item]
+        cell.authorLabel.text = authors[indexPath.item]
         return cell
     }
 }

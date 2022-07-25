@@ -28,7 +28,13 @@ class DetailViewController: UIViewController {
         let name = UILabel()
         name.text = "오로라 농장"
         name.font = .preferredFont(forTextStyle: .title3)
-        
+        return name
+    }()
+    
+    private lazy var recommandLabel: UILabel = {
+        let name = UILabel()
+        name.text = "추천 한 마디"
+        name.font = .systemFont(ofSize: 22, weight: .bold)
         return name
     }()
     
@@ -45,18 +51,18 @@ class DetailViewController: UIViewController {
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
         
-        [fruitImageView, fruitName, farmName, reviewListView].forEach { component in
+        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
         let fruitImageViewConstraints = [
-            fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
             fruitImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
         let fruitNameConstraints = [
-            fruitName.topAnchor.constraint(equalTo: fruitImageView.bottomAnchor, constant: 24),
+            fruitName.topAnchor.constraint(equalTo: fruitImageView.bottomAnchor, constant: 16),
             fruitName.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
@@ -65,14 +71,19 @@ class DetailViewController: UIViewController {
             farmName.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
+        let recommandLabelConstraints = [
+            recommandLabel.topAnchor.constraint(equalTo: reviewListView.topAnchor, constant: 30),
+            recommandLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ]
+        
         let reviewListViewConstraints = [
             reviewListView.topAnchor.constraint(equalTo: farmName.bottomAnchor, constant: 40),
             reviewListView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             reviewListView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            reviewListView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 0)
+            reviewListView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
-        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, reviewListViewConstraints].forEach { component in
+        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
         }
     }

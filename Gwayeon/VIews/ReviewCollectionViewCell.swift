@@ -16,14 +16,12 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .systemGray
-        label.text = "19.07.21"
         return label
     }()
     
     lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.text = "세상 존맛탱. 이 세상 복숭아가 아니다. 과즙 팡팡이에요. 사장님도 정말 친절하시구요. 저만 먹기 너무 아까워서 모두에게 알려요."
         label.preferredMaxLayoutWidth = self.bounds.width - 40
 //        label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
@@ -35,7 +33,6 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.textColor = .systemGray
-        label.text = "from. 쏘니"
         return label
     }()
     
