@@ -39,25 +39,25 @@ class UsernameSettingViewController: UIViewController {
     
     private func configureLayout() {
         view.backgroundColor = .systemBackground
-        view.addSubview(usernameLabel)
-        view.addSubview(usernameTextfield)
-        view.addSubview(nextButton)
         
-   //     usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-  //      usernameTextfield.translatesAutoresizingMaskIntoConstraints = false
+        [usernameLabel, usernameTextfield, nextButton].forEach { component in
+            view.addSubview(component)
+        }
+        usernameTextfield.translatesAutoresizingMaskIntoConstraints = false
         
-        [usernameLabel, usernameTextfield, nextButton].forEach{ component in
+        [usernameLabel, usernameTextfield, nextButton].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        usernameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 104).isActive = true
-        usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        let usernameLabelConstraints = [
+            usernameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 104),
+            usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16)
+        ]
         
-        usernameTextfield.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor,constant: 16).isActive = true
-        usernameTextfield.bottomAnchor.constraint(equalTo: usernameTextfield.topAnchor,constant: 42).isActive = true
-        
-        usernameTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        usernameTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        let usernameTextFieldConstraints = [
+            usernameTextfield.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor,constant: 16),
+            usernameTextfield.bottomAnchor.constraint(equalTo: usernameTextfield.topAnchor,constant: 42), usernameTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16), usernameTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ]
         
         let nextButtonConstraints = [
             nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
@@ -66,7 +66,7 @@ class UsernameSettingViewController: UIViewController {
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ]
         
-        [nextButtonConstraints].forEach { component in
+        [usernameLabelConstraints,usernameTextFieldConstraints,nextButtonConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
         }
         
