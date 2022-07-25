@@ -11,9 +11,21 @@ class FriendAddViewController: UIViewController {
     
     private let searchTextField : UITextField = {
         let textField = UITextField()
+        let placeholderText = "이름#0000 로 입력해 주세요"
         
-        textField.placeholder = "이름#0000 로 입력해 주세요"
+        // textfield style
+        textField.font = .systemFont(ofSize: 17, weight: .regular)
+        textField.borderStyle = .roundedRect
         
+        // placeholder style
+        textField.attributedPlaceholder = NSAttributedString(
+            string : placeholderText,
+            attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor(hex: "8A8A8E"),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
+            ]
+        )
+                
         return textField
     }()
     
@@ -21,7 +33,6 @@ class FriendAddViewController: UIViewController {
         super.viewDidLoad()
         
         setupComponentLayout()
-        // Do any additional setup after loading the view.
     }
     
     private func setupComponentLayout() {
@@ -31,9 +42,15 @@ class FriendAddViewController: UIViewController {
         self.view.addSubview(searchTextField)
         
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
-        searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
-        searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 78).isActive = true
+        
+        let searchTextFieldConstraints = [
+            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -78),
+            searchTextField.heightAnchor.constraint(equalToConstant: 46)
+        ]
+        
+        NSLayoutConstraint.activate(searchTextFieldConstraints)
         
     }
 
