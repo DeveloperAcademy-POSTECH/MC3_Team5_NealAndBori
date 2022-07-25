@@ -153,7 +153,6 @@ class MyPageViewController: UIViewController {
         segmentButtonStatus.toggle()
     }
     
-    
 }
 
 // MARK: Layout 설정함수

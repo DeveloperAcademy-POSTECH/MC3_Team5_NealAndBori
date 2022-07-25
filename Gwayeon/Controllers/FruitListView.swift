@@ -85,9 +85,3 @@ extension FruitListView: UICollectionViewDataSource {
         return dequeuedCell
     }
 }
-
-extension FruitListView: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
-    }
-}
