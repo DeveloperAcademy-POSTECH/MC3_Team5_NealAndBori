@@ -61,6 +61,12 @@ class MyPageViewController: UIViewController {
         return label
     }(UILabel())
     
+    lazy private var gearButton: UIButton = { button in
+        button.setImage(UIImage(systemName: "gearshape"), for: .normal)
+        button.tintColor = .black
+        return button
+    }(UIButton())
+    
     lazy private var disclosureButton: UIButton = { button in
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         button.tintColor = .black
@@ -117,9 +123,19 @@ class MyPageViewController: UIViewController {
         setCollectionViewLayout()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        gearButton.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        gearButton.isHidden = false
+    }
+    
     @objc func disclosureButtonClicked(_ sender: Any) {
         let friendListViewController = FriendListViewController()
-        
+        friendListViewController.navigationItem.largeTitleDisplayMode = .never
         let backButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
         backButtonItem.tintColor = .mainColor
         self.navigationItem.backBarButtonItem = backButtonItem
@@ -137,6 +153,7 @@ class MyPageViewController: UIViewController {
         segmentButtonStatus.toggle()
     }
     
+    
 }
 
 // MARK: Layout 설정함수
@@ -144,9 +161,21 @@ extension MyPageViewController {
     private func setNavigationTitle() {
         view.backgroundColor = .white
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: navigationTitleLabel)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"), style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "나의 농장생활"
+        self.navigationItem.largeTitleDisplayMode = .always
+        guard let navigationBar = self.navigationController?.navigationBar else { return }
+        
+        navigationBar.addSubview(gearButton)
+        gearButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            gearButton.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor, constant: -16), gearButton.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: -12), gearButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem?.tintColor = .mainColor
+        
     }
     
     private func setSegmentControlLayout() {
@@ -224,7 +253,6 @@ extension MyPageViewController {
         
         NSLayoutConstraint.activate(listCollectionViewConstraints)
     }
-    
 }
 
 // MARK: - CollectionView DataSource
