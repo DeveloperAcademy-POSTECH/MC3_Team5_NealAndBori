@@ -19,7 +19,17 @@ class UsernameSettingViewController: UIViewController {
     private lazy var usernameTextfield: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
+        
         return textField
+    }()
+    
+    private lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 10
+        button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
+        button.setTitle("다음", for: UIControl.State.normal)
+        
+        return button
     }()
     
     override func viewDidLoad() {
@@ -31,17 +41,35 @@ class UsernameSettingViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(usernameLabel)
         view.addSubview(usernameTextfield)
+        view.addSubview(nextButton)
         
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextfield.translatesAutoresizingMaskIntoConstraints = false
+   //     usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+  //      usernameTextfield.translatesAutoresizingMaskIntoConstraints = false
+        
+        [usernameLabel, usernameTextfield, nextButton].forEach{ component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         usernameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 104).isActive = true
         usernameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
         
         usernameTextfield.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor,constant: 16).isActive = true
-        usernameTextfield.bottomAnchor.constraint(equalTo: usernameTextfield.topAnchor,constant: 32).isActive = true
-        usernameTextfield.leftAnchor.constraint(equalTo: usernameLabel.leftAnchor, constant: 4).isActive = true
-        usernameTextfield.rightAnchor.constraint(equalTo: usernameLabel.rightAnchor, constant: -4).isActive = true
+        usernameTextfield.bottomAnchor.constraint(equalTo: usernameTextfield.topAnchor,constant: 42).isActive = true
+        
+        usernameTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+        usernameTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
+        
+        let nextButtonConstraints = [
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        [nextButtonConstraints].forEach { component in
+            NSLayoutConstraint.activate(component)
+        }
+        
     }
     
 }
