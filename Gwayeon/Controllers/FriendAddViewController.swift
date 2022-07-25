@@ -25,8 +25,21 @@ class FriendAddViewController: UIViewController {
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
             ]
         )
-                
+                    
         return textField
+    }()
+    
+    private let searchButton : UIButton = {
+        
+        // button style
+        var configuration = UIButton.Configuration.filled()
+        configuration.image = UIImage(systemName: "magnifyingglass")
+        configuration.baseBackgroundColor = UIColor.mainRed
+        configuration.background.cornerRadius = 10
+        
+        let button = UIButton(configuration: configuration)
+        
+        return button
     }()
     
     override func viewDidLoad() {
@@ -40,18 +53,29 @@ class FriendAddViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         self.view.addSubview(searchTextField)
+        self.view.addSubview(searchButton)
         
-        searchTextField.translatesAutoresizingMaskIntoConstraints = false
+        [searchTextField, searchButton].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        let searchButtonConstraints = [
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            searchButton.widthAnchor.constraint(equalToConstant: 46),
+            searchButton.heightAnchor.constraint(equalToConstant: 46)
+        ]
         
         let searchTextFieldConstraints = [
             searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            searchTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -78),
+            searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -16),
             searchTextField.heightAnchor.constraint(equalToConstant: 46)
         ]
         
-        NSLayoutConstraint.activate(searchTextFieldConstraints)
-        
+        [searchButtonConstraints, searchTextFieldConstraints].forEach { constraints in
+            NSLayoutConstraint.activate(constraints)
+        }
     }
 
 }
