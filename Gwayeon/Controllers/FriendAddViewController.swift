@@ -42,6 +42,16 @@ class FriendAddViewController: UIViewController {
         return button
     }()
     
+    private let fruitImage : UIImageView = {
+        let mainImage = UIImage(named: "peach")
+        
+        let imageView = UIImageView(image: mainImage)
+        
+        imageView.contentMode = UIView.ContentMode.scaleAspectFit
+        
+        return imageView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,28 +62,36 @@ class FriendAddViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
+        self.view.addSubview(fruitImage)
         self.view.addSubview(searchTextField)
         self.view.addSubview(searchButton)
         
-        [searchTextField, searchButton].forEach { component in
+        [fruitImage, searchTextField, searchButton].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        let fruitImageConstraints = [
+            fruitImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 105),
+            fruitImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            fruitImage.widthAnchor.constraint(equalToConstant: 80),
+            fruitImage.heightAnchor.constraint(equalToConstant: 80)
+        ]
+        
         let searchButtonConstraints = [
-            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 259),
             searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             searchButton.widthAnchor.constraint(equalToConstant: 46),
             searchButton.heightAnchor.constraint(equalToConstant: 46)
         ]
         
         let searchTextFieldConstraints = [
-            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 259),
             searchTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             searchTextField.trailingAnchor.constraint(equalTo: searchButton.leadingAnchor, constant: -16),
             searchTextField.heightAnchor.constraint(equalToConstant: 46)
         ]
         
-        [searchButtonConstraints, searchTextFieldConstraints].forEach { constraints in
+        [fruitImageConstraints, searchButtonConstraints, searchTextFieldConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
