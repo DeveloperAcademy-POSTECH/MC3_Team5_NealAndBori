@@ -100,6 +100,7 @@ class MyPageViewController: UIViewController {
         collectionView.register(FarmCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
         collectionView.register(EmptyButtonCollectionViewCell.self, forCellWithReuseIdentifier: EmptyButtonCollectionViewCell.identifier)
+        collectionView.register(BuyingListCollectionViewCell.self, forCellWithReuseIdentifier: BuyingListCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -120,6 +121,9 @@ class MyPageViewController: UIViewController {
             purchaseListButton.setButtonBlur()
         }
         segmentButtonStatus.toggle()
+        DispatchQueue.main.async { [weak self] in
+            self?.listCollectionView.reloadData()
+        }
     }
     
 }
@@ -219,19 +223,26 @@ extension MyPageViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.row {
-        case Section.first.rawValue:
-            guard let dequeueCell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
+        if segmentButtonStatus {
+            switch indexPath.row {
+            case Section.first.rawValue:
+                guard let dequeueCell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                
+                return dequeueCell
+            default:
+                guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
+                    assert(false, "Wrong Cell")
+                }
+                
+                return dequeuedCell
+            }
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BuyingListCollectionViewCell.identifier, for: indexPath) as? BuyingListCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            
-            return dequeueCell
-        default:
-            guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
-                assert(false, "Wrong Cell")
-            }
-            
-            return dequeuedCell
+            return cell
         }
     }
 }
