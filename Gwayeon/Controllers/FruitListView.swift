@@ -9,7 +9,8 @@ import UIKit
 
 final class FruitListView: UIView {
     
-    private let data = ["사과", "자두", "수박", "복숭아"]
+//    private let data = ["사과", "자두", "수박", "복숭아"]
+    private let data = ["전체"]
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 16.0
