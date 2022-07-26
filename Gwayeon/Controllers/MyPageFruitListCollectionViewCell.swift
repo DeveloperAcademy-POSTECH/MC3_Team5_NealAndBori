@@ -7,12 +7,11 @@
 
 import UIKit
 
-class BuyingListCollectionViewCell: UICollectionViewCell {
+class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "BuyingListCollectionViewCell"
-    
     // MARK: - property
-    
+    weak var parent: UIViewController?
     private let peoplePickLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
@@ -37,15 +36,25 @@ class BuyingListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let recommendToGwayeonButton: UIButton = {
+    private let fruitInfoLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.textColor = .black
+        label.text = "신선하고 과즙이 팡팡이에요"
+        return label
+    }()
+    
+    lazy private var recommendToGwayeonButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         button.setTitle("과연에게 추천하기", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         button.tintColor = .mainColor
         button.setTitleColor(UIColor.mainColor, for: .normal)
+        button.addTarget(self, action: #selector(recommendToGwayButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
+    
     
     private var fruitImageView: UIImageView = { imageView in
         imageView.image = UIImage(named: "peach")
@@ -54,7 +63,6 @@ class BuyingListCollectionViewCell: UICollectionViewCell {
     }(UIImageView(frame: .zero))
     
     // MARK: - init
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCollectionViewLayout()
@@ -79,7 +87,7 @@ class BuyingListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setCollectionViewLayout() {
-        [peoplePickLabel, fruitLabel, farmLabel, recommendToGwayeonButton, fruitImageView].forEach { component in
+        [peoplePickLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToGwayeonButton, fruitImageView].forEach { component in
             contentView.addSubview(component)
         }
         
@@ -107,6 +115,12 @@ class BuyingListCollectionViewCell: UICollectionViewCell {
             recommendToGwayeonButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
         
+        fruitInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        let fruitInfoLabelConstraints = [
+            fruitInfoLabel.topAnchor.constraint(equalTo: farmLabel.bottomAnchor, constant: 24),
+            fruitInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+        ]
+        
         fruitImageView.translatesAutoresizingMaskIntoConstraints = false
         let fruitImageViewConstraints = [
             fruitImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -114,7 +128,7 @@ class BuyingListCollectionViewCell: UICollectionViewCell {
             fruitImageView.widthAnchor.constraint(equalToConstant: 80)
         ]
         
-        [peoplePickLabelConstraints, fruitLabelConstraints, farmLabelConstraints, recommendToGwayeonButtonConstraints, fruitImageViewConstraints].forEach { constraints in
+        [peoplePickLabelConstraints, fruitLabelConstraints, farmLabelConstraints, recommendToGwayeonButtonConstraints, fruitInfoLabelConstraints, fruitImageViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
@@ -128,5 +142,24 @@ class BuyingListCollectionViewCell: UICollectionViewCell {
         layer.shadowOpacity = 0.12
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 20
+    }
+    
+    @objc private func recommendToGwayButtonClicked(_ sender: Any) {
+        let recommendToFriendViewController = RecommendToFriendViewController()
+        parent?.navigationController?.pushViewController(recommendToFriendViewController, animated: true)
+    }
+    
+    func setParentViewController(viewController: UIViewController) {
+        self.parent = viewController
+    }
+    
+    func setButtonOrLabelHidden(status: Bool) {
+        if status {
+            fruitInfoLabel.isHidden = false
+            recommendToGwayeonButton.isHidden = true
+        } else {
+            fruitInfoLabel.isHidden = true
+            recommendToGwayeonButton.isHidden = false
+        }
     }
 }

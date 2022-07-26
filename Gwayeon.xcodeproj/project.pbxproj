@@ -24,7 +24,7 @@
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
-		768958F7288FBE1C00F979AE /* BuyingListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* BuyingListCollectionViewCell.swift */; };
+		768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
 		CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */; };
@@ -52,7 +52,7 @@
 		764504E8287FB0D50048B3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		768958F6288FBE1C00F979AE /* BuyingListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingListCollectionViewCell.swift; sourceTree = "<group>"; };
+		768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFruitListCollectionViewCell.swift; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
 		CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 				CBBAA62E28878639007E77C0 /* FruitListView.swift */,
 				CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */,
 				7605A0242889833F00D66F41 /* EmptyButtonCollectionViewCell.swift */,
-				768958F6288FBE1C00F979AE /* BuyingListCollectionViewCell.swift */,
+				768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -254,7 +254,7 @@
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
 				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
 				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
-				768958F7288FBE1C00F979AE /* BuyingListCollectionViewCell.swift in Sources */,
+				768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */,
 				37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */,
 				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
 				37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */,
