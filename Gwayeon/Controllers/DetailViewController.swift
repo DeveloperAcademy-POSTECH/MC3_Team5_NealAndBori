@@ -55,8 +55,11 @@ class DetailViewController: UIViewController {
         config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
         config.buttonSize = .large
         let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(phoneCall), for: .touchUpInside)
         return button
     }()
+    
+    private var phoneNumber = "01083770805"
     
     // MARK: Life Cycle Function
     override func viewDidLoad() {
@@ -66,6 +69,14 @@ class DetailViewController: UIViewController {
     }
     
     // MARK: Configures
+    @objc private func phoneCall() {
+        guard let url = URL(string: "tel://\(phoneNumber)"),
+            UIApplication.shared.canOpenURL(url) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
         
