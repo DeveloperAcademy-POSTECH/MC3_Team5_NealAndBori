@@ -43,7 +43,6 @@ class UsernameSettingViewController: UIViewController {
         [usernameLabel, usernameTextfield, nextButton].forEach { component in
             view.addSubview(component)
         }
-        usernameTextfield.translatesAutoresizingMaskIntoConstraints = false
         
         [usernameLabel, usernameTextfield, nextButton].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +55,8 @@ class UsernameSettingViewController: UIViewController {
         
         let usernameTextFieldConstraints = [
             usernameTextfield.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor,constant: 16),
-            usernameTextfield.bottomAnchor.constraint(equalTo: usernameTextfield.topAnchor,constant: 42), usernameTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16), usernameTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            usernameTextfield.bottomAnchor.constraint(equalTo: usernameTextfield.topAnchor,constant: 42), usernameTextfield.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            usernameTextfield.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
         
         let nextButtonConstraints = [
