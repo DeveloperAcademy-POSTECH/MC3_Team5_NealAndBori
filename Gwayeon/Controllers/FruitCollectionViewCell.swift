@@ -16,8 +16,8 @@ final class FruitCollectionViewCell: UICollectionViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = .mainRed
         label.textAlignment = .center
+        label.textColor = .black
         return label
     }()
     
@@ -60,7 +60,19 @@ final class FruitCollectionViewCell: UICollectionViewCell {
     
     private func setConfigureUI() {
         clipsToBounds = true
-        contentView.backgroundColor = .mainRed.withAlphaComponent(0.15)
         contentView.layer.cornerRadius = 22.5
+        contentView.backgroundColor = .mainRed.withAlphaComponent(0.15)
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                contentView.backgroundColor = .mainRed
+                self.nameLabel.textColor = .white
+            } else {
+                contentView.backgroundColor = .mainRed.withAlphaComponent(0.15)
+                self.nameLabel.textColor = .black
+            }
+        }
     }
 }
