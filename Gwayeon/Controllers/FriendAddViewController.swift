@@ -7,16 +7,26 @@
 
 import UIKit
 
+// temporary data
+struct FriendResultData {
+    let name : String
+    let code : String
+    let fruit : String
+    let recommendsCount : Int
+}
+
 class FriendAddViewController: UIViewController {
     
-    // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현하기 위함
+    let friendSearchResult = FriendResultData(name: "이과연", code: "#1234", fruit: "peach", recommendsCount: 100)
+    
+    // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현하기 위해 임시로 사용
     private enum ViewCase {
         case beforeSearch
         case noResult
         case showResult
     }
     
-    private let selectCase : ViewCase = .noResult
+    private let selectCase : ViewCase = .showResult
     
     private let searchTextField : UITextField = {
         let textField = UITextField()
@@ -87,14 +97,23 @@ class FriendAddViewController: UIViewController {
         
     }()
     
+    private lazy var searchResultCellView : UIView = {
+        let view = FriendAddResultCellView()
+        view.configure(data: friendSearchResult)
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupComponentLayout()
         
-        // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현하기 위함
+        // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현하기 위해 임시로 사용
         if selectCase == .noResult {
             setupNoResultComponentLayout()
+        } else if selectCase == .showResult {
+            setupShowResultComponentLayout()
         }
     }
     
@@ -147,6 +166,17 @@ class FriendAddViewController: UIViewController {
             noResultTextStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
         NSLayoutConstraint.activate(noResultTextStackConstraints)
+    }
+    
+    private func setupShowResultComponentLayout() {
+        self.view.addSubview(searchResultCellView)
+        searchResultCellView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let searchResultCellViewConstraints = [
+            searchResultCellView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 40),
+            searchResultCellView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ]
+        NSLayoutConstraint.activate(searchResultCellViewConstraints)
     }
 
 }
