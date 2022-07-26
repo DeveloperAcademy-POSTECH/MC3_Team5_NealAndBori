@@ -106,7 +106,7 @@
 		764504DE287FB0D30048B3F0 /* Gwayeon */ = {
 			isa = PBXGroup;
 			children = (
-				DDF625A3288798EA008E441D /* VIews */,
+				DDF625A3288798EA008E441D /* Views */,
 				7605A00728856C6100D66F41 /* Globals */,
 				7605A000288537CA00D66F41 /* Controllers */,
 				764504DF287FB0D30048B3F0 /* AppDelegate.swift */,
@@ -118,13 +118,13 @@
 			path = Gwayeon;
 			sourceTree = "<group>";
 		};
-		DDF625A3288798EA008E441D /* VIews */ = {
+		DDF625A3288798EA008E441D /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */,
 				DDF625A928899D49008E441D /* ReviewCollectionView.swift */,
 			);
-			path = VIews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

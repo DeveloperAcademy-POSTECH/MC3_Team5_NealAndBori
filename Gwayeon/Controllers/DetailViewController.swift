@@ -17,25 +17,25 @@ class DetailViewController: UIViewController {
     }()
     
     private lazy var fruitName: UILabel = {
-        let name = UILabel()
-        name.text = "대극천 복숭아"
-        name.font = .systemFont(ofSize: 28, weight: .bold)
-        name.textColor = .mainColor
-        return name
+        let label = UILabel()
+        label.text = "대극천 복숭아"
+        label.font = .systemFont(ofSize: 28, weight: .bold)
+        label.textColor = .mainColor
+        return label
     }()
     
     private lazy var farmName: UILabel = {
-        let name = UILabel()
-        name.text = "오로라 농장"
-        name.font = .preferredFont(forTextStyle: .title3)
-        return name
+        let label = UILabel()
+        label.text = "오로라 농장"
+        label.font = .preferredFont(forTextStyle: .title3)
+        return label
     }()
     
     private lazy var recommandLabel: UILabel = {
-        let name = UILabel()
-        name.text = "추천 한 마디"
-        name.font = .systemFont(ofSize: 22, weight: .bold)
-        return name
+        let label = UILabel()
+        label.text = "추천 한 마디"
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        return label
     }()
     
     private let reviewListView = ReviewCollectionView()

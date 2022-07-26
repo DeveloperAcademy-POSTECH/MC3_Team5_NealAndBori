@@ -12,14 +12,14 @@ class ReviewCollectionViewCell: UICollectionViewCell {
     static let cellIdentifier = "DetailCollectionViewCell"
     
     // MARK: Properties
-    lazy var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .systemGray
         return label
     }()
     
-    lazy var contentLabel: UILabel = {
+    private lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.preferredMaxLayoutWidth = self.bounds.width - 40
@@ -29,7 +29,7 @@ class ReviewCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var authorLabel: UILabel = {
+    private lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .callout)
         label.textColor = .systemGray
