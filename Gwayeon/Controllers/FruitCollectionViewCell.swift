@@ -17,7 +17,7 @@ final class FruitCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .mainRed
         return label
     }()
     
@@ -71,7 +71,7 @@ final class FruitCollectionViewCell: UICollectionViewCell {
                 self.nameLabel.textColor = .white
             } else {
                 contentView.backgroundColor = .mainRed.withAlphaComponent(0.15)
-                self.nameLabel.textColor = .black
+                self.nameLabel.textColor = .mainRed
             }
         }
     }
