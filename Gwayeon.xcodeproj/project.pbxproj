@@ -24,10 +24,13 @@
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
+		768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958FB2890E4EF00F979AE /* UIView+Extension.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
 		CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */; };
 		DDF625A02886D435008E441D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6259F2886D435008E441D /* DetailViewController.swift */; };
+		DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */; };
+		DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A928899D49008E441D /* ReviewCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,10 +54,13 @@
 		764504E8287FB0D50048B3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		768958FB2890E4EF00F979AE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
 		CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitCollectionViewCell.swift; sourceTree = "<group>"; };
 		DDF6259F2886D435008E441D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		DDF625A928899D49008E441D /* ReviewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,7 @@
 				7605A00A2885703F00D66F41 /* Color+Extension.swift */,
 				7605A01B28878EA700D66F41 /* NSMutableAttributedString+Extension.swift */,
 				7605A022288974E500D66F41 /* UIButton+Extension.swift */,
+				768958FB2890E4EF00F979AE /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -139,6 +146,7 @@
 		764504DE287FB0D30048B3F0 /* Gwayeon */ = {
 			isa = PBXGroup;
 			children = (
+				DDF625A3288798EA008E441D /* Views */,
 				14CD04652886A04C0062AFF1 /* FriendList */,
 				7605A00728856C6100D66F41 /* Globals */,
 				7605A000288537CA00D66F41 /* Controllers */,
@@ -152,6 +160,15 @@
 				4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */,
 			);
 			path = Gwayeon;
+			sourceTree = "<group>";
+		};
+		DDF625A3288798EA008E441D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */,
+				DDF625A928899D49008E441D /* ReviewCollectionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +268,9 @@
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
 				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
 				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
+				DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */,
+				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
+				DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */,
 				37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */,
 				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
 				37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */,
@@ -258,6 +278,7 @@
 				CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				7605A0252889833F00D66F41 /* EmptyButtonCollectionViewCell.swift in Sources */,
+				768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */,
 				7605A01C28878EA700D66F41 /* NSMutableAttributedString+Extension.swift in Sources */,
 				7605A023288974E500D66F41 /* UIButton+Extension.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,

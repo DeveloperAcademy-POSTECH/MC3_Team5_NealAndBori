@@ -44,6 +44,7 @@ class RecommendFarmViewController: UIViewController {
         button.backgroundColor = UIColor(red: 246/255, green: 104/255, blue: 94/255, alpha: 1)
         button.layer.cornerRadius = 13
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(nil, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -56,6 +57,11 @@ class RecommendFarmViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         categorySection.becomeFirstResponder()
+    }
+    
+    @objc private func completeButtonClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        
     }
     
     // TODO: 함수명 통일
