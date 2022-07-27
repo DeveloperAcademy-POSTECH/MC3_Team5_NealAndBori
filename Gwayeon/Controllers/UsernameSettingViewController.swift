@@ -19,7 +19,6 @@ class UsernameSettingViewController: UIViewController {
     private lazy var usernameTextfield: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
-        
         return textField
     }()
     
@@ -42,10 +41,8 @@ class UsernameSettingViewController: UIViewController {
         
         [usernameLabel, usernameTextfield, nextButton].forEach { component in
             view.addSubview(component)
-        }
-        
-        [usernameLabel, usernameTextfield, nextButton].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false
+
         }
         
         let usernameLabelConstraints = [
