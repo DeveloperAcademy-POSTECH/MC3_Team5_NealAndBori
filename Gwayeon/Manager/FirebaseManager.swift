@@ -20,7 +20,7 @@ final class FirebaseManager {
     func gerUserInformation(uid: String, completion: @escaping (Result<[User], Error>) -> Void) {
         let db = Firestore.firestore()
         
-        db.collection("Users").whereField("uid", isEqualTo: uid).getDocuments() { querySnapshot, err in
+        db.collection("Users").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
