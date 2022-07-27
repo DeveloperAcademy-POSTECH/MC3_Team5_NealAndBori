@@ -13,47 +13,37 @@ class FriendAddResultCellView: UIView {
     
     private let nameLabel : UILabel = {
         let label = UILabel()
-        
         label.font = .systemFont(ofSize: 17, weight: .semibold)
-        
         return label
     }()
     
     private let codeLabel : UILabel = {
         let label = UILabel()
-        
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.textColor = UIColor.systemGray
-        
         return label
     }()
     
     private let recommendCountLabel : UILabel = {
         let label = UILabel()
-        
         label.font = .systemFont(ofSize: 17, weight: .bold)
         label.textColor = UIColor.mainColor
-        
         return label
     }()
     
     private let friendTextLabel : UILabel = {
         let label = UILabel()
-        
         label.font = .systemFont(ofSize: 17, weight: .medium)
         label.textColor = UIColor.systemGray
         label.text = "개의 과일을 추천해요"
-        
         return label
     }()
     
     private let friendView : UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .horizontal
         stackView.alignment = .leading
         stackView.spacing = 0
-        
         return stackView
     }()
     
@@ -66,14 +56,14 @@ class FriendAddResultCellView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupComponentLayout()
+        self.setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupComponentLayout() {
+    private func setLayout() {
         [recommendCountLabel, friendTextLabel].forEach { component in
             self.friendView.addArrangedSubview(component)
         }

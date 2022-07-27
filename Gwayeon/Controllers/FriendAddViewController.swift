@@ -35,7 +35,7 @@ class FriendAddViewController: UIViewController {
         // textfield style
         textField.font = .systemFont(ofSize: 17, weight: .regular)
         textField.borderStyle = .roundedRect
-        
+
         // placeholder style
         textField.attributedPlaceholder = NSAttributedString(
             string : placeholderText,
@@ -44,7 +44,6 @@ class FriendAddViewController: UIViewController {
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
             ]
         )
-        
         return textField
     }()
     
@@ -56,32 +55,26 @@ class FriendAddViewController: UIViewController {
         configuration.background.cornerRadius = 12
         
         let button = UIButton(configuration: configuration)
-        
         return button
     }()
     
     private let fruitImage : UIImageView = {
         let mainImage = UIImage(named: "peach-1")
         let imageView = UIImageView(image: mainImage)
-        
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
-        
         return imageView
     }()
     
     private let guideLabel : UILabel = {
         let label = UILabel()
-        
         label.text = "과연을 찾아보세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        
         return label
     }()
     
     private let noResultTextStack : UIStackView = {
         let firstLineLabel = UILabel()
         let secondLineLabel = UILabel()
-        
         firstLineLabel.text = "찾으시는 과연이 없습니다"
         secondLineLabel.text = "이름#0000 으로 검색해주세요"
         firstLineLabel.font = .systemFont(ofSize: 20, weight: .regular)
@@ -90,7 +83,6 @@ class FriendAddViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [firstLineLabel, secondLineLabel])
         stackView.spacing = 8
         stackView.axis = .vertical
-        
         return stackView
         
     }()
@@ -98,7 +90,6 @@ class FriendAddViewController: UIViewController {
     private lazy var searchResultCellView : UIView = {
         let view = FriendAddResultCellView()
         view.configure(data: friendSearchResult[0])
-        
         return view
     }()
     
