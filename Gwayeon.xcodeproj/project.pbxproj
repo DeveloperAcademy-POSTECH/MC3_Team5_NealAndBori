@@ -12,6 +12,7 @@
 		37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */; };
 		37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA172887AC6D009FB2DA /* InputSection.swift */; };
 		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
+		452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */; };
 		7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0012885381400D66F41 /* MainTabBarViewController.swift */; };
 		7605A0042885383000D66F41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0032885383000D66F41 /* HomeViewController.swift */; };
 		7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0052885383D00D66F41 /* MyPageViewController.swift */; };
@@ -39,6 +40,7 @@
 		37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFarmViewController.swift; sourceTree = "<group>"; };
 		37F1FA172887AC6D009FB2DA /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendToFriendViewController.swift; sourceTree = "<group>"; };
+		452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameSettingViewController.swift; sourceTree = "<group>"; };
 		76059FFE2884D17D00D66F41 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7605A0012885381400D66F41 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		7605A0032885383000D66F41 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				CBBAA62E28878639007E77C0 /* FruitListView.swift */,
 				CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */,
 				7605A0242889833F00D66F41 /* EmptyButtonCollectionViewCell.swift */,
+				452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
 				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
 				CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */,
+				452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
