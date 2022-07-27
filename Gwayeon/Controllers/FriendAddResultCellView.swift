@@ -21,7 +21,6 @@ class FriendAddResultCellView: UIView {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.textColor = UIColor(hex: "8A8A8E")
-        
         return label
     }()
     

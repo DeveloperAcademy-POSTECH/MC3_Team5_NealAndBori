@@ -16,17 +16,17 @@ struct FriendResultData {
 }
 
 class FriendAddViewController: UIViewController {
+
+    let friendSearchResult : [FriendResultData] = [FriendResultData(name: "이과연", code: "#1234", fruit: "peach", recommendsCount: 100)]
     
-    let friendSearchResult = FriendResultData(name: "이과연", code: "#1234", fruit: "peach", recommendsCount: 100)
-    
-    // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현하기 위해 임시로 사용
+    // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
     private enum ViewCase {
         case beforeSearch
         case noResult
         case showResult
     }
     
-    private let selectCase : ViewCase = .showResult
+    private let selectCase : ViewCase = .beforeSearch
     
     private let searchTextField : UITextField = {
         let textField = UITextField()
@@ -99,7 +99,7 @@ class FriendAddViewController: UIViewController {
     
     private lazy var searchResultCellView : UIView = {
         let view = FriendAddResultCellView()
-        view.configure(data: friendSearchResult)
+        view.configure(data: friendSearchResult[0])
         
         return view
     }()
@@ -109,11 +109,16 @@ class FriendAddViewController: UIViewController {
         
         setupComponentLayout()
         
-        // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현하기 위해 임시로 사용
-        if selectCase == .noResult {
-            setupNoResultComponentLayout()
+        // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
+        if selectCase == .beforeSearch {
+            noResultTextStack.isHidden = true
+            searchResultCellView.isHidden = true
+        } else if selectCase == .noResult {
+            noResultTextStack.isHidden = false
+            searchResultCellView.isHidden = true
         } else if selectCase == .showResult {
-            setupShowResultComponentLayout()
+            noResultTextStack.isHidden = true
+            searchResultCellView.isHidden = false
         }
     }
     
@@ -121,11 +126,12 @@ class FriendAddViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        [fruitImage, guideLabel, searchButton, searchTextField].forEach { component in
+        [fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView].forEach { component in
             self.view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        // 고정 UI
         let fruitImageConstraints = [
             fruitImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 105),
             fruitImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -152,31 +158,21 @@ class FriendAddViewController: UIViewController {
             searchTextField.heightAnchor.constraint(equalToConstant: 46)
         ]
         
-        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints].forEach { constraints in
-            NSLayoutConstraint.activate(constraints)
-        }
-    }
-    
-    private func setupNoResultComponentLayout() {
-        self.view.addSubview(noResultTextStack)
-        noResultTextStack.translatesAutoresizingMaskIntoConstraints = false
-        
+        // 검색 결과 없을 때 UI
         let noResultTextStackConstraints = [
             noResultTextStack.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 48),
             noResultTextStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
-        NSLayoutConstraint.activate(noResultTextStackConstraints)
-    }
-    
-    private func setupShowResultComponentLayout() {
-        self.view.addSubview(searchResultCellView)
-        searchResultCellView.translatesAutoresizingMaskIntoConstraints = false
         
+        // 검색 결과 있을 때 UI
         let searchResultCellViewConstraints = [
             searchResultCellView.topAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 40),
             searchResultCellView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
-        NSLayoutConstraint.activate(searchResultCellViewConstraints)
+        
+        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints, noResultTextStackConstraints, searchResultCellViewConstraints].forEach { constraints in
+            NSLayoutConstraint.activate(constraints)
+        }
     }
 
 }
