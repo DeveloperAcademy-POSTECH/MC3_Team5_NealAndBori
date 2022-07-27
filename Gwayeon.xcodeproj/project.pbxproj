@@ -19,7 +19,6 @@
 		7605A01C28878EA700D66F41 /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A01B28878EA700D66F41 /* NSMutableAttributedString+Extension.swift */; };
 		7605A023288974E500D66F41 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A022288974E500D66F41 /* UIButton+Extension.swift */; };
 		7605A0252889833F00D66F41 /* EmptyButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0242889833F00D66F41 /* EmptyButtonCollectionViewCell.swift */; };
-
 		764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504DF287FB0D30048B3F0 /* AppDelegate.swift */; };
 		764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764504E1287FB0D30048B3F0 /* SceneDelegate.swift */; };
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
@@ -250,7 +249,6 @@
 				14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */,
 				14CD04672886A0A40062AFF1 /* FriendListViewController.swift in Sources */,
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
-				764504E4287FB0D30048B3F0 /* ViewController.swift in Sources */,
 				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
 				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
 				37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */,
@@ -412,7 +410,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UXVK9G3AX9;
+				DEVELOPMENT_TEAM = 848PGS94YW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -440,7 +438,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UXVK9G3AX9;
+				DEVELOPMENT_TEAM = 848PGS94YW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
