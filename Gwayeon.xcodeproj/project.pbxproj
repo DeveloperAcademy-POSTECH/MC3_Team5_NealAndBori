@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478662C288E6C260029FE50 /* FriendAddViewController.swift */; };
+		1478662F28905C7F0029FE50 /* FriendAddResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478662E28905C7F0029FE50 /* FriendAddResultCellView.swift */; };
 		14CD04672886A0A40062AFF1 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD04662886A0A40062AFF1 /* FriendListViewController.swift */; };
 		14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD04682886A0D50062AFF1 /* FriendListViewCell.swift */; };
 		37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1478662C288E6C260029FE50 /* FriendAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddViewController.swift; sourceTree = "<group>"; };
+		1478662E28905C7F0029FE50 /* FriendAddResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddResultCellView.swift; sourceTree = "<group>"; };
 		14CD04662886A0A40062AFF1 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		14CD04682886A0D50062AFF1 /* FriendListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
 		37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFarmViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				CBBAA62E28878639007E77C0 /* FruitListView.swift */,
 				CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */,
 				7605A0242889833F00D66F41 /* EmptyButtonCollectionViewCell.swift */,
+				1478662C288E6C260029FE50 /* FriendAddViewController.swift */,
+				1478662E28905C7F0029FE50 /* FriendAddResultCellView.swift */,
 				452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */,
 			);
 			path = Controllers;
@@ -266,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */,
 				14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */,
 				14CD04672886A0A40062AFF1 /* FriendListViewController.swift in Sources */,
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
@@ -288,6 +295,7 @@
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
 				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
 				CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */,
+				1478662F28905C7F0029FE50 /* FriendAddResultCellView.swift in Sources */,
 				452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
