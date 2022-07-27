@@ -37,7 +37,7 @@ class DetailViewController: UIViewController {
         label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
-    
+
     private let reviewListView = ReviewCollectionView()
     
     // MARK: Life Cycle Function
@@ -68,7 +68,7 @@ class DetailViewController: UIViewController {
         
         let farmNameConstraints = [
             farmName.topAnchor.constraint(equalTo: fruitName.bottomAnchor, constant: 8),
-            farmName.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            farmName.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ]
         
         let recommandLabelConstraints = [
