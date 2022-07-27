@@ -24,19 +24,6 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    // UIButton.Configuration: ios 15에서 업데이트된 기능. more customizable.
-    private lazy var callButton: UIButton = {
-        var config = UIButton.Configuration.filled()
-        config.cornerStyle = .medium
-        config.baseBackgroundColor = .mainColor
-        config.image = UIImage(systemName: "phone.fill")
-        config.title = " 전화하기"
-        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
-        config.buttonSize = .large
-        let button = UIButton(configuration: config)
-        button.addTarget(self, action: #selector(phoneCall), for: .touchUpInside)
-        return button
-    }()
     private lazy var farmName: UILabel = {
         let label = UILabel()
         label.text = "오로라 농장"
@@ -50,8 +37,29 @@ class DetailViewController: UIViewController {
         label.font = .systemFont(ofSize: 22, weight: .bold)
         return label
     }()
-
+    
     private let reviewListView = ReviewCollectionView()
+    
+    // UIButton.Configuration: ios 15에서 업데이트된 기능. more customizable.
+    private lazy var callButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .medium
+        config.baseBackgroundColor = .mainColor
+        config.image = UIImage(systemName: "phone.fill")
+        config.title = " 전화하기"
+        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
+        config.buttonSize = .large
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(phoneCall), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var modalButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("modal", for: .normal)
+        button.addTarget(self, action: #selector(bottomSheetButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private var phoneNumber = "01083770805"
     
@@ -60,12 +68,38 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewComponent()
+        self.tabBarController?.tabBar.isHidden = true
+        
+        view.addSubview(modalButton)
+        modalButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            modalButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            modalButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     // MARK: Configures
+    
+    @objc private func bottomSheetButtonTapped() {
+        showMyViewControllerInACustomizedSheet()
+    }
+    
+    func showMyViewControllerInACustomizedSheet() {
+        let viewControllerToPresent = BottomSheetViewController()
+        if let sheet = viewControllerToPresent.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+        }
+        present(viewControllerToPresent, animated: true, completion: nil)
+    }
+    
     @objc private func phoneCall() {
         guard let url = URL(string: "tel://\(phoneNumber)"),
-            UIApplication.shared.canOpenURL(url) else {
+              UIApplication.shared.canOpenURL(url) else {
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -74,7 +108,7 @@ class DetailViewController: UIViewController {
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
         
-        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel].forEach { component in
+        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -107,13 +141,13 @@ class DetailViewController: UIViewController {
         ]
         
         let callButtonConstraints = [
-            callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
+            callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             callButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             callButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             callButton.heightAnchor.constraint(equalToConstant: 56),
             callButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65)
         ]
-
+        
         [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
         }
