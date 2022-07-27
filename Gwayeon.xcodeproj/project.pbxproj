@@ -158,6 +158,7 @@
 		764504DE287FB0D30048B3F0 /* Gwayeon */ = {
 			isa = PBXGroup;
 			children = (
+				768959112891390700F979AE /* FirebaseManagerTestUI */,
 				7689590928911EB800F979AE /* Manager */,
 				768959062891126D00F979AE /* Models */,
 				768958FD28910F7F00F979AE /* GoogleService-Info.plist */,
@@ -188,9 +189,16 @@
 			isa = PBXGroup;
 			children = (
 				7689590A28911EC500F979AE /* FirebaseManager.swift */,
-				7689590F2891238F00F979AE /* TestViewController.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		768959112891390700F979AE /* FirebaseManagerTestUI */ = {
+			isa = PBXGroup;
+			children = (
+				7689590F2891238F00F979AE /* TestViewController.swift */,
+			);
+			path = FirebaseManagerTestUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
