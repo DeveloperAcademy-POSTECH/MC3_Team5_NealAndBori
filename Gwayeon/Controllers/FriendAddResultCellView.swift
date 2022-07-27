@@ -13,29 +13,37 @@ class FriendAddResultCellView: UIView {
     
     private let nameLabel : UILabel = {
         let label = UILabel()
+        
         label.font = .systemFont(ofSize: 17, weight: .semibold)
+        
         return label
     }()
     
     private let codeLabel : UILabel = {
         let label = UILabel()
+        
         label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = UIColor(hex: "8A8A8E")
+        label.textColor = UIColor.systemGray
+        
         return label
     }()
     
     private let recommendCountLabel : UILabel = {
         let label = UILabel()
+        
         label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = UIColor(red: 246/256, green: 104/256, blue: 94/256, alpha: 1.00)
+        label.textColor = UIColor.mainColor
+        
         return label
     }()
     
     private let friendTextLabel : UILabel = {
         let label = UILabel()
+        
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = UIColor(red: 151/256, green: 151/256, blue: 151/256, alpha: 1.00)
+        label.textColor = UIColor.systemGray
         label.text = "개의 과일을 추천해요"
+        
         return label
     }()
     
@@ -50,7 +58,6 @@ class FriendAddResultCellView: UIView {
     }()
     
     func configure(data : FriendResultData) {
-     
         self.nameLabel.text = data.name
         self.codeLabel.text = data.code
         self.fruitImage.image = UIImage(named: data.fruit)
@@ -67,7 +74,6 @@ class FriendAddResultCellView: UIView {
     }
     
     private func setupComponentLayout() {
-        
         [recommendCountLabel, friendTextLabel].forEach { component in
             self.friendView.addArrangedSubview(component)
         }

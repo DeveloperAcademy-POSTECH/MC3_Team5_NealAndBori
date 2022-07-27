@@ -16,8 +16,8 @@ struct FriendResultData {
 }
 
 class FriendAddViewController: UIViewController {
-
-    let friendSearchResult : [FriendResultData] = [FriendResultData(name: "이과연", code: "#1234", fruit: "peach", recommendsCount: 100)]
+    
+    let friendSearchResult : [FriendResultData] = [FriendResultData(name: "이과연", code: "#1234", fruit: "apple", recommendsCount: 100)]
     
     // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
     private enum ViewCase {
@@ -26,7 +26,7 @@ class FriendAddViewController: UIViewController {
         case showResult
     }
     
-    private let selectCase : ViewCase = .beforeSearch
+    private let selectCase : ViewCase = .showResult
     
     private let searchTextField : UITextField = {
         let textField = UITextField()
@@ -40,21 +40,20 @@ class FriendAddViewController: UIViewController {
         textField.attributedPlaceholder = NSAttributedString(
             string : placeholderText,
             attributes: [
-                NSAttributedString.Key.foregroundColor : UIColor(hex: "8A8A8E"),
+                NSAttributedString.Key.foregroundColor : UIColor.systemGray3,
                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
             ]
         )
-                    
+        
         return textField
     }()
     
     private let searchButton : UIButton = {
-        
         // button style
         var configuration = UIButton.Configuration.filled()
         configuration.image = UIImage(systemName: "magnifyingglass")
-        configuration.baseBackgroundColor = UIColor.mainRed
-        configuration.background.cornerRadius = 10
+        configuration.baseBackgroundColor = UIColor.mainColor
+        configuration.background.cornerRadius = 12
         
         let button = UIButton(configuration: configuration)
         
@@ -62,8 +61,7 @@ class FriendAddViewController: UIViewController {
     }()
     
     private let fruitImage : UIImageView = {
-        let mainImage = UIImage(named: "peach")
-        
+        let mainImage = UIImage(named: "peach-1")
         let imageView = UIImageView(image: mainImage)
         
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
@@ -73,6 +71,7 @@ class FriendAddViewController: UIViewController {
     
     private let guideLabel : UILabel = {
         let label = UILabel()
+        
         label.text = "과연을 찾아보세요"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         
@@ -85,7 +84,6 @@ class FriendAddViewController: UIViewController {
         
         firstLineLabel.text = "찾으시는 과연이 없습니다"
         secondLineLabel.text = "이름#0000 으로 검색해주세요"
-        
         firstLineLabel.font = .systemFont(ofSize: 20, weight: .regular)
         secondLineLabel.font = .systemFont(ofSize: 20, weight: .regular)
         
@@ -106,8 +104,7 @@ class FriendAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupComponentLayout()
+        setLayout()
         
         // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
         if selectCase == .beforeSearch {
@@ -122,8 +119,7 @@ class FriendAddViewController: UIViewController {
         }
     }
     
-    private func setupComponentLayout() {
-        
+    private func setLayout() {
         view.backgroundColor = .systemBackground
         
         [fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView].forEach { component in
