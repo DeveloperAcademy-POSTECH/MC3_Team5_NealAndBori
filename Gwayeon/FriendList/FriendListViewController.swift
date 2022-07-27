@@ -14,22 +14,22 @@ struct FriendData {
     let friendsCount : Int
 }
 
-let friendsList = [
-    FriendData(name: "메리", fruit: "apple", friendsCount: 10),
-    FriendData(name: "소니", fruit: "pear", friendsCount: 33),
-    FriendData(name: "제리", fruit: "grape", friendsCount: 22),
-    FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
-    FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
-    FriendData(name: "닐", fruit: "orange", friendsCount: 28),
-    FriendData(name: "메리", fruit: "apple", friendsCount: 10),
-    FriendData(name: "소니", fruit: "pear", friendsCount: 33),
-    FriendData(name: "제리", fruit: "grape", friendsCount: 22),
-    FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
-    FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
-    FriendData(name: "닐", fruit: "orange", friendsCount: 28)
-]
-
 class FriendListViewController: UIViewController {
+
+    let friendsList = [
+        FriendData(name: "메리", fruit: "apple", friendsCount: 10),
+        FriendData(name: "소니", fruit: "pear", friendsCount: 33),
+        FriendData(name: "제리", fruit: "grape", friendsCount: 22),
+        FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
+        FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
+        FriendData(name: "닐", fruit: "orange", friendsCount: 28),
+        FriendData(name: "메리", fruit: "apple", friendsCount: 10),
+        FriendData(name: "소니", fruit: "pear", friendsCount: 33),
+        FriendData(name: "제리", fruit: "grape", friendsCount: 22),
+        FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
+        FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
+        FriendData(name: "닐", fruit: "orange", friendsCount: 28)
+    ]
     
     private let tableTitleLabel : UILabel = {
         let label = UILabel()
@@ -39,7 +39,7 @@ class FriendListViewController: UIViewController {
 
         return label
     }()
-    
+        
     private lazy var tableView : UITableView = {
         let frame = UIScreen.main.bounds
         let tableView = UITableView(frame: frame, style: .plain)
@@ -48,19 +48,64 @@ class FriendListViewController: UIViewController {
         tableView.delegate = self
         tableView.register(FriendListViewCell.self, forCellReuseIdentifier: FriendListViewCell.cellId)
         
+        // seperator edge 조정
         tableView.separatorInset = UIEdgeInsets.zero
+        
+        // table header
         let separatorHeight = 1 / UIScreen.main.scale
         let separatorFrame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: separatorHeight)
         let line = UIView(frame: separatorFrame)
-        tableView.tableHeaderView = line
         line.backgroundColor = tableView.separatorColor
+        tableView.tableHeaderView = line
+        
+        // table footer
+        footerView.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 122)
+        recommendTextLabel.frame = footerView.bounds
+        recommendLinkLabel.frame = footerView.bounds
+        footerView.addSubview(recommendTextLabel)
+        footerView.addSubview(recommendLinkLabel)
+        tableView.tableFooterView = footerView
         
         return tableView
     }()
+    
+    private let footerView : UIView = {
+        let view = UIView()
         
+        return view
+    }()
+    
+    private let recommendTextLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 22, weight: .medium)
+        label.textColor = UIColor.black
+        label.text = "찾으시는 친구가 없나요?"
+
+        return label
+    }()
+
+    private let recommendLinkLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .light)
+        label.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
+        label.text = "연락처에 있는 친구 과연으로 초대하기"
+
+        return label
+    }()
+    
+    private func setNavigationTitle() {
+        self.navigationItem.title = "친구 리스트"
+        
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: nil, action: nil)
+        self.navigationItem.leftBarButtonItem = backButton
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setNavigationTitle()
         setupComponentLayout()
     }
     
@@ -71,8 +116,9 @@ class FriendListViewController: UIViewController {
         self.view.addSubview(tableTitleLabel)
         self.view.addSubview(tableView)
         
-        tableTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        [tableTitleLabel, tableView, recommendTextLabel, recommendLinkLabel].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         // table title layout
         let tableTitleLabelConstraints = [
@@ -87,8 +133,19 @@ class FriendListViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
+        
+        // table footer layout
+        let recommendTextLabelConstraints = [
+            recommendTextLabel.topAnchor.constraint(equalTo: footerView.topAnchor, constant: 30),
+            recommendTextLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
 
-        [tableTitleLabelConstraints, tableViewConstraints].forEach { constraints in
+        let recommendLinkLabelConstraints = [
+            recommendLinkLabel.topAnchor.constraint(equalTo: recommendTextLabel.bottomAnchor, constant: 14),
+            recommendLinkLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ]
+        
+        [tableTitleLabelConstraints, tableViewConstraints, recommendTextLabelConstraints, recommendLinkLabelConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
@@ -106,7 +163,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
                                                            for: indexPath) as? FriendListViewCell else { return UITableViewCell() }
         
-        cell.setupData(rowNumber: indexPath.row)
+        cell.configure(data: friendsList[indexPath.row])
         
         return cell
     }

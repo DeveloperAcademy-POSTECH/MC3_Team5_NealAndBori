@@ -1,26 +1,14 @@
 //
-//  FriendListViewCell.swift
+//  FriendAddResultCellView.swift
 //  Gwayeon
 //
-//  Created by Kimhwiwon on 2022/07/19.
+//  Created by Kimhwiwon on 2022/07/27.
 //
-// TODO: Color+Extension 적용
 
 import UIKit
 
-class FriendListViewCell: UITableViewCell {
-    
-    static let cellId = "FriendCell"
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupComponentLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+class FriendAddResultCellView: UIView {
+
     private let fruitImage = UIImageView()
     
     private let nameLabel : UILabel = {
@@ -29,49 +17,62 @@ class FriendListViewCell: UITableViewCell {
         return label
     }()
     
-    private let friendNumberLabel : UILabel = {
+    private let codeLabel : UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.textColor = UIColor.systemGray
+        return label
+    }()
+    
+    private let recommendCountLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .bold)
-        label.textColor = UIColor(red: 246/256, green: 104/256, blue: 94/256, alpha: 1.00)
+        label.textColor = UIColor.mainColor
         return label
     }()
     
     private let friendTextLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .medium)
-        label.textColor = UIColor(red: 151/256, green: 151/256, blue: 151/256, alpha: 1.00)
-        label.text = "명의 과연이 있어요"
+        label.textColor = UIColor.systemGray
+        label.text = "개의 과일을 추천해요"
         return label
     }()
     
     private let friendView : UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .horizontal
         stackView.alignment = .leading
         stackView.spacing = 0
-        
         return stackView
     }()
     
-    func configure(data : FriendData) {
-     
+    func configure(data : FriendResultData) {
         self.nameLabel.text = data.name
-        self.fruitImage.image = UIImage(named: "apple")
-        self.friendNumberLabel.text = String(data.friendsCount)
+        self.codeLabel.text = data.code
+        self.fruitImage.image = UIImage(named: data.fruit)
+        self.recommendCountLabel.text = String(data.recommendsCount)
     }
     
-    private func setupComponentLayout() {
-        
-        [friendNumberLabel, friendTextLabel].forEach { component in
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setLayout() {
+        [recommendCountLabel, friendTextLabel].forEach { component in
             self.friendView.addArrangedSubview(component)
         }
         
-        [nameLabel, fruitImage, friendView].forEach { component in
+        [nameLabel, codeLabel,fruitImage, friendView].forEach { component in
             self.addSubview(component)
         }
         
-        [nameLabel, fruitImage, friendNumberLabel, friendTextLabel,friendView].forEach { component in
+        [nameLabel, codeLabel, fruitImage, recommendCountLabel, friendTextLabel,friendView].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -80,8 +81,13 @@ class FriendListViewCell: UITableViewCell {
             nameLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5)
         ]
         
+        let codeLabelConstraints = [
+            codeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+            codeLabel.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -2.5)
+        ]
+        
         let fruitImageConstraints = [
-            fruitImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            fruitImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             fruitImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 18),
             fruitImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -18),
             fruitImage.widthAnchor.constraint(equalToConstant: 64),
@@ -93,10 +99,9 @@ class FriendListViewCell: UITableViewCell {
             friendView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5)
         ]
         
-        [nameLabelConstraints, fruitImageConstraints, friendViewConstrains].forEach { constraints in
+        [nameLabelConstraints, codeLabelConstraints, fruitImageConstraints, friendViewConstrains].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
-        
     }
 
 }
