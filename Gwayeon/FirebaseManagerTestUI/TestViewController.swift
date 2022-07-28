@@ -155,8 +155,10 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        self.navigationItem.title = "Firebase Test Page"
+        self.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.title = "Test Page"
+
         setLayouts()
     }
     

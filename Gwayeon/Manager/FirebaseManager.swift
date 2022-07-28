@@ -22,24 +22,6 @@ final class FirebaseManager {
     func getUserInformation(uid: String, completion: @escaping (Result<[User], Error>) -> Void) {
         
         FirebaseManager.db.collection("Users").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, err in
-//            if let err = err {
-//                print("Error getting documents: \(err)")
-//            } else {
-//                var users: [User] = []
-//                for document in querySnapshot!.documents {
-//                    do {
-//                        let data = try JSONSerialization.data(withJSONObject: document.data())
-//                        let user = try FirebaseManager.decoder.decode(User.self, from: data)
-//                        users.append(user)
-//                    } catch {
-//                        print(error)
-//                        completion(.failure(error))
-//                    }
-//                }
-//                completion(.success(users))
-                
-//           }
-                
                 if let err = err {
                     print("Error getting documents: \(err)")
                     completion(.failure(err))
