@@ -14,6 +14,7 @@
 		373DD9D02890FFED009A9E8B /* FruitSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373DD9CF2890FFED009A9E8B /* FruitSelectViewController.swift */; };
 		373DD9D228910079009A9E8B /* FruitSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373DD9D128910079009A9E8B /* FruitSelectCollectionViewCell.swift */; };
 		373DD9D528921F87009A9E8B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0012885381400D66F41 /* MainTabBarViewController.swift */; };
+		373DD9D728923A06009A9E8B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */; };
 		37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */; };
 		37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA172887AC6D009FB2DA /* InputSection.swift */; };
 		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
@@ -30,7 +31,6 @@
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
 		768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */; };
-		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958FB2890E4EF00F979AE /* UIView+Extension.swift */; };
 		768958FE28910F7F00F979AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 768958FD28910F7F00F979AE /* GoogleService-Info.plist */; };
 		768959012891119600F979AE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 768959002891119600F979AE /* FirebaseAnalytics */; };
@@ -56,6 +56,7 @@
 		14CD04682886A0D50062AFF1 /* FriendListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
 		373DD9CF2890FFED009A9E8B /* FruitSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSelectViewController.swift; sourceTree = "<group>"; };
 		373DD9D128910079009A9E8B /* FruitSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSelectCollectionViewCell.swift; sourceTree = "<group>"; };
+		373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFarmViewController.swift; sourceTree = "<group>"; };
 		37F1FA172887AC6D009FB2DA /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendToFriendViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFruitListCollectionViewCell.swift; sourceTree = "<group>"; };
-		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		768958FB2890E4EF00F979AE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		768958FD28910F7F00F979AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7689590728911E2900F979AE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -169,6 +169,7 @@
 				7605A01B28878EA700D66F41 /* NSMutableAttributedString+Extension.swift */,
 				7605A022288974E500D66F41 /* UIButton+Extension.swift */,
 				768958FB2890E4EF00F979AE /* UIView+Extension.swift */,
+				373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -357,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				373DD9D728923A06009A9E8B /* UIViewController+Extension.swift in Sources */,
 				373DD9D528921F87009A9E8B /* MainTabBarViewController.swift in Sources */,
 				1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */,
 				14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */,
