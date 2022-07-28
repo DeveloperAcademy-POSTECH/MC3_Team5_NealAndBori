@@ -12,7 +12,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     static let identifier = "BuyingListCollectionViewCell"
     // MARK: - property
     weak var parent: UIViewController?
-    private let purchaseDataLabel: UILabel = {
+    private let purchaseDateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = .grey001
@@ -87,19 +87,19 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setCollectionViewLayout() {
-        [purchaseDataLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToFriendButton, fruitImageView].forEach { component in
+        [purchaseDateLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToFriendButton, fruitImageView].forEach { component in
             contentView.addSubview(component)
         }
         
-        purchaseDataLabel.translatesAutoresizingMaskIntoConstraints = false
+        purchaseDateLabel.translatesAutoresizingMaskIntoConstraints = false
         let peoplePickLabelConstraints = [
-            purchaseDataLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
-            purchaseDataLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+            purchaseDateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
+            purchaseDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
         
         fruitLabel.translatesAutoresizingMaskIntoConstraints = false
         let fruitLabelConstraints = [
-            fruitLabel.topAnchor.constraint(equalTo: purchaseDataLabel.bottomAnchor, constant: 16),
+            fruitLabel.topAnchor.constraint(equalTo: purchaseDateLabel.bottomAnchor, constant: 16),
             fruitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
                 
