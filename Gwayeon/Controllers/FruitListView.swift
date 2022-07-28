@@ -9,6 +9,7 @@ import UIKit
 
 final class FruitListView: UIView {
     
+//    private let data = ["전체"]
     private let data = ["전체", "사과", "자두", "수박", "복숭아", "참외", "포도"]
     
     private enum Size {

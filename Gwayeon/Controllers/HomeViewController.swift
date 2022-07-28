@@ -9,7 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
+//    private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
+    private let data = [String]()
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
@@ -31,6 +32,8 @@ class HomeViewController: UIViewController {
     
     private let fruitListView = FruitListView()
     
+    private let fruitEmptyView = FruitEmptyView()
+    
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -51,23 +54,21 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: Life Cycle Function
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNavigationBackButton()
-        setComponentLayouts()
-        
+        configureViewComponent()
     }
     
-    private func setNavigationBackButton() {
-        view.backgroundColor = .systemBackground
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .label
-        self.navigationItem.backBarButtonItem = backBarButtonItem
+    // MARK: Configures
+    private func configureViewComponent() {
+        view.backgroundColor = .white
+        if !data.isEmpty {
+            fruitEmptyView.isHidden = true
+        }
         
-    }
-    private func setComponentLayouts() {
-        [titleLabel, fruitListView, listCollectionView].forEach { component in
+        [titleLabel, fruitListView, fruitEmptyView, listCollectionView].forEach { component in
             view.addSubview(component)
         }
         
@@ -85,6 +86,14 @@ class HomeViewController: UIViewController {
             fruitListView.heightAnchor.constraint(equalToConstant: 45)
         ]
         
+        fruitEmptyView.translatesAutoresizingMaskIntoConstraints = false
+        let fruitEmptyViewConstraints = [
+            fruitEmptyView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 66),
+            fruitEmptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            fruitEmptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            fruitEmptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ]
+        
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let listCollectionViewConstraints = [
             listCollectionView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 20),
@@ -93,7 +102,7 @@ class HomeViewController: UIViewController {
             listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
-        [titleLabelConstraints, fruitListViewConstraints, listCollectionViewConstraints].forEach { constraints in
+        [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, listCollectionViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
         
