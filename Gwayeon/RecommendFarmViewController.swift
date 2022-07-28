@@ -86,5 +86,18 @@ class RecommendFarmViewController: UIViewController {
         [titleLabelConstraint, sectionStackViewConstraint, finishButtonConstraint].forEach { constraint in
             NSLayoutConstraint.activate(constraint)
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCategory))
+        categorySection.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func didTapCategory() {
+        let modalViewController = FruitSelectViewController()
+        modalViewController.modalPresentationStyle = .pageSheet
+        modalViewController.getSelectedItem = { item in
+            self.categorySection.setTextFieldItem(item)
+            modalViewController.dismiss(animated: true)
+        }
+        present(modalViewController, animated: true, completion: nil)
     }
 }

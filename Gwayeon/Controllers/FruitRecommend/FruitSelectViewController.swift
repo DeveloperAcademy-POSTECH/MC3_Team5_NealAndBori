@@ -25,6 +25,8 @@ class FruitSelectViewController: UIViewController {
         return collectionView
     }()
     
+    var getSelectedItem: ((_ item: String) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -78,5 +80,9 @@ extension FruitSelectViewController: UICollectionViewDelegateFlowLayout, UIColle
         let cellWidth = (collectionViewWidth - 32 * 3)/4
         let cellHeight = (collectionViewHeight - 24 * 4)/5
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.getSelectedItem?(categoryArray[indexPath.item])
     }
 }
