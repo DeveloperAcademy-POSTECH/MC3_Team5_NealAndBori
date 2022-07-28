@@ -44,7 +44,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    lazy private var recommendToGwayeonButton: UIButton = {
+    lazy private var recommendToFriendButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "square.and.pencil"), for: .normal)
         button.setTitle("과연에게 추천하기", for: .normal)
@@ -87,7 +87,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setCollectionViewLayout() {
-        [purchaseDataLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToGwayeonButton, fruitImageView].forEach { component in
+        [purchaseDataLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToFriendButton, fruitImageView].forEach { component in
             contentView.addSubview(component)
         }
         
@@ -109,10 +109,10 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
             farmLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
         
-        recommendToGwayeonButton.translatesAutoresizingMaskIntoConstraints = false
+        recommendToFriendButton.translatesAutoresizingMaskIntoConstraints = false
         let recommendToGwayeonButtonConstraints = [
-            recommendToGwayeonButton.topAnchor.constraint(equalTo: farmLabel.bottomAnchor, constant: 24),
-            recommendToGwayeonButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+            recommendToFriendButton.topAnchor.constraint(equalTo: farmLabel.bottomAnchor, constant: 24),
+            recommendToFriendButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
         
         fruitInfoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -156,10 +156,10 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     func setButtonOrLabelHidden(status: Bool) {
         if status {
             fruitInfoLabel.isHidden = false
-            recommendToGwayeonButton.isHidden = true
+            recommendToFriendButton.isHidden = true
         } else {
             fruitInfoLabel.isHidden = true
-            recommendToGwayeonButton.isHidden = false
+            recommendToFriendButton.isHidden = false
         }
     }
 }
