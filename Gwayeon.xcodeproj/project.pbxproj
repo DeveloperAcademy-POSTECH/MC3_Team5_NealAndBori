@@ -30,7 +30,6 @@
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
 		768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */; };
-		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958FB2890E4EF00F979AE /* UIView+Extension.swift */; };
 		768958FE28910F7F00F979AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 768958FD28910F7F00F979AE /* GoogleService-Info.plist */; };
 		768959012891119600F979AE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 768959002891119600F979AE /* FirebaseAnalytics */; };
@@ -40,6 +39,7 @@
 		7689590B28911EC500F979AE /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689590A28911EC500F979AE /* FirebaseManager.swift */; };
 		7689590E2891229200F979AE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7689590D2891229200F979AE /* FirebaseFirestoreSwift */; };
 		768959102891238F00F979AE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689590F2891238F00F979AE /* TestViewController.swift */; };
+		7689591328929B1400F979AE /* Recommend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689591228929B1400F979AE /* Recommend.swift */; };
 		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
@@ -76,12 +76,12 @@
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFruitListCollectionViewCell.swift; sourceTree = "<group>"; };
-		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		768958FB2890E4EF00F979AE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		768958FD28910F7F00F979AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7689590728911E2900F979AE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7689590A28911EC500F979AE /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		7689590F2891238F00F979AE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7689591228929B1400F979AE /* Recommend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommend.swift; sourceTree = "<group>"; };
 		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
@@ -225,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				7689590728911E2900F979AE /* User.swift */,
+				7689591228929B1400F979AE /* Recommend.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +362,7 @@
 				1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */,
 				14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */,
 				CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */,
+				7689591328929B1400F979AE /* Recommend.swift in Sources */,
 				14CD04672886A0A40062AFF1 /* FriendListViewController.swift in Sources */,
 				768959102891238F00F979AE /* TestViewController.swift in Sources */,
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
