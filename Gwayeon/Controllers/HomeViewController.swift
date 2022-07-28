@@ -47,6 +47,7 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.register(FarmCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
@@ -104,6 +105,7 @@ class HomeViewController: UIViewController {
         [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, listCollectionViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
+        
     }
 }
 
@@ -122,3 +124,10 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController()
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
