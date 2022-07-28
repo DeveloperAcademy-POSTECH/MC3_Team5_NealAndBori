@@ -16,7 +16,6 @@ class FruitSelectViewController: UIViewController {
         label.text = "과일 선택"
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
