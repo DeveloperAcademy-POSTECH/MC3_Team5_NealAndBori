@@ -19,7 +19,7 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        FirebaseManager.shared.gerUserInformation(uid: "1234") { results in
+        FirebaseManager.shared.getUserInformation(uid: "1234") { results in
             switch results {
             case .success(let users):
                 print(users)
