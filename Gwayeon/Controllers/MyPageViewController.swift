@@ -109,9 +109,8 @@ class MyPageViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.register(FarmCollectionViewCell.self,
-                                forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
         collectionView.register(EmptyButtonCollectionViewCell.self, forCellWithReuseIdentifier: EmptyButtonCollectionViewCell.identifier)
+        collectionView.register(MyPageFruitListCollectionViewCell.self, forCellWithReuseIdentifier: MyPageFruitListCollectionViewCell.identifier)
         return collectionView
     }()
     
@@ -151,6 +150,9 @@ class MyPageViewController: UIViewController {
             purchaseListButton.setButtonBlur()
         }
         segmentButtonStatus.toggle()
+        DispatchQueue.main.async { [weak self] in
+            self?.listCollectionView.reloadData()
+        }
     }
     
 }
@@ -261,34 +263,47 @@ extension MyPageViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.row {
-        case Section.first.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
+        if segmentButtonStatus {
+            switch indexPath.row {
+            case Section.first.rawValue:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                cell.setParentViewController(viewController: self)
+                return cell
+                
+            default:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                cell.setButtonOrLabelHidden(status: segmentButtonStatus)
+                return cell
+            }
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell else {
                 return UICollectionViewCell()
             }
             cell.setParentViewController(viewController: self)
-            
-            return cell
-        default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
-                assert(false, "Wrong Cell")
-            }
-            
+            cell.setButtonOrLabelHidden(status: segmentButtonStatus)
             return cell
         }
     }
 }
-
 // MARK: - CollectionView Delegate
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case CollectionViewCellSection.addingFarm.rawValue:
-            let recommendFarmViewController = RecommendFarmViewController()
-            self.navigationController?.pushViewController(recommendFarmViewController, animated: true)
-        default:
-            let detailViewController = DetailViewController()
-            self.navigationController?.pushViewController(detailViewController, animated: true)
+        if segmentButtonStatus {
+            switch indexPath.row {
+            case CollectionViewCellSection.addingFarm.rawValue:
+                let recommendFarmViewController = RecommendFarmViewController()
+                recommendFarmViewController.navigationItem.largeTitleDisplayMode = .never
+                self.navigationController?.pushViewController(recommendFarmViewController, animated: true)
+            default:
+                let detailViewController = DetailViewController()
+                detailViewController.navigationItem.largeTitleDisplayMode = .never
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
         }
     }
+    
 }

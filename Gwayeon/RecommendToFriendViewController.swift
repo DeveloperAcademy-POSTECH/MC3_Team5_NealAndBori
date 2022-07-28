@@ -64,12 +64,12 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy var completionButton:UIButton = {
+    lazy private var completionButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         button.setTitle("완료", for: UIControl.State.normal)
-        
+        button.addTarget(self, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -166,11 +166,14 @@ class RecommendToFriendViewController: UIViewController {
         
     }
     
-    @objc
-    private func didTapTextView(_ sender: Any) {
+    @objc private func didTapTextView(_ sender: Any) {
         view.endEditing(true)
     }
     
+    @objc private func completeButtonClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+        
+    }
 }
 
 extension RecommendToFriendViewController: UITextViewDelegate {
