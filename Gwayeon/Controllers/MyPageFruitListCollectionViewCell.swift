@@ -12,7 +12,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     static let identifier = "BuyingListCollectionViewCell"
     // MARK: - property
     weak var parent: UIViewController?
-    private let peoplePickLabel: UILabel = {
+    private let purchaseDataLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = .grey001
@@ -51,16 +51,16 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         button.tintColor = .mainColor
         button.setTitleColor(UIColor.mainColor, for: .normal)
-        button.addTarget(self, action: #selector(recommendToGwayButtonClicked(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(recommendToFriendButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
-    
-    private var fruitImageView: UIImageView = { imageView in
+    private var fruitImageView: UIImageView = {
+        let imageView = UIImageView(frame: .zero)
         imageView.image = UIImage(named: "peach")
         imageView.contentMode = .scaleAspectFill
         return imageView
-    }(UIImageView(frame: .zero))
+    }()
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -87,19 +87,19 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setCollectionViewLayout() {
-        [peoplePickLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToGwayeonButton, fruitImageView].forEach { component in
+        [purchaseDataLabel, fruitLabel, farmLabel, fruitInfoLabel,recommendToGwayeonButton, fruitImageView].forEach { component in
             contentView.addSubview(component)
         }
         
-        peoplePickLabel.translatesAutoresizingMaskIntoConstraints = false
+        purchaseDataLabel.translatesAutoresizingMaskIntoConstraints = false
         let peoplePickLabelConstraints = [
-            peoplePickLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
-            peoplePickLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
+            purchaseDataLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
+            purchaseDataLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
         
         fruitLabel.translatesAutoresizingMaskIntoConstraints = false
         let fruitLabelConstraints = [
-            fruitLabel.topAnchor.constraint(equalTo: peoplePickLabel.bottomAnchor, constant: 16),
+            fruitLabel.topAnchor.constraint(equalTo: purchaseDataLabel.bottomAnchor, constant: 16),
             fruitLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17)
         ]
                 
@@ -144,7 +144,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         layer.shadowRadius = 20
     }
     
-    @objc private func recommendToGwayButtonClicked(_ sender: Any) {
+    @objc private func recommendToFriendButtonClicked(_ sender: Any) {
         let recommendToFriendViewController = RecommendToFriendViewController()
         parent?.navigationController?.pushViewController(recommendToFriendViewController, animated: true)
     }

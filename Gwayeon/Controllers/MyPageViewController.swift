@@ -109,8 +109,6 @@ class MyPageViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
-//        collectionView.register(FarmCollectionViewCell.self,
-//                                forCellWithReuseIdentifier: FarmCollectionViewCell.identifier)
         collectionView.register(EmptyButtonCollectionViewCell.self, forCellWithReuseIdentifier: EmptyButtonCollectionViewCell.identifier)
         collectionView.register(MyPageFruitListCollectionViewCell.self, forCellWithReuseIdentifier: MyPageFruitListCollectionViewCell.identifier)
         return collectionView
