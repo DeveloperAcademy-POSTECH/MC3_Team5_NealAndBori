@@ -24,6 +24,20 @@ class DetailViewController: UIViewController {
         return label
     }()
     
+    // UIButton.Configuration: ios 15에서 업데이트된 기능. more customizable.
+    private lazy var callButton: UIButton = {
+        var config = UIButton.Configuration.filled()
+        config.cornerStyle = .medium
+        config.baseBackgroundColor = .mainColor
+        config.image = UIImage(systemName: "phone.fill")
+        config.title = " 전화하기"
+        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
+        config.buttonSize = .large
+        let button = UIButton(configuration: config)
+        button.addTarget(self, action: #selector(phoneCall), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var farmName: UILabel = {
         let label = UILabel()
         label.text = "오로라 농장"
@@ -40,18 +54,30 @@ class DetailViewController: UIViewController {
 
     private let reviewListView = ReviewCollectionView()
     
+    // 자신의 번호를 입력해주세요
+    private var phoneNumber = ""
+    
     // MARK: Life Cycle Function
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureViewComponent()
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: Configures
+    @objc private func phoneCall() {
+        guard let url = URL(string: "tel://\(phoneNumber)"),
+            UIApplication.shared.canOpenURL(url) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
         
-        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel].forEach { component in
+        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -83,7 +109,15 @@ class DetailViewController: UIViewController {
             reviewListView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
-        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints].forEach { component in
+        let callButtonConstraints = [
+            callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            callButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            callButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            callButton.heightAnchor.constraint(equalToConstant: 56),
+            callButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65)
+        ]
+        
+        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
         }
     }
