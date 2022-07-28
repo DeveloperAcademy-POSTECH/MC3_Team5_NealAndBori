@@ -8,9 +8,12 @@
 import UIKit
 
 class UserProfileCompletionViewController: UIViewController {
+    
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named:"peaches")
+        let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
+        let number = Int.random(in: 0...categoryImage.count)
+        imageView.image = UIImage(named: categoryImage[number])
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
