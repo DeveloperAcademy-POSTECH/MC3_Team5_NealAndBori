@@ -34,7 +34,6 @@ class UserProfileCompletionViewController: UIViewController {
     }()
     
     private let withGwayeonLabel: UILabel = {
-        
         let label = UILabel()
         let str = "이제 과연과\n농산물 직거래를 함께하세요"
         label.numberOfLines = 2
@@ -72,9 +71,7 @@ class UserProfileCompletionViewController: UIViewController {
     private func setLayout() {
         view.backgroundColor = .systemBackground
         
-        [profileImageView, usernameLabel,profileCompletionLabel, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton].forEach { component in
-            view.addSubview(component)
-        }
+        view.addSubviews(profileImageView, usernameLabel,profileCompletionLabel, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton)
         
         [profileImageView, usernameLabel,profileCompletionLabel, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton].forEach { component in
             component.translatesAutoresizingMaskIntoConstraints = false        }
