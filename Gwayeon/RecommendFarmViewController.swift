@@ -95,7 +95,7 @@ class RecommendFarmViewController: UIViewController {
         let modalViewController = FruitSelectViewController()
         modalViewController.modalPresentationStyle = .pageSheet
         modalViewController.getSelectedItem = { item in
-            self.categorySection.setTextFieldItem(item)
+            self.categorySection.setTextFieldItem(FruitCategory.names[item])
             modalViewController.dismiss(animated: true)
         }
         present(modalViewController, animated: true, completion: nil)
