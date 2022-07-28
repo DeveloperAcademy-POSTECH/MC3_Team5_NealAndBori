@@ -20,7 +20,6 @@ class FruitSelectCollectionViewCell: UICollectionViewCell {
     let label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17)
-        
         return label
     }()
     
