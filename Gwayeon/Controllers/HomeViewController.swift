@@ -87,7 +87,7 @@ class HomeViewController: UIViewController {
         
         fruitEmptyView.translatesAutoresizingMaskIntoConstraints = false
         let fruitEmptyViewConstraints = [
-            fruitEmptyView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 40),
+            fruitEmptyView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 66),
             fruitEmptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             fruitEmptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             fruitEmptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
