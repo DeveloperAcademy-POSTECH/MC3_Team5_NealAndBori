@@ -22,22 +22,32 @@ final class FirebaseManager {
     func getUserInformation(uid: String, completion: @escaping (Result<[User], Error>) -> Void) {
         
         FirebaseManager.db.collection("Users").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, err in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var users: [User] = []
-                for document in querySnapshot!.documents {
-                    do {
-                        let data = try JSONSerialization.data(withJSONObject: document.data())
-                        let user = try FirebaseManager.decoder.decode(User.self, from: data)
-                        users.append(user)
-                    } catch {
-                        print(error)
-                        completion(.failure(error))
-                    }
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                var users: [User] = []
+//                for document in querySnapshot!.documents {
+//                    do {
+//                        let data = try JSONSerialization.data(withJSONObject: document.data())
+//                        let user = try FirebaseManager.decoder.decode(User.self, from: data)
+//                        users.append(user)
+//                    } catch {
+//                        print(error)
+//                        completion(.failure(error))
+//                    }
+//                }
+//                completion(.success(users))
+                
+//           }
+                
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                    completion(.failure(err))
+                } else {
+                        let datas = querySnapshot!.documents.map { try? $0.data(as: User.self) }
+                        let users = datas.compactMap({ $0 })
+                        completion(.success(users))
                 }
-                completion(.success(users))
-            }
         }
     }
     
@@ -46,19 +56,11 @@ final class FirebaseManager {
         FirebaseManager.db.collection("Recommends").whereField("uid", isEqualTo: uid).whereField("nickname", isEqualTo: nickname).getDocuments { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
+                completion(.failure(err))
             } else {
-                var recommends: [Recommend] = []
-                for document in querySnapshot!.documents {
-                    do {
-                        let data = try JSONSerialization.data(withJSONObject: document.data())
-                        let recommend = try FirebaseManager.decoder.decode(Recommend.self, from: data)
-                        recommends.append(recommend)
-                    } catch {
-                        print(error)
-                        completion(.failure(error))
-                    }
-                }
-                completion(.success(recommends))
+                    let datas = querySnapshot!.documents.map { try? $0.data(as: Recommend.self) }
+                    let recommends = datas.compactMap({ $0 })
+                    completion(.success(recommends))
             }
         }
     }
