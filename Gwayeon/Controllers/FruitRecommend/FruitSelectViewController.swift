@@ -6,11 +6,12 @@
 //
 
 import UIKit
+class FruitCategory {
+    static let names = ["사과", "배", "귤", "수박", "포도", "복숭아", "토마토", "자두", "블루베리", "딸기", "참외", "멜론", "키위", "무화과", "망고", "감", "기타 과일"]
+    static let images = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
+}
 
 class FruitSelectViewController: UIViewController {
-    private let categoryArray = ["사과", "배", "귤", "수박", "포도", "복숭아", "토마토", "자두", "블루베리", "딸기", "참외", "멜론", "키위", "무화과", "망고", "감", "기타 과일"]
-    private let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "과일 선택"
@@ -25,7 +26,7 @@ class FruitSelectViewController: UIViewController {
         return collectionView
     }()
     
-    var getSelectedItem: ((_ item: String) -> Void)?
+    var getSelectedItem: ((_ item: Int) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +65,8 @@ extension FruitSelectViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellText = categoryArray[indexPath.item]
-        let cellImage = categoryImage[indexPath.item]
+        let cellText = FruitCategory.names[indexPath.item]
+        let cellImage = FruitCategory.images[indexPath.item]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitSelectCollectionViewCell.identifier, for: indexPath) as? FruitSelectCollectionViewCell else {
             return UICollectionViewCell()
         }
@@ -83,6 +84,6 @@ extension FruitSelectViewController: UICollectionViewDelegateFlowLayout, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.getSelectedItem?(categoryArray[indexPath.item])
+        self.getSelectedItem?(indexPath.item)
     }
 }
