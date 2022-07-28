@@ -47,7 +47,7 @@ class FriendAddViewController: UIViewController {
         return textField
     }()
     
-    private let searchButton : UIButton = {
+    private lazy var searchButton : UIButton = {
         // button style
         var configuration = UIButton.Configuration.filled()
         configuration.image = UIImage(systemName: "magnifyingglass")
@@ -55,6 +55,7 @@ class FriendAddViewController: UIViewController {
         configuration.background.cornerRadius = 12
         
         let button = UIButton(configuration: configuration)
+        button.addTarget(self, action: #selector(searchFriend), for: .touchUpInside)
         return button
     }()
     
@@ -92,6 +93,17 @@ class FriendAddViewController: UIViewController {
         view.configure(data: friendSearchResult[0])
         return view
     }()
+    
+    @objc func searchFriend() {
+        FirebaseManager.shared.getUserInformation(uid: "1234") { results in
+            switch results {
+            case .success(let users):
+                print(users)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
