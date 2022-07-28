@@ -9,7 +9,8 @@ import UIKit
 
 final class FruitListView: UIView {
     
-    private let data = ["사과", "자두", "수박", "복숭아"]
+//    private let data = ["전체"]
+    private let data = ["전체", "사과", "자두", "수박", "복숭아", "참외", "포도"]
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 16.0
@@ -37,6 +38,7 @@ final class FruitListView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.backgroundColor = .clear
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(FruitCollectionViewCell.self,
                                 forCellWithReuseIdentifier: FruitCollectionViewCell.identifier)
@@ -76,12 +78,24 @@ extension FruitListView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitCollectionViewCell.identifier, for: indexPath) as? FruitCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitCollectionViewCell.identifier, for: indexPath) as? FruitCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
-        dequeuedCell.nameLabel.text = data[indexPath.item]
+        if indexPath.item == 0 {
+            cell.isSelected = true
+            collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
+        }
         
-        return dequeuedCell
+        cell.nameLabel.text = data[indexPath.item]
+        
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension FruitListView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
 }

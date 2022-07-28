@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478662C288E6C260029FE50 /* FriendAddViewController.swift */; };
+		1478662F28905C7F0029FE50 /* FriendAddResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1478662E28905C7F0029FE50 /* FriendAddResultCellView.swift */; };
 		14CD04672886A0A40062AFF1 /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD04662886A0A40062AFF1 /* FriendListViewController.swift */; };
 		14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CD04682886A0D50062AFF1 /* FriendListViewCell.swift */; };
 		37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */; };
 		37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA172887AC6D009FB2DA /* InputSection.swift */; };
 		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
+		452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */; };
 		7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0012885381400D66F41 /* MainTabBarViewController.swift */; };
 		7605A0042885383000D66F41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0032885383000D66F41 /* HomeViewController.swift */; };
 		7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0052885383D00D66F41 /* MyPageViewController.swift */; };
@@ -25,18 +28,25 @@
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
 		768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */; };
+		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
+		768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958FB2890E4EF00F979AE /* UIView+Extension.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
 		CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */; };
 		DDF625A02886D435008E441D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF6259F2886D435008E441D /* DetailViewController.swift */; };
+		DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */; };
+		DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF625A928899D49008E441D /* ReviewCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1478662C288E6C260029FE50 /* FriendAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddViewController.swift; sourceTree = "<group>"; };
+		1478662E28905C7F0029FE50 /* FriendAddResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAddResultCellView.swift; sourceTree = "<group>"; };
 		14CD04662886A0A40062AFF1 /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		14CD04682886A0D50062AFF1 /* FriendListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
 		37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFarmViewController.swift; sourceTree = "<group>"; };
 		37F1FA172887AC6D009FB2DA /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendToFriendViewController.swift; sourceTree = "<group>"; };
+		452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameSettingViewController.swift; sourceTree = "<group>"; };
 		76059FFE2884D17D00D66F41 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7605A0012885381400D66F41 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		7605A0032885383000D66F41 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -53,10 +63,14 @@
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFruitListCollectionViewCell.swift; sourceTree = "<group>"; };
+		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
+		768958FB2890E4EF00F979AE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
 		CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitCollectionViewCell.swift; sourceTree = "<group>"; };
 		DDF6259F2886D435008E441D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionViewCell.swift; sourceTree = "<group>"; };
+		DDF625A928899D49008E441D /* ReviewCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +105,10 @@
 				CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */,
 				7605A0242889833F00D66F41 /* EmptyButtonCollectionViewCell.swift */,
 				768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */,
+				CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */,
+				1478662C288E6C260029FE50 /* FriendAddViewController.swift */,
+				1478662E28905C7F0029FE50 /* FriendAddResultCellView.swift */,
+				452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -110,6 +128,7 @@
 				7605A00A2885703F00D66F41 /* Color+Extension.swift */,
 				7605A01B28878EA700D66F41 /* NSMutableAttributedString+Extension.swift */,
 				7605A022288974E500D66F41 /* UIButton+Extension.swift */,
+				768958FB2890E4EF00F979AE /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -142,6 +161,7 @@
 		764504DE287FB0D30048B3F0 /* Gwayeon */ = {
 			isa = PBXGroup;
 			children = (
+				DDF625A3288798EA008E441D /* Views */,
 				14CD04652886A04C0062AFF1 /* FriendList */,
 				7605A00728856C6100D66F41 /* Globals */,
 				7605A000288537CA00D66F41 /* Controllers */,
@@ -155,6 +175,15 @@
 				4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */,
 			);
 			path = Gwayeon;
+			sourceTree = "<group>";
+		};
+		DDF625A3288798EA008E441D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DDF625A428879918008E441D /* ReviewCollectionViewCell.swift */,
+				DDF625A928899D49008E441D /* ReviewCollectionView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,12 +278,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */,
 				14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */,
+				CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */,
 				14CD04672886A0A40062AFF1 /* FriendListViewController.swift in Sources */,
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
 				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
 				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
 				768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */,
+				DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */,
+				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
+				DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */,
 				37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */,
 				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
 				37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */,
@@ -262,12 +296,15 @@
 				CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				7605A0252889833F00D66F41 /* EmptyButtonCollectionViewCell.swift in Sources */,
+				768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */,
 				7605A01C28878EA700D66F41 /* NSMutableAttributedString+Extension.swift in Sources */,
 				7605A023288974E500D66F41 /* UIButton+Extension.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
 				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
 				CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */,
+				1478662F28905C7F0029FE50 /* FriendAddResultCellView.swift in Sources */,
+				452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +451,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UXVK9G3AX9;
+				DEVELOPMENT_TEAM = 848PGS94YW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -442,7 +479,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UXVK9G3AX9;
+				DEVELOPMENT_TEAM = 848PGS94YW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
