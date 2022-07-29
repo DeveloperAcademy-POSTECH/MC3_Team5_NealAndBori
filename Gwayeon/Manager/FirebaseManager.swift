@@ -19,21 +19,27 @@ final class FirebaseManager {
     
     private init() { }
     
-    func getUserInformation(uid: String, completion: @escaping (Result<[User], Error>) -> Void) {
+//    친구추가시 사용되는 함수, 닉네임과 핀코드를 가지고 사람 정보를 불러온다 .
+    func getUserInformationFromPinCode(username: String, pinCode: String, completion: @escaping (Result<[User], Error>) -> Void) {
         
-        FirebaseManager.db.collection("Users").whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, err in
+        FirebaseManager.db.collection("User").whereField("pinCode", isEqualTo: pinCode).whereField("username", isEqualTo: username).getDocuments { querySnapshot, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                     completion(.failure(err))
                 } else {
-                        let datas = querySnapshot!.documents.map { try? $0.data(as: User.self) }
-                        let users = datas.compactMap({ $0 })
-                        completion(.success(users))
+                    let datas = querySnapshot!.documents.map { try? $0.data(as: User.self) }
+                    let users = datas.compactMap({ $0 })
+                    if users.count > 1 {
+                        completion(.failure(APIError.duplicatedUser))
+                    }
+                    completion(.success(users))
                 }
         }
     }
-    
+
+//    pinCode와 nickname을 가지고 해당 유저가 만
     func getRecommendInformation(uid: String, nickname: String, completion: @escaping (Result<[Recommend], Error>) -> Void) {
+        
         
         FirebaseManager.db.collection("Recommends").whereField("uid", isEqualTo: uid).whereField("nickname", isEqualTo: nickname).getDocuments { querySnapshot, err in
             if let err = err {
@@ -47,8 +53,9 @@ final class FirebaseManager {
         }
     }
     
-    func sendUserInformation(uid: String, nickname: String) {
-        let user = User(uid: uid, username: nickname, friends: [], recommendLists: [])
+//    pinCode와 username을 가지고 새로운 User정보를 생산한다.
+    func sendUserInformation(pinCode: String, username: String) {
+        let user = User(pinCode: pinCode, username: username, friends: [], recommends: [])
         do {
             try FirebaseManager.db.collection("Users").document().setData(from: user)
         } catch let error {
