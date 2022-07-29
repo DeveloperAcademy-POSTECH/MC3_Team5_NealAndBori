@@ -69,14 +69,6 @@ class DetailViewController: UIViewController {
         
         configureViewComponent()
         self.tabBarController?.tabBar.isHidden = true
-        
-        view.addSubview(modalButton)
-        modalButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            modalButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
     }
     
     // MARK: Configures
@@ -89,10 +81,12 @@ class DetailViewController: UIViewController {
         let viewControllerToPresent = BottomSheetViewController()
         if let sheet = viewControllerToPresent.sheetPresentationController {
             sheet.detents = [.medium()]
-            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.largestUndimmedDetentIdentifier = .large
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
             sheet.prefersEdgeAttachedInCompactHeight = true
             sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
         }
         present(viewControllerToPresent, animated: true, completion: nil)
     }
@@ -108,7 +102,7 @@ class DetailViewController: UIViewController {
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
         
-        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton].forEach { component in
+        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton, modalButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -129,26 +123,31 @@ class DetailViewController: UIViewController {
         ]
         
         let recommandLabelConstraints = [
-            recommandLabel.topAnchor.constraint(equalTo: reviewListView.topAnchor, constant: 30),
+            recommandLabel.topAnchor.constraint(equalTo: reviewListView.topAnchor, constant: 48),
             recommandLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
         
         let reviewListViewConstraints = [
-            reviewListView.topAnchor.constraint(equalTo: farmName.bottomAnchor, constant: 40),
+            reviewListView.topAnchor.constraint(equalTo: farmName.bottomAnchor, constant: 48),
             reviewListView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             reviewListView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             reviewListView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
         let callButtonConstraints = [
-            callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             callButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             callButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             callButton.heightAnchor.constraint(equalToConstant: 56),
             callButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65)
         ]
         
-        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints].forEach { component in
+        let modalConstraints = [
+            modalButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            modalButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints, modalConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
         }
     }
