@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// TODO: - Globals 폴더로 이동
 class FruitCategory {
     static let names = ["사과", "배", "귤", "수박", "포도", "복숭아", "토마토", "자두", "블루베리", "딸기", "참외", "멜론", "키위", "무화과", "망고", "감", "기타 과일"]
     static let images = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
@@ -70,8 +71,7 @@ extension FruitSelectViewController: UICollectionViewDelegateFlowLayout, UIColle
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FruitSelectCollectionViewCell.identifier, for: indexPath) as? FruitSelectCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.label.text = cellText
-        cell.fruitImage.image = UIImage(named: cellImage)
+        cell.configure(text: cellText, image: cellImage)
         return cell
     }
     
