@@ -47,11 +47,11 @@ class FriendAddResultCellView: UIView {
         return stackView
     }()
     
-    func configure(data : FriendResultData) {
-        self.nameLabel.text = data.name
-        self.codeLabel.text = data.code
-        self.fruitImage.image = UIImage(named: data.fruit)
-        self.recommendCountLabel.text = String(data.recommendsCount)
+    func configure(data : User) {
+        self.nameLabel.text = data.username
+        self.codeLabel.text = "#" + data.uid
+        self.fruitImage.image = UIImage(named: "watermelon") // TODO: 유저의 실제 프로필로 변경
+        self.recommendCountLabel.text = String(100) // TODO: 추천 과일 수로 변경
     }
     
     override init(frame: CGRect) {

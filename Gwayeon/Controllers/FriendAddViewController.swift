@@ -6,18 +6,11 @@
 //
 
 import UIKit
-
-// temporary data
-struct FriendResultData {
-    let name : String
-    let code : String
-    let fruit : String
-    let recommendsCount : Int
-}
+import Foundation
 
 class FriendAddViewController: UIViewController {
     
-    let friendSearchResult : [FriendResultData] = [FriendResultData(name: "이과연", code: "#1234", fruit: "apple", recommendsCount: 100)]
+    var friendSearchResult = [User]()
     
     // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
     private enum ViewCase {
@@ -26,7 +19,7 @@ class FriendAddViewController: UIViewController {
         case showResult
     }
     
-    private let selectCase : ViewCase = .showResult
+    private var selectCase : ViewCase = .beforeSearch
     
     private let searchTextField : UITextField = {
         let textField = UITextField()
@@ -88,19 +81,47 @@ class FriendAddViewController: UIViewController {
         
     }()
     
-    private lazy var searchResultCellView : UIView = {
-        let view = FriendAddResultCellView()
-        view.configure(data: friendSearchResult[0])
-        return view
-    }()
+    private let searchResultCellView = FriendAddResultCellView()
     
-    @objc func searchFriend() {
-        FirebaseManager.shared.getUserInformation(uid: "1234") { results in
+    @objc private func searchFriend() {
+        // 이전 검색 결과 삭제
+        friendSearchResult.removeAll()
+        
+        // 검색 format에 맞는지 확인
+        let searchText = searchTextField.text
+        let patternNameCode = "^([가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9_]{1,})#([0-9]{4})$"
+        let patternCheck = searchText?.range(of: patternNameCode, options: .regularExpression) != nil
+        
+        print(patternCheck)
+        
+        // 검색 format에 맞지 않는다면 검색 수행하지 않고 결과 없음 출력
+        if !patternCheck {
+            self.noResultTextStack.isHidden = false
+            self.searchResultCellView.isHidden = true
+            return
+        }
+        
+        // 검색 텍스트 이름과 UID로 분리 후 UID로 검색
+        let seperatedSearchText = searchText!.components(separatedBy: "#")
+
+        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText[1]) { results in
             switch results {
             case .success(let users):
                 print(users)
+                if (!users.isEmpty) {
+                    self.friendSearchResult.append(contentsOf: users)
+                    self.searchResultCellView.isHidden = false
+                    self.noResultTextStack.isHidden = true
+                    self.searchResultCellView.configure(data: users[0])
+                } else {
+                    self.searchResultCellView.isHidden = true
+                    self.noResultTextStack.isHidden = false
+                }
+                                                
             case .failure(let error):
                 print(error)
+                self.searchResultCellView.isHidden = true
+                self.noResultTextStack.isHidden = false
             }
         }
     }
