@@ -12,12 +12,12 @@ struct User: Codable {
     var uid: String
     var username: String
     var friends: [String]
-    var recommendLists: [String]
+    var recommends: [String]
     
     enum CodingKeys: CodingKey {
         case uid
         case username
         case friends
-        case recommendLists
+        case recommends
     }
 }

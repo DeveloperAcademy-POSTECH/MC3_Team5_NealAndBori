@@ -48,7 +48,7 @@ final class FirebaseManager {
     }
     
     func sendUserInformation(uid: String, nickname: String) {
-        let user = User(uid: uid, username: nickname, friends: [], recommendLists: [])
+        let user = User(uid: uid, username: nickname, friends: [], recommends: [])
         do {
             try FirebaseManager.db.collection("Users").document().setData(from: user)
         } catch let error {
@@ -66,7 +66,7 @@ final class FirebaseManager {
                     print("Error getting documents: \(err)")
                 } else {
                     querySnapshot?.documents.forEach({ document in
-                        document.reference.updateData(["recommendLists": FieldValue.arrayUnion([ref.documentID])])
+                        document.reference.updateData(["recommends": FieldValue.arrayUnion([ref.documentID])])
                     })
                 }
             }
