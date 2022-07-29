@@ -50,7 +50,6 @@ class UserProfileCompletionViewController: UIViewController {
         label.text="※ 설정 페이지에서 프로필을 수정할 수 있습니다"
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .gray
-        
         return label
     }()
     
@@ -72,10 +71,7 @@ class UserProfileCompletionViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         view.addSubviews(profileImageView, usernameLabel,profileCompletionLabel, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton)
-        
-        [profileImageView, usernameLabel,profileCompletionLabel, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton].forEach { component in
-            component.translatesAutoresizingMaskIntoConstraints = false        }
-        
+    
         let profileImageViewConstraints = [
             profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
