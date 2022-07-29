@@ -17,6 +17,10 @@ extension UIColor {
         return UIColor(hex: "#F6685E")
     }
     
+    static var red001: UIColor {
+        return UIColor(hex: "#FF5252")
+    }
+    
     static var grey001: UIColor {
         return UIColor(hex: "#878787")
     }
