@@ -5,19 +5,10 @@
 //  Created by yudonlee on 2022/07/27.
 //
 
-import Foundation
+import FirebaseFirestoreSwift
 
-struct User: Codable {
-    
-    var uid: String
-    var username: String
-    var friends: [String]
-    var recommends: [String]
-    
-    enum CodingKeys: CodingKey {
-        case uid
-        case username
-        case friends
-        case recommends
-    }
+struct User: Codable, Identifiable {
+    @DocumentID var id: String?
+    let uid, email, userName, pinCode, userImageName: String
+    let friends, buyFruits, recommends: [String]?
 }
