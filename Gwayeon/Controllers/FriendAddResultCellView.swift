@@ -50,8 +50,8 @@ class FriendAddResultCellView: UIView {
     func configure(data : User) {
         self.nameLabel.text = data.username
         self.codeLabel.text = "#" + data.uid
-        self.fruitImage.image = UIImage(named: "watermelon") // TODO: 유저의 실제 프로필로 변경
-        self.recommendCountLabel.text = String(100) // TODO: 추천 과일 수로 변경
+        self.fruitImage.image = UIImage(named: "watermelon") // TODO: 서버에서 받아온 프로필로 변경
+        self.recommendCountLabel.text = String(100) // TODO: 서버에서 받아온 추천 과일 수로 변경
     }
     
     override init(frame: CGRect) {

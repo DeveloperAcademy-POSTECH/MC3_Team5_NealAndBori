@@ -78,7 +78,6 @@ class FriendAddViewController: UIViewController {
         stackView.spacing = 8
         stackView.axis = .vertical
         return stackView
-        
     }()
     
     private let searchResultCellView = FriendAddResultCellView()
@@ -87,43 +86,45 @@ class FriendAddViewController: UIViewController {
         // 이전 검색 결과 삭제
         friendSearchResult.removeAll()
         
-        // 검색 format에 맞는지 확인
+        // 검색 format에 맞는지 확인 (이름#0000)
         let searchText = searchTextField.text
         let patternNameCode = "^([가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9_]{1,})#([0-9]{4})$"
         let patternCheck = searchText?.range(of: patternNameCode, options: .regularExpression) != nil
-        
-        print(patternCheck)
-        
         // 검색 format에 맞지 않는다면 검색 수행하지 않고 결과 없음 출력
         if !patternCheck {
-            self.noResultTextStack.isHidden = false
-            self.searchResultCellView.isHidden = true
+            self.showNoResultView()
             return
         }
         
+        // TODO: pincode, username 으로 검색하기 (서버 구현 후 변경)
         // 검색 텍스트 이름과 UID로 분리 후 UID로 검색
-        let seperatedSearchText = searchText!.components(separatedBy: "#")
-
-        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText[1]) { results in
+        let seperatedSearchText = searchText?.components(separatedBy: "#")
+        
+        // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
+        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText?[1] ?? "") { results in
             switch results {
             case .success(let users):
-                print(users)
                 if (!users.isEmpty) {
-                    self.friendSearchResult.append(contentsOf: users)
-                    self.searchResultCellView.isHidden = false
-                    self.noResultTextStack.isHidden = true
-                    self.searchResultCellView.configure(data: users[0])
+                    self.showResultView(users: users)
                 } else {
-                    self.searchResultCellView.isHidden = true
-                    self.noResultTextStack.isHidden = false
+                    self.showNoResultView()
                 }
-                                                
             case .failure(let error):
-                print(error)
-                self.searchResultCellView.isHidden = true
-                self.noResultTextStack.isHidden = false
+                self.showNoResultView()
             }
         }
+    }
+    
+    private func showResultView(users : [User]) {
+        self.friendSearchResult.append(contentsOf: users)
+        self.searchResultCellView.isHidden = false
+        self.noResultTextStack.isHidden = true
+        self.searchResultCellView.configure(data: users[0])
+    }
+    
+    private func showNoResultView() {
+        self.searchResultCellView.isHidden = true
+        self.noResultTextStack.isHidden = false
     }
     
     override func viewDidLoad() {
