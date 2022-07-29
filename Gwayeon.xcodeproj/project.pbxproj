@@ -40,6 +40,7 @@
 		7689590E2891229200F979AE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7689590D2891229200F979AE /* FirebaseFirestoreSwift */; };
 		768959102891238F00F979AE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689590F2891238F00F979AE /* TestViewController.swift */; };
 		7689591328929B1400F979AE /* Recommend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689591228929B1400F979AE /* Recommend.swift */; };
+		7689591A28936D1800F979AE /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689591928936D1800F979AE /* Fruit.swift */; };
 		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
@@ -82,6 +83,7 @@
 		7689590A28911EC500F979AE /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		7689590F2891238F00F979AE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		7689591228929B1400F979AE /* Recommend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommend.swift; sourceTree = "<group>"; };
+		7689591928936D1800F979AE /* Fruit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fruit.swift; sourceTree = "<group>"; };
 		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				7689590728911E2900F979AE /* User.swift */,
 				7689591228929B1400F979AE /* Recommend.swift */,
+				7689591928936D1800F979AE /* Fruit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				7605A023288974E500D66F41 /* UIButton+Extension.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
+				7689591A28936D1800F979AE /* Fruit.swift in Sources */,
 				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
 				CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */,
 				1478662F28905C7F0029FE50 /* FriendAddResultCellView.swift in Sources */,
