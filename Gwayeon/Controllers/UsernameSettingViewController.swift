@@ -39,6 +39,7 @@ class UsernameSettingViewController: UIViewController {
     
     @objc private func nextButtonClicked(_ sender: Any) {
         let userProfileCompletionViewController = UserProfileCompletionViewController()
+        userProfileCompletionViewController.username = usernameTextfield.text!
         navigationController?.pushViewController(userProfileCompletionViewController, animated: true)
     }
     
