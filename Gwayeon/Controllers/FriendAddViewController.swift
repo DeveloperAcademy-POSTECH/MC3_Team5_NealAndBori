@@ -82,6 +82,19 @@ class FriendAddViewController: UIViewController {
     
     private let searchResultCellView = FriendAddResultCellView()
     
+    private lazy var addButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = UIColor.mainColor
+        configuration.background.cornerRadius = 12
+        configuration.title = "추가"
+        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        
+        let button = UIButton(configuration: configuration)
+        button.isEnabled = false
+        //button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
+        return button
+    }()
+    
     @objc private func searchFriend() {
         // 이전 검색 결과 삭제
         friendSearchResult.removeAll()
@@ -148,7 +161,7 @@ class FriendAddViewController: UIViewController {
     private func setLayout() {
         view.backgroundColor = .systemBackground
         
-        view.addSubviews(fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView)
+        view.addSubviews(fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView, addButton)
         
         // 고정 UI
         let fruitImageConstraints = [
@@ -189,7 +202,15 @@ class FriendAddViewController: UIViewController {
             searchResultCellView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
         
-        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints, noResultTextStackConstraints, searchResultCellViewConstraints].forEach { constraints in
+        // 추가 버튼
+        let addButtonConstraints = [
+            addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            addButton.heightAnchor.constraint(equalToConstant: 60)
+        ]
+        
+        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints, noResultTextStackConstraints, searchResultCellViewConstraints, addButtonConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
