@@ -6,18 +6,11 @@
 //
 
 import UIKit
-
-// temporary data
-struct FriendResultData {
-    let name : String
-    let code : String
-    let fruit : String
-    let recommendsCount : Int
-}
+import Foundation
 
 class FriendAddViewController: UIViewController {
     
-    let friendSearchResult : [FriendResultData] = [FriendResultData(name: "이과연", code: "#1234", fruit: "apple", recommendsCount: 100)]
+    var friendSearchResult = [User]()
     
     // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
     private enum ViewCase {
@@ -26,7 +19,7 @@ class FriendAddViewController: UIViewController {
         case showResult
     }
     
-    private let selectCase : ViewCase = .showResult
+    private var selectCase : ViewCase = .beforeSearch
     
     private let searchTextField : UITextField = {
         let textField = UITextField()
@@ -47,7 +40,7 @@ class FriendAddViewController: UIViewController {
         return textField
     }()
     
-    private let searchButton : UIButton = {
+    private lazy var searchButton : UIButton = {
         // button style
         var configuration = UIButton.Configuration.filled()
         configuration.image = UIImage(systemName: "magnifyingglass")
@@ -55,6 +48,7 @@ class FriendAddViewController: UIViewController {
         configuration.background.cornerRadius = 12
         
         let button = UIButton(configuration: configuration)
+        button.addTarget(self, action: #selector(searchFriend), for: .touchUpInside)
         return button
     }()
     
@@ -84,17 +78,61 @@ class FriendAddViewController: UIViewController {
         stackView.spacing = 8
         stackView.axis = .vertical
         return stackView
-        
     }()
     
-    private lazy var searchResultCellView : UIView = {
-        let view = FriendAddResultCellView()
-        view.configure(data: friendSearchResult[0])
-        return view
-    }()
+    private let searchResultCellView = FriendAddResultCellView()
+    
+    @objc private func searchFriend() {
+        // 이전 검색 결과 삭제
+        friendSearchResult.removeAll()
+        
+        // 검색 format에 맞는지 확인 (이름#0000)
+        let searchText = searchTextField.text
+        let patternNameCode = "^([가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9_]{1,})#([0-9]{4})$"
+        let patternCheck = searchText?.range(of: patternNameCode, options: .regularExpression) != nil
+        // 검색 format에 맞지 않는다면 검색 수행하지 않고 결과 없음 출력
+        if !patternCheck {
+            self.showNoResultView()
+            return
+        }
+        
+        // TODO: pincode, username 으로 검색하기 (서버 구현 후 변경)
+        // 검색 텍스트 이름과 UID로 분리 후 UID로 검색
+        guard let seperatedSearchText = searchText?.components(separatedBy: "#")
+        else {
+            return
+        }
+        
+        // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
+        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText[1]) { results in
+            switch results {
+            case .success(let users):
+                if (!users.isEmpty) {
+                    self.showResultView(users: users)
+                } else {
+                    self.showNoResultView()
+                }
+            case .failure(let error):
+                self.showNoResultView()
+            }
+        }
+    }
+    
+    private func showResultView(users : [User]) {
+        self.friendSearchResult.append(contentsOf: users)
+        self.searchResultCellView.isHidden = false
+        self.noResultTextStack.isHidden = true
+        self.searchResultCellView.configure(data: users[0])
+    }
+    
+    private func showNoResultView() {
+        self.searchResultCellView.isHidden = true
+        self.noResultTextStack.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         setLayout()
         
         // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
@@ -113,10 +151,7 @@ class FriendAddViewController: UIViewController {
     private func setLayout() {
         view.backgroundColor = .systemBackground
         
-        [fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView].forEach { component in
-            self.view.addSubview(component)
-            component.translatesAutoresizingMaskIntoConstraints = false
-        }
+        view.addSubviews(fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView)
         
         // 고정 UI
         let fruitImageConstraints = [
