@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class RecommendFarmViewController: UIViewController {
     private let titleLabel: UILabel = {
