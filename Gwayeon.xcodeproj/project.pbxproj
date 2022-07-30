@@ -18,9 +18,7 @@
 		37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA172887AC6D009FB2DA /* InputSection.swift */; };
 		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
 		452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */; };
-
 		452E628D288FAF760034E75B /* UserProfileCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E628C288FAF760034E75B /* UserProfileCompletionViewController.swift */; };
-
 		7605A0042885383000D66F41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0032885383000D66F41 /* HomeViewController.swift */; };
 		7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0052885383D00D66F41 /* MyPageViewController.swift */; };
 		7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A00A2885703F00D66F41 /* Color+Extension.swift */; };
@@ -33,7 +31,6 @@
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
 		768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */; };
-		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958FB2890E4EF00F979AE /* UIView+Extension.swift */; };
 		768958FE28910F7F00F979AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 768958FD28910F7F00F979AE /* GoogleService-Info.plist */; };
 		768959012891119600F979AE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 768959002891119600F979AE /* FirebaseAnalytics */; };
@@ -80,7 +77,6 @@
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFruitListCollectionViewCell.swift; sourceTree = "<group>"; };
-		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		768958FB2890E4EF00F979AE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		768958FD28910F7F00F979AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7689590728911E2900F979AE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -540,7 +536,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 848PGS94YW;
+				DEVELOPMENT_TEAM = MH33J6XU95;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -568,7 +564,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 848PGS94YW;
+				DEVELOPMENT_TEAM = MH33J6XU95;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -35,6 +35,7 @@ class UsernameSettingViewController: UIViewController {
         super.viewDidLoad()
         setNavigationBackButton()
         configureLayout()
+        hideKeyboardWhenTappedAround()
     }
     
     @objc private func nextButtonClicked(_ sender: Any) {
