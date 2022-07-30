@@ -50,7 +50,7 @@ class RecommendFarmViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
+        setLayout()
         hideKeyboardWhenTappedAround()
     }
     
@@ -64,42 +64,27 @@ class RecommendFarmViewController: UIViewController {
         
     }
     
-    // TODO: 함수명 통일
-    private func configureLayout() {
-        // TODO: addSubviews Extension으로 작성
-        view.addSubview(titleLabel)
-        view.addSubview(sectionStackView)
-        view.addSubview(finishButton)
+    private func setLayout() {
         view.backgroundColor = .white
+        view.addSubviews(titleLabel, sectionStackView, finishButton)
         
-        // TODO: 팀원과 상의 후 코드 스타일 변경
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+        let titleLabelConstraint = [
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
-        ])
-        NSLayoutConstraint.activate([
+        ]
+        let sectionStackViewConstraint = [
             sectionStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             sectionStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             sectionStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
+        ]
+        let finishButtonConstraint = [
             finishButton.heightAnchor.constraint(equalToConstant: 60),
             finishButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             finishButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             finishButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-        ])
-    }
-}
-
-// TODO: Extension 폴더 분리
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+        ]
+        [titleLabelConstraint, sectionStackViewConstraint, finishButtonConstraint].forEach { constraint in
+            NSLayoutConstraint.activate(constraint)
+        }
     }
 }

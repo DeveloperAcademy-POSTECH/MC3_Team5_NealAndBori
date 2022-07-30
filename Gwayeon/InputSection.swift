@@ -63,36 +63,19 @@ final class InputSection: UIStackView {
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
     }()
-    
-    // TODO: 겹치는 스타일 Extension으로 변경
-    private lazy var textField: UITextField = {
-        let textField = UITextField()
+
+    private lazy var textField: InputSectionTextField = {
+        let textField = InputSectionTextField()
         textField.placeholder = style.placeholder
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
-        textField.returnKeyType = .done
         textField.keyboardType = style.keyboardType
-        textField.returnKeyType = .done
         return textField
     }()
     
-    private lazy var textView: UITextView = {
-        let textView = UITextView()
+    private lazy var textView: InputSectionTextView = {
+        let textView = InputSectionTextView()
         textView.delegate = self
-        textView.textColor = UIColor.placeholderText
         textView.text = style.placeholder
-        textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.adjustsFontForContentSizeCategory = true
-        textView.isScrollEnabled = false
-        textView.layer.cornerRadius = 5
-        textView.layer.backgroundColor = UIColor.systemGray6.cgColor
-        textView.layer.borderColor = UIColor.systemGray5.cgColor
-        textView.layer.borderWidth = 0.5
-        textView.clipsToBounds = true
-        textView.isScrollEnabled = true
-        textView.spellCheckingType = .no
         textView.keyboardType = style.keyboardType
-        
         return textView
     }()
     
@@ -112,30 +95,82 @@ final class InputSection: UIStackView {
         spacing = 8
         
         addArrangedSubview(label)
-        if style == .recommendation {
-            addArrangedSubview(textView)
-            NSLayoutConstraint.activate([
-                textView.heightAnchor.constraint(equalToConstant: 130)
-            ])
-        } else {
+        switch style {
+        case .fruitCategory:
+            textField.isCategory = true
             addArrangedSubview(textField)
+        case .fruitVariety, .farmName, .farmNumber:
+            addArrangedSubview(textField)
+        case .recommendation:
+            addArrangedSubview(textView)
+            textView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         }
-    }
-    
-    @discardableResult
-    override func becomeFirstResponder() -> Bool {
-        super.becomeFirstResponder()
-        return self.textField.becomeFirstResponder()
-    }
-    
-    @discardableResult
-    override func resignFirstResponder() -> Bool {
-        super.resignFirstResponder()
-        return self.textField.resignFirstResponder()
     }
 }
 
-// TODO: Extension 폴더 분리
+extension InputSection {
+    class InputSectionTextField: UITextField {
+        var isCategory: Bool = false {
+            didSet {
+                isUserInteractionEnabled = false
+                rightView = downImage
+                rightViewMode = .always
+            }
+        }
+        
+        private lazy var downImage: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = UIImage(systemName: "chevron.down")
+            imageView.tintColor = UIColor.placeholderText
+            return imageView
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUI()
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("not implement required init?(coder: NSCoder)")
+        }
+        
+        private func setUI() {
+            borderStyle = .roundedRect
+            clearButtonMode = .whileEditing
+            returnKeyType = .done
+        }
+
+        override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+            var padding = super.rightViewRect(forBounds: bounds)
+            padding.origin.x -= 8
+            return padding
+        }
+    }
+    
+    class InputSectionTextView: UITextView {
+        override init(frame: CGRect, textContainer: NSTextContainer?) {
+            super.init(frame: frame, textContainer: textContainer)
+            setUI()
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("not implement required init?(coder: NSCoder)")
+        }
+        
+        private func setUI() {
+            textColor = UIColor.placeholderText
+            font = UIFont.preferredFont(forTextStyle: .body)
+            adjustsFontForContentSizeCategory = true
+            layer.cornerRadius = 5
+            layer.backgroundColor = UIColor.systemGray6.cgColor
+            layer.borderColor = UIColor.systemGray5.cgColor
+            layer.borderWidth = 0.5
+            isScrollEnabled = true
+            spellCheckingType = .no
+        }
+    }
+}
+
 extension UIStackView: UITextViewDelegate {
     public func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == InputStyle.recommendation.placeholder {
