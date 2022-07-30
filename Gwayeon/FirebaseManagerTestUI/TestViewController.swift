@@ -100,57 +100,57 @@ class TestViewController: UIViewController {
     
     
     @objc private func getUserInfoButtonClicked(_ sender: Any) {
-        fetchData(uid: userIDTextField.text, nickname: nicknameTextField.text)
+//        fetchData(uid: userIDTextField.text, nickname: nicknameTextField.text)
     }
     
     @objc private func setUserInfoButtonClicked(_ sender: Any) {
-        sendData(uid: userIDTextField.text, nickname: nicknameTextField.text)
+//        sendData(uid: userIDTextField.text, nickname: nicknameTextField.text)
     }
     
     @objc private func setRecommendButtonClicked(_ sender: Any) {
-        sendRecommend(uid: userIDTextField.text, nickname: nicknameTextField.text, recommend: recommendationTextField.text)
+//        sendRecommend(uid: userIDTextField.text, nickname: nicknameTextField.text, recommend: recommendationTextField.text)
     }
     
-    private func sendRecommend(uid: String?, nickname: String?, recommend: String?) {
-        guard let uid = uid, let nickname = nickname, let recommend = recommend else {
-            return
-        }
-        FirebaseManager.shared.sendRecommend(uid: uid, nickname: nickname, fruitID: "234234", comment: recommend)
-    }
-    private func sendData(uid: String?, nickname: String?) {
-        guard let uid = uid, let nickname = nickname else {
-            return
-        }
-        FirebaseManager.shared.sendUserInformation(uid: uid, nickname: nickname)
-    }
-    
-    private func fetchData(uid: String?, nickname: String?) {
-        
-        guard let uid = uid else {
-            return
-        }
-
-        FirebaseManager.shared.getUserInformation(uid: uid) { results in
-            switch results {
-            case .success(let users):
-                print(users)
-            case .failure(let error):
-                print(error)
-            }
-        }
-        
-        guard let nickname = nickname else {
-            return
-        }
-        FirebaseManager.shared.getRecommendInformation(uid: uid, nickname: nickname) { results in
-            switch results {
-            case .success(let recommends):
-                print(recommends)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+//    private func sendRecommend(uid: String?, nickname: String?, recommend: String?) {
+//        guard let uid = uid, let nickname = nickname, let recommend = recommend else {
+//            return
+//        }
+//        FirebaseManager.shared.sendRecommend(uid: uid, nickname: nickname, fruitID: "234234", comment: recommend)
+//    }
+//    private func sendData(uid: String?, nickname: String?) {
+//        guard let uid = uid, let nickname = nickname else {
+//            return
+//        }
+//        FirebaseManager.shared.sendUserInformation(uid: uid, nickname: nickname)
+//    }
+//
+//    private func fetchData(uid: String?, nickname: String?) {
+//
+//        guard let uid = uid else {
+//            return
+//        }
+//
+//        FirebaseManager.shared.getUserInformation(uid: uid) { results in
+//            switch results {
+//            case .success(let users):
+//                print(users)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//
+//        guard let nickname = nickname else {
+//            return
+//        }
+//        FirebaseManager.shared.getRecommendInformation(uid: uid, nickname: nickname) { results in
+//            switch results {
+//            case .success(let recommends):
+//                print(recommends)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

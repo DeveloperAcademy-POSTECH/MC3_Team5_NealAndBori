@@ -27,6 +27,7 @@ class UsernameSettingViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         button.setTitle("다음", for: UIControl.State.normal)
+        button.addTarget(nil, action: #selector(didTapNextButton), for: .touchUpInside)
         
         return button
     }()
@@ -69,4 +70,39 @@ class UsernameSettingViewController: UIViewController {
         
     }
     
+    @objc private func didTapNextButton() {
+        let userName = usernameTextfield.text
+        let pinCodeMaker = { () -> String in
+            let randomNum = Int.random(in: 0...9999)
+            if randomNum >= 1000 {
+                return "#" + String(randomNum)
+            } else if randomNum >= 100 {
+                return "#0" + String(randomNum)
+            } else if randomNum >= 10 {
+                return "#00" + String(randomNum)
+            } else {
+                return "#000" + String(randomNum)
+            }
+        }
+        
+        let pinCode = pinCodeMaker()
+        
+        let email = userName! + pinCode + "@gmail.com"
+        let password = "nilandbories"
+        
+        print(email)
+        
+        Task { [weak self] in
+            await FirebaseManager.shared.createNewAccount(email: email, password: password)
+            await FirebaseManager.shared.storeUserInformation(email: email, userName: userName!, pinCode: pinCode, userImageName: "peach")
+            self?.goHome()
+        }
+    }
+    
+    private func goHome() {
+        let viewController = MainTabBarViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
+    }
 }
