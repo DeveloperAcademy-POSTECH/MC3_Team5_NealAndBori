@@ -42,7 +42,7 @@ class BottomSheetViewController: UIViewController {
         config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
         config.buttonSize = .large
         let button = UIButton(configuration: config)
-        button.addTarget(self, action: #selector(backToFirstVC), for: .touchUpInside)
+        button.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
         return button
     }()
     
@@ -54,19 +54,17 @@ class BottomSheetViewController: UIViewController {
         config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
         config.buttonSize = .large
         let button = UIButton(configuration: config)
-        // 추가할게요 버튼 누르면 구매리스트에 지금 페이지의 정보가 추가되어야 함..
-//        button.addTarget(self, action: #selector(), for: .touchUpInside)
         return button
     }()
     
     // MARK: Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewComponent()
+        setLayout()
     }
     
     // MARK: Configure
-    private func configureViewComponent() {
+    private func setLayout() {
         view.backgroundColor = .white
         
         [fruitImageView, requiredComment, noticedComment, cancelButton, addButton].forEach { component in
@@ -109,7 +107,7 @@ class BottomSheetViewController: UIViewController {
         }
     }
     
-    @objc func backToFirstVC() {
+    @objc private func cancelButtonClicked() {
         self.dismiss(animated: true, completion: nil)
     }
 }

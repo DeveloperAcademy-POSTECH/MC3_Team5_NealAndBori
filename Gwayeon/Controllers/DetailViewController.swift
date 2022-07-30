@@ -40,7 +40,6 @@ class DetailViewController: UIViewController {
     
     private let reviewListView = ReviewCollectionView()
     
-    // UIButton.Configuration: ios 15에서 업데이트된 기능. more customizable.
     private lazy var callButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.cornerStyle = .medium
@@ -50,7 +49,7 @@ class DetailViewController: UIViewController {
         config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
         config.buttonSize = .large
         let button = UIButton(configuration: config)
-        button.addTarget(self, action: #selector(phoneCall), for: .touchUpInside)
+        button.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -91,7 +90,7 @@ class DetailViewController: UIViewController {
         present(viewControllerToPresent, animated: true, completion: nil)
     }
     
-    @objc private func phoneCall() {
+    @objc private func callButtonTapped() {
         guard let url = URL(string: "tel://\(phoneNumber)"),
               UIApplication.shared.canOpenURL(url) else {
             return
