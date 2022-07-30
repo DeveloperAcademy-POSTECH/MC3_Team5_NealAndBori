@@ -19,14 +19,20 @@ class UsernameSettingViewController: UIViewController {
     private lazy var usernameTextfield: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
+        textField.addTarget(nil, action: #selector(textFieldDidChange), for: .editingChanged)
         return textField
     }()
     
     private lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
-        button.setTitle("다음", for: UIControl.State.normal)
+        var configuration = UIButton.Configuration.filled()
+        
+        configuration.baseBackgroundColor = UIColor.mainColor
+        configuration.background.cornerRadius = 12
+        configuration.title = "다음"
+        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        
+        let button = UIButton(configuration: configuration)
+        button.isEnabled = false
         button.addTarget(nil, action: #selector(nextButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
@@ -40,8 +46,18 @@ class UsernameSettingViewController: UIViewController {
     
     @objc private func nextButtonClicked(_ sender: Any) {
         let userProfileCompletionViewController = UserProfileCompletionViewController()
-        userProfileCompletionViewController.username = usernameTextfield.text!
-        navigationController?.pushViewController(userProfileCompletionViewController, animated: true)
+        if let username = usernameTextfield.text,!username.isEmpty {
+            userProfileCompletionViewController.username = username
+            navigationController?.pushViewController(userProfileCompletionViewController, animated: true)
+        } else {return}
+    }
+    
+    @objc func textFieldDidChange(sender: UITextField) {
+        if sender.text?.isEmpty == true {
+            self.nextButton.isEnabled = false
+        } else {
+            self.nextButton.isEnabled = true
+        }
     }
     
     private func setNavigationBackButton() {
