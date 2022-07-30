@@ -10,14 +10,14 @@ import UIKit
 class FruitSelectCollectionViewCell: UICollectionViewCell {
     static let identifier = "FruitSelectCollectionViewCell"
 
-    let fruitImage: UIImageView = {
+    private lazy var fruitImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }()
 
-    let label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17)
         return label
@@ -49,6 +49,11 @@ class FruitSelectCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint.activate(constraint)
         }
 
+    }
+    
+    func configure(text: String, image: String) {
+        label.text = text
+        fruitImage.image = UIImage(named: image)
     }
     
 }

@@ -106,6 +106,10 @@ final class InputSection: UIStackView {
             textView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         }
     }
+    
+    func setTextFieldItem(_ item: String) {
+        textField.attributedPlaceholder = NSAttributedString(string: item, attributes: [.foregroundColor: UIColor.black])
+    }
 }
 
 extension InputSection {

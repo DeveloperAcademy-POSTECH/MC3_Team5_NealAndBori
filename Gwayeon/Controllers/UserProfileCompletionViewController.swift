@@ -9,6 +9,8 @@ import UIKit
 
 class UserProfileCompletionViewController: UIViewController {
     
+    var username : String = ""
+    
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
@@ -21,16 +23,31 @@ class UserProfileCompletionViewController: UIViewController {
     
     private let usernameLabel: UILabel = {
         let label = UILabel()
-        label.text = "메리"
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        return label
+    }()
+    
+    private let secondusernameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     private let profileCompletionLabel: UILabel = {
         let label = UILabel()
-        label.text = "메리님의 프로필을 완성하였습니다!"
+        label.text = "님의 프로필을 완성하였습니다!"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
+    }()
+    
+    private lazy var sectionStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(secondusernameLabel)
+        stackView.addArrangedSubview(profileCompletionLabel)
+        return stackView
     }()
     
     private let withGwayeonLabel: UILabel = {
@@ -63,15 +80,16 @@ class UserProfileCompletionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameLabel.text = username
+        secondusernameLabel.text = username
         setLayout()
-        
     }
     
     private func setLayout() {
         view.backgroundColor = .systemBackground
         
-        view.addSubviews(profileImageView, usernameLabel,profileCompletionLabel, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton)
-    
+        view.addSubviews(profileImageView, usernameLabel, sectionStackView, withGwayeonLabel,profileEditableMessageLabel,gwayeonStartButton)
+        
         let profileImageViewConstraints = [
             profileImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -84,9 +102,9 @@ class UserProfileCompletionViewController: UIViewController {
             usernameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
-        let profileCompletionLabelConstraints = [
-            profileCompletionLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 32),
-            profileCompletionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let sectionStackViewConstraints = [
+            sectionStackView.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 32),
+            sectionStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
         let withGwayeonLabelConstraints = [
@@ -96,7 +114,8 @@ class UserProfileCompletionViewController: UIViewController {
         
         let profileEditableMessageLabelConstraints = [
             profileEditableMessageLabel.bottomAnchor.constraint(equalTo: gwayeonStartButton.topAnchor,constant:-16),
-            profileEditableMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)        ]
+            profileEditableMessageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ]
         
         let gwayeonStartButtonConstraints = [
             gwayeonStartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
@@ -105,7 +124,7 @@ class UserProfileCompletionViewController: UIViewController {
             gwayeonStartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
         
-        [profileImageViewConstraints, usernameLabelConstraints, profileCompletionLabelConstraints, withGwayeonLabelConstraints, profileEditableMessageLabelConstraints, gwayeonStartButtonConstraints].forEach { component in
+        [profileImageViewConstraints, usernameLabelConstraints, sectionStackViewConstraints, withGwayeonLabelConstraints, profileEditableMessageLabelConstraints, gwayeonStartButtonConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
         }
         
