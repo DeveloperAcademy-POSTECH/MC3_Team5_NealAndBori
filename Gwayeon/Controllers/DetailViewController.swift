@@ -80,10 +80,7 @@ class DetailViewController: UIViewController {
         let viewControllerToPresent = BottomSheetViewController()
         if let sheet = viewControllerToPresent.sheetPresentationController {
             sheet.detents = [.medium()]
-            sheet.largestUndimmedDetentIdentifier = .large
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersEdgeAttachedInCompactHeight = true
-            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
             sheet.prefersGrabberVisible = true
             sheet.preferredCornerRadius = 20
         }
