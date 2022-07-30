@@ -118,6 +118,18 @@ class TestViewController: UIViewController {
         return btn
     }()
     
+
+    lazy private var setFruitInfoButton: UIButton = {
+        let btn = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .red
+        config.buttonSize = .large
+        config.title = "과일 입력하기"
+        btn.configuration = config
+        btn.addTarget(self, action: #selector(didFruitInfoButtonClicked(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
     @objc private func getUserInfoButtonClicked(_ sender: Any) {
         fetchData(uid: uidTextField.text, pinCode: pinCodeTextField.text, userName: usernameTextField.text)
     }
@@ -130,17 +142,39 @@ class TestViewController: UIViewController {
         sendRecommend(uid: uidTextField.text, userName: usernameTextField.text, comment: recommendationTextField.text)
     }
     
+    @objc private func didFruitInfoButtonClicked(_ sender: Any) {
+        sendFruitData(uid: uidTextField.text, userName: usernameTextField.text, comment: recommendationTextField.text)
+    }
+    
     private func sendRecommend(uid: String?, userName: String?, comment: String?) {
         guard let uid = uid, let userName = userName, let comment = comment else {
             return
         }
         FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: "2233", comment: comment)
     }
+    
     private func sendUserData(pinCode: String?, userName: String?) {
         guard let pinCode = pinCode, let userName = userName else {
             return
         }
         FirebaseManager.shared.requestUserInformation(userName: userName, pinCode: pinCode)
+    }
+    
+    private func sendFruitData(uid: String?, userName: String?, comment: String?) {
+        guard let uid = uid, let userName = userName, let comment = comment else {
+            return
+        }
+
+//      추천평을 등록하기 위해선, 구매등록을 한 뒤, recommend를 추가해야 한다.
+        FirebaseManager.shared.requestFruitInformation(uid: uid, fruitBaseInfo: FruitBaseInfo(fruitCategory: "15", fruitName: "엄청난 한라봉", farmName: "유돈이네 한라봉", farmTelNumber: "010-4784-2949")) { results in
+            switch results {
+            case .success(let fruitId):
+                FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: fruitId, comment: comment)
+            case .failure(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     private func fetchData(uid: String?, pinCode: String?, userName: String?) {
@@ -178,7 +212,7 @@ class TestViewController: UIViewController {
 //            }
 //        }
         
-        FirebaseManager.shared.fetchRecommendInformation(uid: uid) { results in
+        FirebaseManager.shared.fetchRecommendInformation(recommendId: uid) { results in
             switch results {
             case .success(let recommends):
                 print(recommends)
@@ -210,7 +244,7 @@ class TestViewController: UIViewController {
     
     private func setLayouts() {
         
-        view.addSubviews(uidTextField, pinCodeTextField, usernameTextField, recommendationTextField, setRecommendButton, getUserButton, setUserButton)
+        view.addSubviews(uidTextField, pinCodeTextField, usernameTextField, recommendationTextField, setRecommendButton, getUserButton, setUserButton, setFruitInfoButton)
         
         let uidTextFieldConstraints = [
             uidTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
@@ -257,7 +291,14 @@ class TestViewController: UIViewController {
             setRecommendButton.topAnchor.constraint(equalTo: setUserButton.bottomAnchor, constant: 20)
         ]
         
-        [uidTextFieldConstraints, pinCodeTextFieldConstraints, userNameTextFieldConstraints, recommendTextFieldConstraints, getUserButtonConstraints, setUserButtonConstraints, setRecommendButtonConstraints].forEach { constraint in
+        
+        let setFruitInfoButtonConstraints = [
+            setFruitInfoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            setFruitInfoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            setFruitInfoButton.topAnchor.constraint(equalTo: setRecommendButton.bottomAnchor, constant: 20)
+        ]
+        
+        [uidTextFieldConstraints, pinCodeTextFieldConstraints, userNameTextFieldConstraints, recommendTextFieldConstraints, getUserButtonConstraints, setUserButtonConstraints, setRecommendButtonConstraints, setFruitInfoButtonConstraints].forEach { constraint in
             NSLayoutConstraint.activate(constraint)
         }
     }
