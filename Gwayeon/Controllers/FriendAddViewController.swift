@@ -148,10 +148,7 @@ class FriendAddViewController: UIViewController {
     private func setLayout() {
         view.backgroundColor = .systemBackground
         
-        [fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView].forEach { component in
-            self.view.addSubview(component)
-            component.translatesAutoresizingMaskIntoConstraints = false
-        }
+        view.addSubviews(fruitImage, guideLabel, searchButton, searchTextField, noResultTextStack, searchResultCellView)
         
         // 고정 UI
         let fruitImageConstraints = [

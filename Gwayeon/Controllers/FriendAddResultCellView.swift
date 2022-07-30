@@ -39,14 +39,6 @@ class FriendAddResultCellView: UIView {
         return label
     }()
     
-    private let friendView : UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .leading
-        stackView.spacing = 0
-        return stackView
-    }()
-    
     func configure(data : User) {
         self.nameLabel.text = data.username
         self.codeLabel.text = "#" + data.uid
@@ -64,16 +56,10 @@ class FriendAddResultCellView: UIView {
     }
     
     private func setLayout() {
-        [recommendCountLabel, friendTextLabel].forEach { component in
-            self.friendView.addArrangedSubview(component)
-        }
+        self.addSubviews(nameLabel, codeLabel,fruitImage, recommendCountLabel, friendTextLabel)
         
-        [nameLabel, codeLabel,fruitImage, friendView].forEach { component in
+        [nameLabel, codeLabel,fruitImage, recommendCountLabel, friendTextLabel].forEach { component in
             self.addSubview(component)
-        }
-        
-        [nameLabel, codeLabel, fruitImage, recommendCountLabel, friendTextLabel,friendView].forEach { component in
-            component.translatesAutoresizingMaskIntoConstraints = false
         }
         
         let nameLabelConstraints = [
@@ -93,13 +79,18 @@ class FriendAddResultCellView: UIView {
             fruitImage.widthAnchor.constraint(equalToConstant: 64),
             fruitImage.heightAnchor.constraint(equalToConstant: 64)
         ]
-                
-        let friendViewConstrains = [
-            friendView.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24),
-            friendView.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5)
+        
+        let recommendCountLabelConstraints = [
+            recommendCountLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24),
+            recommendCountLabel.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5)
         ]
         
-        [nameLabelConstraints, codeLabelConstraints, fruitImageConstraints, friendViewConstrains].forEach { constraints in
+        let friendTextLabelConstraints = [
+            friendTextLabel.leadingAnchor.constraint(equalTo: recommendCountLabel.trailingAnchor),
+            friendTextLabel.topAnchor.constraint(equalTo: self.centerYAnchor, constant: 2.5)
+        ]
+        
+        [nameLabelConstraints, codeLabelConstraints, fruitImageConstraints, recommendCountLabelConstraints, friendTextLabelConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
