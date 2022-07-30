@@ -41,6 +41,7 @@ class RecommendFarmViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setLayout()
+        setGesture()
         hideKeyboardWhenTappedAround()
     }
     
@@ -76,7 +77,9 @@ class RecommendFarmViewController: UIViewController {
         [titleLabelConstraint, sectionStackViewConstraint, finishButtonConstraint].forEach { constraint in
             NSLayoutConstraint.activate(constraint)
         }
-        
+    }
+    
+    private func setGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCategory))
         categorySection.addGestureRecognizer(tapGesture)
     }
