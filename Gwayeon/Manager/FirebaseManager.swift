@@ -89,22 +89,23 @@ final class FirebaseManager {
         }
     }
     
-    /// 자기 자신의 고유 userId 사람이 쓴 "Recommend들을" 가져오는 함수
+    /// fruitId를 가지고 과일을 불러오는 함수
     /// - Parameters:
     ///   - uid: 유저의의 고유 userId
-    func fetchRecommendInformation(uid: String, completion: @escaping (Result<[Recommend], Error>) -> Void) {
-
-        FirebaseManager.db.collection("Recommends").whereField("userId", isEqualTo: uid).getDocuments { querySnapshot, err in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                completion(.failure(err))
-            } else {
-                    let datas = querySnapshot!.documents.map { try? $0.data(as: Recommend.self) }
-                    let recommends = datas.compactMap({ $0 })
-                    completion(.success(recommends))
+    func fetchFruitInformation(fruitId: String, completion: @escaping (Result<Fruit, Error>) -> Void) {
+        let ref = FirebaseManager.db.collection("Fruits").document(fruitId)
+        
+        ref.getDocument(as: Fruit.self) { results in
+            switch results {
+            case .success(let fruit):
+                completion(.success(fruit))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
+    
+    
     
     /// 생성한 User정보를 Firebase Users로 보내는 함수
     /// - Parameters:
@@ -113,7 +114,7 @@ final class FirebaseManager {
     func requestUserInformation(userName: String, pinCode: String) {
         do {
             let ref = FirebaseManager.db.collection("Users").document()
-            let user = User(uid: ref.documentID, email: "", userName: userName, pinCode: pinCode, userImageName: "peaches", friends: nil, buyFruits: nil, recommends: nil)
+            let user = User(uid: ref.documentID, email: "", userName: userName, pinCode: pinCode, userImageName: "peaches", friends: nil, buyingFruits: nil, recommends: nil)
             try ref.setData(from: user)
             
         } catch let error {
@@ -134,10 +135,31 @@ final class FirebaseManager {
             let ref = FirebaseManager.db.collection("Recommends").document()
             try ref.setData(from: recommend)
             FirebaseManager.db.collection("Users").document(userId).updateData(["recommends": FieldValue.arrayUnion([ref.documentID])])
+            FirebaseManager.db.collection("Fruits").document(fruitId).updateData(["recommends": FieldValue.arrayUnion([ref.documentID])])
             
         } catch let error {
             print("Error wrong to User to Firestore: \(error)")
         }
     }
+    
+    /// User가 과일을 등록하는 함수
+    /// - Parameters:
+    ///   - uid: 유저 고유의 아이디
+    ///   - fruitBaseInfo: 추천농장에서 등록하는 가장 기본적인 정보
+    func requestFruitInformation(uid: String, fruitBaseInfo: FruitBaseInfo, completion: @escaping (Result<String, Error>) -> Void) {
+        
+        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.farmName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil)
+        do {
+            let ref = FirebaseManager.db.collection("Fruits").document()
+            try ref.setData(from: fruit)
+            FirebaseManager.db.collection("Users").document(uid).updateData(["buyingFruits": FieldValue.arrayUnion([ref.documentID])])
+            completion(.success(ref.documentID))
+        } catch let error {
+            completion(.failure(error))
+            print("Error wrong to User to Firestore: \(error)")
+        }
+    }
+    
+    
     
 }
