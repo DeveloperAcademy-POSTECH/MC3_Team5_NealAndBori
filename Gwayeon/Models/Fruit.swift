@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct Fruit: Codable, Identifiable {
     @DocumentID var id: String?
