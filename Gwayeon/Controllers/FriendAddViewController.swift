@@ -110,7 +110,6 @@ class FriendAddViewController: UIViewController {
                     self.showNoResultView()
                 }
             case .failure(let error):
-                print(error)
                 self.showNoResultView()
             }
         }
@@ -130,6 +129,7 @@ class FriendAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
         setLayout()
         
         // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
