@@ -27,22 +27,34 @@ class UsernameSettingViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         button.setTitle("다음", for: UIControl.State.normal)
-        
+        button.addTarget(nil, action: #selector(nextButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
+        setNavigationBackButton()
+        setLayout()
     }
     
-    private func configureLayout() {
+    @objc private func nextButtonClicked(_ sender: Any) {
+        let userProfileCompletionViewController = UserProfileCompletionViewController()
+        navigationController?.pushViewController(userProfileCompletionViewController, animated: true)
+    }
+    
+    private func setNavigationBackButton() {
+        view.backgroundColor = .systemBackground
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .label
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
+    
+    private func setLayout() {
         view.backgroundColor = .systemBackground
         
         [usernameLabel, usernameTextfield, nextButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
-
         }
         
         let usernameLabelConstraints = [
