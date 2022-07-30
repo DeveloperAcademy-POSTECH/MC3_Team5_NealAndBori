@@ -57,27 +57,32 @@ enum InputStyle {
 final class InputSection: UIStackView {
     let style: InputStyle
     
-    private lazy var label: UILabel = {
+    private (set) lazy var label: UILabel = {
         let label = UILabel()
         label.text = style.text
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
     }()
 
-    private lazy var textField: InputSectionTextField = {
+    private (set) lazy var textField: InputSectionTextField = {
         let textField = InputSectionTextField()
+        textField.delegate = self
         textField.placeholder = style.placeholder
         textField.keyboardType = style.keyboardType
         return textField
     }()
     
-    private lazy var textView: InputSectionTextView = {
+    private (set) lazy var textView: InputSectionTextView = {
         let textView = InputSectionTextView()
         textView.delegate = self
         textView.text = style.placeholder
         textView.keyboardType = style.keyboardType
         return textView
     }()
+    
+    var startEditingAction: (() -> Void)?
+    var endEditingAction: (() -> Void)?
+    var returnAction: (() -> Void)?
     
     init(frame: CGRect, style: InputStyle) {
         self.style = style
@@ -99,8 +104,11 @@ final class InputSection: UIStackView {
         case .fruitCategory:
             textField.isCategory = true
             addArrangedSubview(textField)
-        case .fruitVariety, .farmName, .farmNumber:
+        case .fruitVariety, .farmName:
             addArrangedSubview(textField)
+        case .farmNumber:
+            addArrangedSubview(textField)
+            textField.addTarget(self, action: #selector(checkNumberLength(textField:)), for: .editingChanged)
         case .recommendation:
             addArrangedSubview(textView)
             textView.heightAnchor.constraint(equalToConstant: 130).isActive = true
@@ -175,18 +183,39 @@ extension InputSection {
     }
 }
 
-extension UIStackView: UITextViewDelegate {
-    public func textViewDidBeginEditing(_ textView: UITextView) {
+extension InputSection: UITextViewDelegate, UITextFieldDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == InputStyle.recommendation.placeholder {
             textView.text = nil
             textView.textColor = .black
         }
+        startEditingAction?()
     }
     
-    public func textViewDidEndEditing(_ textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = InputStyle.recommendation.placeholder
             textView.textColor = .placeholderText
+        }
+        endEditingAction?()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        startEditingAction?()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        endEditingAction?()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        returnAction?()
+        return true
+    }
+    
+    @objc final private func checkNumberLength(textField: UITextField) {
+        if self.textField.text?.count == 11 {
+            returnAction?()
         }
     }
 }
