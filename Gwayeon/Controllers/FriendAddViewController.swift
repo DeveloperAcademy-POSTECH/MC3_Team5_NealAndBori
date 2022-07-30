@@ -150,17 +150,8 @@ class FriendAddViewController: UIViewController {
         hideKeyboardWhenTappedAround()
         setLayout()
         
-        // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
-        if selectCase == .beforeSearch {
-            noResultTextStack.isHidden = true
-            searchResultCellView.isHidden = true
-        } else if selectCase == .noResult {
-            noResultTextStack.isHidden = false
-            searchResultCellView.isHidden = true
-        } else if selectCase == .showResult {
-            noResultTextStack.isHidden = true
-            searchResultCellView.isHidden = false
-        }
+        noResultTextStack.isHidden = true
+        searchResultCellView.isHidden = true
     }
     
     private func setLayout() {
