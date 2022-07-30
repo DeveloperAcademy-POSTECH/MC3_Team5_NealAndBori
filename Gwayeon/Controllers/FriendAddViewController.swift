@@ -133,11 +133,13 @@ class FriendAddViewController: UIViewController {
         self.searchResultCellView.isHidden = false
         self.noResultTextStack.isHidden = true
         self.searchResultCellView.configure(data: users[0])
+        self.addButton.isEnabled = true
     }
     
     private func showNoResultView() {
         self.searchResultCellView.isHidden = true
         self.noResultTextStack.isHidden = false
+        self.addButton.isEnabled = false
     }
     
     override func viewDidLoad() {
