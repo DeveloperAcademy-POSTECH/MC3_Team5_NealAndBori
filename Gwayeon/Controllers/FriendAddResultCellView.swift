@@ -56,11 +56,7 @@ class FriendAddResultCellView: UIView {
     }
     
     private func setLayout() {
-        self.addSubviews(nameLabel, codeLabel,fruitImage, recommendCountLabel, friendTextLabel)
-        
-        [nameLabel, codeLabel,fruitImage, recommendCountLabel, friendTextLabel].forEach { component in
-            self.addSubview(component)
-        }
+        self.addSubviews(nameLabel, codeLabel, fruitImage, recommendCountLabel, friendTextLabel)
         
         let nameLabelConstraints = [
             nameLabel.leadingAnchor.constraint(equalTo: self.fruitImage.trailingAnchor, constant: 24),
