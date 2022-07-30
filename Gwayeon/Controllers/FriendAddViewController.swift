@@ -98,10 +98,10 @@ class FriendAddViewController: UIViewController {
         
         // TODO: pincode, username 으로 검색하기 (서버 구현 후 변경)
         // 검색 텍스트 이름과 UID로 분리 후 UID로 검색
-        let seperatedSearchText = searchText?.components(separatedBy: "#")
+        guard let seperatedSearchText = searchText?.components(separatedBy: "#") else {return}
         
         // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
-        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText?[1] ?? "") { results in
+        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText[1]) { results in
             switch results {
             case .success(let users):
                 if (!users.isEmpty) {
@@ -110,6 +110,7 @@ class FriendAddViewController: UIViewController {
                     self.showNoResultView()
                 }
             case .failure(let error):
+                print(error)
                 self.showNoResultView()
             }
         }
