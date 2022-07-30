@@ -84,12 +84,16 @@ class FriendListViewController: UIViewController {
         return label
     }()
 
-    private let recommendLinkLabel : UILabel = {
+    private lazy var recommendLinkLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .light)
         label.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
-        label.text = "연락처에 있는 친구 과연으로 초대하기"
-
+        label.text = "과연 추가하기"
+        
+        // label에 sheet 연결 위한 tap gesture 추가
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tap)
         return label
     }()
     
@@ -101,6 +105,14 @@ class FriendListViewController: UIViewController {
         
         self.navigationController?.navigationBar.tintColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
         
+    }
+    
+    @objc func tapFunction() {
+        let viewControllerToPresent = FriendAddViewController()
+        if let sheet = viewControllerToPresent.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+        present(viewControllerToPresent, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
