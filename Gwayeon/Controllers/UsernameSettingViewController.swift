@@ -34,8 +34,8 @@ class UsernameSettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavigationBackButton()
-        configureLayout()
         hideKeyboardWhenTappedAround()
+        setLayout()
     }
     
     @objc private func nextButtonClicked(_ sender: Any) {
@@ -51,7 +51,7 @@ class UsernameSettingViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
-    private func configureLayout() {
+    private func setLayout() {
         view.backgroundColor = .systemBackground
         
         [usernameLabel, usernameTextfield, nextButton].forEach { component in

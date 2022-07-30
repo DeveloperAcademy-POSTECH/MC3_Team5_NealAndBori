@@ -14,6 +14,7 @@
 		373DD9D02890FFED009A9E8B /* FruitSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373DD9CF2890FFED009A9E8B /* FruitSelectViewController.swift */; };
 		373DD9D228910079009A9E8B /* FruitSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373DD9D128910079009A9E8B /* FruitSelectCollectionViewCell.swift */; };
 		373DD9D528921F87009A9E8B /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0012885381400D66F41 /* MainTabBarViewController.swift */; };
+		373DD9D728923A06009A9E8B /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */; };
 		37F1FA162887ABCE009FB2DA /* RecommendFarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */; };
 		37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F1FA172887AC6D009FB2DA /* InputSection.swift */; };
 		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
@@ -56,6 +57,7 @@
 		14CD04682886A0D50062AFF1 /* FriendListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewCell.swift; sourceTree = "<group>"; };
 		373DD9CF2890FFED009A9E8B /* FruitSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSelectViewController.swift; sourceTree = "<group>"; };
 		373DD9D128910079009A9E8B /* FruitSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitSelectCollectionViewCell.swift; sourceTree = "<group>"; };
+		373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		37F1FA152887ABCE009FB2DA /* RecommendFarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFarmViewController.swift; sourceTree = "<group>"; };
 		37F1FA172887AC6D009FB2DA /* InputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSection.swift; sourceTree = "<group>"; };
 		4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendToFriendViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				7605A01B28878EA700D66F41 /* NSMutableAttributedString+Extension.swift */,
 				7605A022288974E500D66F41 /* UIButton+Extension.swift */,
 				768958FB2890E4EF00F979AE /* UIView+Extension.swift */,
+				373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				373DD9D728923A06009A9E8B /* UIViewController+Extension.swift in Sources */,
 				373DD9D528921F87009A9E8B /* MainTabBarViewController.swift in Sources */,
 				1478662D288E6C260029FE50 /* FriendAddViewController.swift in Sources */,
 				14CD04692886A0D50062AFF1 /* FriendListViewCell.swift in Sources */,
