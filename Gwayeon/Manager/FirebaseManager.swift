@@ -7,6 +7,7 @@
 
 import Foundation
 
+import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseFirestoreSwift
@@ -16,8 +17,29 @@ final class FirebaseManager {
     
     private static let decoder = JSONDecoder()
     private static let db = Firestore.firestore()
+    private static let auth = Auth.auth()
     
     private init() { }
+    
+    func createNewAccount(email: String, password: String) async {
+        do {
+            try await FirebaseManager.auth.createUser(withEmail: email, password: password)
+            print("Successfully created user")
+        } catch {
+            print("Failed to create user")
+        }
+    }
+    
+    func storeUserInformation(email: String, userName: String, pinCode: String, userImageName: String) async {
+        guard let uid = FirebaseManager.auth.currentUser?.uid else { return }
+        do {
+            let userData = ["email": email, "uid": uid, "userName": userName, "pinCode": pinCode, "userImageName": userImageName]
+            try await FirebaseManager.db.collection("Users").document(uid).setData(userData)
+        } catch {
+            print("Store User error")
+        }
+    }
+    
     
     /// 유저이름과 pinCode(4자리)를 가지고 유저정보인 "User들을" 가져오는 함수(파베에선 해당 field값을 가진 문서가 유일하다고 판단 불가)
     /// - Parameters:
@@ -26,14 +48,14 @@ final class FirebaseManager {
     func fetchUserInformation(userName: String, pinCode: String, completion: @escaping (Result<[User], Error>) -> Void) {
         
         FirebaseManager.db.collection("Users").whereField("userName", isEqualTo: userName).whereField("pinCode", isEqualTo: pinCode).getDocuments { querySnapshot, err in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                    completion(.failure(err))
-                } else {
-                        let datas = querySnapshot!.documents.map { try? $0.data(as: User.self) }
-                        let users = datas.compactMap({ $0 })
-                        completion(.success(users))
-                }
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+                let datas = querySnapshot!.documents.map { try? $0.data(as: User.self) }
+                let users = datas.compactMap({ $0 })
+                completion(.success(users))
+            }
         }
     }
     
@@ -58,15 +80,15 @@ final class FirebaseManager {
     ///   - userName: 유저의의 이름
     ///   - pinCode: 핀코드
     func fetchRecommendInformation(userName: String, pinCode: String, completion: @escaping (Result<[Recommend], Error>) -> Void) {
-
+        
         FirebaseManager.db.collection("Recommends").whereField("pinCode", isEqualTo: pinCode).whereField("userName", isEqualTo: userName).getDocuments { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
                 completion(.failure(err))
             } else {
-                    let datas = querySnapshot!.documents.map { try? $0.data(as: Recommend.self) }
-                    let recommends = datas.compactMap({ $0 })
-                    completion(.success(recommends))
+                let datas = querySnapshot!.documents.map { try? $0.data(as: Recommend.self) }
+                let recommends = datas.compactMap({ $0 })
+                completion(.success(recommends))
             }
         }
     }
@@ -163,3 +185,4 @@ final class FirebaseManager {
     
     
 }
+
