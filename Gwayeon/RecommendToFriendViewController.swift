@@ -10,21 +10,24 @@ import UIKit
 class RecommendToFriendViewController: UIViewController {
     
     var userId: String = "abc111"
-    var username: String = "소니"
+    var userName: String = "소니"
     var fruitId: String = "복숭아"
+    var farmName: String = "나무농장"
+    var fruitName: String = "애플사과"
+    var friendCount: String = "113"
     
     // MARK: Properties
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
     private lazy var farmLabel: UILabel = {
         let label = UILabel()
-        label.text = "자연농원의"
+        label.text = farmName + "의"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
     private lazy var fruitLabel: UILabel = {
         let label = UILabel()
-        label.text = "청송사과"
+        label.text = fruitName
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         return label
@@ -46,7 +49,7 @@ class RecommendToFriendViewController: UIViewController {
     
     private lazy var numOfFriendsLabel: UILabel = {
         let label = UILabel()
-        label.text = "213"
+        label.text = friendCount
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         return label
@@ -178,7 +181,7 @@ class RecommendToFriendViewController: UIViewController {
     @objc private func completeButtonClicked(_ sender: Any) {
         
         if !textView.text.isEmpty {
-            sendRecommend(uid: userId, userName: username, comment: textView.text)
+            sendRecommend(uid: userId, userName: userName, comment: textView.text)
             self.navigationController?.popViewController(animated: true)
         } else {return}
     }
