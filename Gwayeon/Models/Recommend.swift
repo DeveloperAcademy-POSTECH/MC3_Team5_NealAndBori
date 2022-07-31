@@ -10,5 +10,6 @@ import FirebaseFirestoreSwift
 
 struct Recommend: Codable, Identifiable {
     @DocumentID var id: String?
-    let comment, userId, fruitId: String
+    let userId, fruitId, userName, comment: String
+//    let comment, userId, fruitId, userName: String
 }

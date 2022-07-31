@@ -9,9 +9,9 @@ import UIKit
 
 class TestViewController: UIViewController {
     
-    private let userIDTextField : UITextField = {
+    private let uidTextField : UITextField = {
         let textField = UITextField()
-        let placeholderText = "user id를 입력해주세요"
+        let placeholderText = "uid를 입력해주세요"
         
         // textfield style
         textField.font = .systemFont(ofSize: 17, weight: .regular)
@@ -28,9 +28,29 @@ class TestViewController: UIViewController {
         return textField
     }()
     
-    private let nicknameTextField : UITextField = {
+    
+    private let pinCodeTextField : UITextField = {
         let textField = UITextField()
-        let placeholderText = "nickname을 입력해주세요"
+        let placeholderText = "pinCode를 입력해주세요"
+        
+        // textfield style
+        textField.font = .systemFont(ofSize: 17, weight: .regular)
+        textField.borderStyle = .roundedRect
+
+        // placeholder style
+        textField.attributedPlaceholder = NSAttributedString(
+            string : placeholderText,
+            attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor.systemGray3,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
+            ]
+        )
+        return textField
+    }()
+    
+    private let usernameTextField : UITextField = {
+        let textField = UITextField()
+        let placeholderText = "userName을 입력해주세요"
         
         // textfield style
         textField.font = .systemFont(ofSize: 17, weight: .regular)
@@ -98,51 +118,101 @@ class TestViewController: UIViewController {
         return btn
     }()
     
+
+    lazy private var setFruitInfoButton: UIButton = {
+        let btn = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .red
+        config.buttonSize = .large
+        config.title = "과일 입력하기"
+        btn.configuration = config
+        btn.addTarget(self, action: #selector(didFruitInfoButtonClicked(_:)), for: .touchUpInside)
+        return btn
+    }()
     
     @objc private func getUserInfoButtonClicked(_ sender: Any) {
-        fetchData(uid: userIDTextField.text, nickname: nicknameTextField.text)
+        fetchData(uid: uidTextField.text, pinCode: pinCodeTextField.text, userName: usernameTextField.text)
     }
     
     @objc private func setUserInfoButtonClicked(_ sender: Any) {
-        sendData(uid: userIDTextField.text, nickname: nicknameTextField.text)
+        sendUserData(pinCode: pinCodeTextField.text, userName: usernameTextField.text)
     }
     
     @objc private func setRecommendButtonClicked(_ sender: Any) {
-        sendRecommend(uid: userIDTextField.text, nickname: nicknameTextField.text, recommend: recommendationTextField.text)
+        sendRecommend(uid: uidTextField.text, userName: usernameTextField.text, comment: recommendationTextField.text)
     }
     
-    private func sendRecommend(uid: String?, nickname: String?, recommend: String?) {
-        guard let uid = uid, let nickname = nickname, let recommend = recommend else {
-            return
-        }
-        FirebaseManager.shared.sendRecommend(uid: uid, nickname: nickname, fruitID: "234234", comment: recommend)
-    }
-    private func sendData(uid: String?, nickname: String?) {
-        guard let uid = uid, let nickname = nickname else {
-            return
-        }
-        FirebaseManager.shared.sendUserInformation(uid: uid, nickname: nickname)
+    @objc private func didFruitInfoButtonClicked(_ sender: Any) {
+        sendFruitData(uid: uidTextField.text, userName: usernameTextField.text, comment: recommendationTextField.text)
     }
     
-    private func fetchData(uid: String?, nickname: String?) {
-        
-        guard let uid = uid else {
+    private func sendRecommend(uid: String?, userName: String?, comment: String?) {
+        guard let uid = uid, let userName = userName, let comment = comment else {
+            return
+        }
+        FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: "2233", comment: comment)
+    }
+    
+    private func sendUserData(pinCode: String?, userName: String?) {
+        guard let pinCode = pinCode, let userName = userName else {
+            return
+        }
+        FirebaseManager.shared.requestUserInformation(userName: userName, pinCode: pinCode)
+    }
+    
+    private func sendFruitData(uid: String?, userName: String?, comment: String?) {
+        guard let uid = uid, let userName = userName, let comment = comment else {
             return
         }
 
-        FirebaseManager.shared.getUserInformation(uid: uid) { results in
+//      추천평을 등록하기 위해선, 구매등록을 한 뒤, recommend를 추가해야 한다.
+        FirebaseManager.shared.requestFruitInformation(uid: uid, fruitBaseInfo: FruitBaseInfo(fruitCategory: "15", fruitName: "엄청난 한라봉", farmName: "유돈이네 한라봉", farmTelNumber: "010-4784-2949")) { results in
             switch results {
-            case .success(let users):
-                print(users)
+            case .success(let fruitId):
+                FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: fruitId, comment: comment)
             case .failure(let error):
                 print(error)
+                return
             }
         }
-        
-        guard let nickname = nickname else {
+    }
+    
+    private func fetchData(uid: String?, pinCode: String?, userName: String?) {
+        guard let uid = uid, !uid.isEmpty else {
             return
         }
-        FirebaseManager.shared.getRecommendInformation(uid: uid, nickname: nickname) { results in
+//        FirebaseManager.shared.fetchUserInformation(uid: uid) { results in
+//            switch results {
+//            case .success(let user):
+//                print(user)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//
+        guard let pinCode = pinCode, let userName = userName, !pinCode.isEmpty, !userName.isEmpty else {
+            return
+        }
+//
+//        FirebaseManager.shared.fetchUserInformation(userName: userName, pinCode: pinCode) { results in
+//            switch results {
+//            case .success(let users):
+//                print(users)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//
+//        FirebaseManager.shared.fetchRecommendInformation(userName: userName, pinCode: pinCode) { results in
+//            switch results {
+//            case .success(let recommends):
+//                print(recommends)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        
+        FirebaseManager.shared.fetchRecommendInformation(recommendId: uid) { results in
             switch results {
             case .success(let recommends):
                 print(recommends)
@@ -150,7 +220,17 @@ class TestViewController: UIViewController {
                 print(error)
             }
         }
+        
+        FirebaseManager.shared.fetchRecommendInformation(recommendId: pinCode) { results in
+            switch results {
+            case .success(let recommend):
+                print(recommend)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -164,47 +244,61 @@ class TestViewController: UIViewController {
     
     private func setLayouts() {
         
-        view.addSubviews(userIDTextField, nicknameTextField, recommendationTextField, setRecommendButton, getUserButton, setUserButton)
+        view.addSubviews(uidTextField, pinCodeTextField, usernameTextField, recommendationTextField, setRecommendButton, getUserButton, setUserButton, setFruitInfoButton)
         
-        let userIDTextFieldConstraints = [
-            userIDTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            userIDTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            userIDTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            userIDTextField.heightAnchor.constraint(equalToConstant: 50)
+        let uidTextFieldConstraints = [
+            uidTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            uidTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            uidTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            uidTextField.heightAnchor.constraint(equalToConstant: 50)
         ]
         
-        let nicknameTextFieldConstraints = [
-            nicknameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            nicknameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            nicknameTextField.topAnchor.constraint(equalTo: userIDTextField.bottomAnchor, constant: 50),
-            nicknameTextField.heightAnchor.constraint(equalToConstant: 50)
+        let pinCodeTextFieldConstraints = [
+            pinCodeTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            pinCodeTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            pinCodeTextField.topAnchor.constraint(equalTo: uidTextField.bottomAnchor, constant: 30),
+            pinCodeTextField.heightAnchor.constraint(equalToConstant: 50)
+        ]
+        
+        let userNameTextFieldConstraints = [
+            usernameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            usernameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            usernameTextField.topAnchor.constraint(equalTo: pinCodeTextField.bottomAnchor, constant: 30),
+            usernameTextField.heightAnchor.constraint(equalToConstant: 50)
         ]
         
         let recommendTextFieldConstraints = [
             recommendationTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             recommendationTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            recommendationTextField.topAnchor.constraint(equalTo: nicknameTextField.bottomAnchor, constant: 50),
+            recommendationTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 30),
             recommendationTextField.heightAnchor.constraint(equalToConstant: 50)
         ]
         let getUserButtonConstraints = [
             getUserButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             getUserButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            getUserButton.topAnchor.constraint(equalTo: recommendationTextField.bottomAnchor, constant: 50)
+            getUserButton.topAnchor.constraint(equalTo: recommendationTextField.bottomAnchor, constant: 20)
         ]
         
         let setUserButtonConstraints = [
             setUserButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             setUserButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            setUserButton.topAnchor.constraint(equalTo: getUserButton.bottomAnchor, constant: 50)
+            setUserButton.topAnchor.constraint(equalTo: getUserButton.bottomAnchor, constant: 20)
         ]
         
         let setRecommendButtonConstraints = [
             setRecommendButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             setRecommendButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            setRecommendButton.topAnchor.constraint(equalTo: setUserButton.bottomAnchor, constant: 50)
+            setRecommendButton.topAnchor.constraint(equalTo: setUserButton.bottomAnchor, constant: 20)
         ]
         
-        [userIDTextFieldConstraints, nicknameTextFieldConstraints, recommendTextFieldConstraints, getUserButtonConstraints, setUserButtonConstraints, setRecommendButtonConstraints].forEach { constraint in
+        
+        let setFruitInfoButtonConstraints = [
+            setFruitInfoButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            setFruitInfoButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            setFruitInfoButton.topAnchor.constraint(equalTo: setRecommendButton.bottomAnchor, constant: 20)
+        ]
+        
+        [uidTextFieldConstraints, pinCodeTextFieldConstraints, userNameTextFieldConstraints, recommendTextFieldConstraints, getUserButtonConstraints, setUserButtonConstraints, setRecommendButtonConstraints, setFruitInfoButtonConstraints].forEach { constraint in
             NSLayoutConstraint.activate(constraint)
         }
     }

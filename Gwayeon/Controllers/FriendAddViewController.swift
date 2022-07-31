@@ -104,10 +104,10 @@ class FriendAddViewController: UIViewController {
         }
         
         // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
-        FirebaseManager.shared.getUserInformation(uid: seperatedSearchText[1]) { results in
+        FirebaseManager.shared.fetchUserInformation(userName: seperatedSearchText[0], pinCode: seperatedSearchText[1]) { results in
             switch results {
             case .success(let users):
-                if (!users.isEmpty) {
+c                if (!users.isEmpty) {
                     self.showResultView(users: users)
                 } else {
                     self.showNoResultView()
