@@ -12,9 +12,6 @@ class RecommendToFriendViewController: UIViewController {
     var userId: String = "abc111"
     var username: String = "소니"
     var fruitId: String = "복숭아"
- //   var comment: String = "맛있어요!!"
-    
- //   func requestRecommend(userId: String, userName: String, fruitId: String, comment: String)
     
     // MARK: Properties
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
@@ -67,16 +64,19 @@ class RecommendToFriendViewController: UIViewController {
         label.text = "추천 한마디"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textColor = UIColor(red: 0.506, green: 0.506, blue: 0.506, alpha: 1)
-        
         return label
     }()
     
     lazy private var completionButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
-        button.setTitle("완료", for: UIControl.State.normal)
-        button.addTarget(self, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = UIColor.mainColor
+        configuration.background.cornerRadius = 12
+        configuration.title = "완료"
+        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+
+        let button = UIButton(configuration: configuration)
+        button.isEnabled = false
+        button.addTarget(nil, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -93,14 +93,12 @@ class RecommendToFriendViewController: UIViewController {
         textView.adjustsFontForContentSizeCategory = true
         textView.clipsToBounds = true
         textView.delegate = self
-        
         return textView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "과연에게 추천하기"
-        // Do any additional setup after loading the view.
         setComponentLayouts()
     }
     
@@ -179,11 +177,12 @@ class RecommendToFriendViewController: UIViewController {
     
     @objc private func completeButtonClicked(_ sender: Any) {
         
-        sendRecommend(uid: userId, userName: username, comment: textView.text)
-        self.navigationController?.popViewController(animated: true)
-        
+        if !textView.text.isEmpty {
+            sendRecommend(uid: userId, userName: username, comment: textView.text)
+            self.navigationController?.popViewController(animated: true)
+        } else {return}
     }
-    
+
     private func sendRecommend(uid: String?, userName: String?, comment: String?) {
         guard let uid = uid, let userName = userName, let comment = comment else {
             return
@@ -196,6 +195,7 @@ extension RecommendToFriendViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == textViewPlaceHolder {
             textView.text = nil
+            completionButton.isEnabled = true
             textView.textColor = .black
         }
     }
@@ -203,6 +203,7 @@ extension RecommendToFriendViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
+            completionButton.isEnabled = false
             textView.textColor = .lightGray
         }
     }
