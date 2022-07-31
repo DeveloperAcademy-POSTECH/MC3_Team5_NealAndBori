@@ -9,6 +9,25 @@ import UIKit
 
 class TestViewController: UIViewController {
     
+    private let friendUidTextField : UITextField = {
+        let textField = UITextField()
+        let placeholderText = "친구 uid를 입력해주세요"
+        
+        // textfield style
+        textField.font = .systemFont(ofSize: 17, weight: .regular)
+        textField.borderStyle = .roundedRect
+
+        // placeholder style
+        textField.attributedPlaceholder = NSAttributedString(
+            string : placeholderText,
+            attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor.systemGray3,
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .regular)
+            ]
+        )
+        return textField
+    }()
+    
     private let uidTextField : UITextField = {
         let textField = UITextField()
         let placeholderText = "uid를 입력해주세요"
@@ -130,6 +149,18 @@ class TestViewController: UIViewController {
         return btn
     }()
     
+    
+    lazy private var setFriendAdditionButton: UIButton = {
+        let btn = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = .red
+        config.buttonSize = .large
+        config.title = "친구 추가하기"
+        btn.configuration = config
+        btn.addTarget(self, action: #selector(didFriendAdditionButtonClicked(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
     @objc private func getUserInfoButtonClicked(_ sender: Any) {
         fetchData(uid: uidTextField.text, pinCode: pinCodeTextField.text, userName: usernameTextField.text)
     }
@@ -144,6 +175,13 @@ class TestViewController: UIViewController {
     
     @objc private func didFruitInfoButtonClicked(_ sender: Any) {
         sendFruitData(uid: uidTextField.text, userName: usernameTextField.text, comment: recommendationTextField.text)
+    }
+    
+    @objc private func didFriendAdditionButtonClicked(_ sender: Any) {
+        guard let uid = uidTextField.text, let friendId = friendUidTextField.text else {
+            return
+        }
+        FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
     }
     
     private func sendRecommend(uid: String?, userName: String?, comment: String?) {
@@ -244,12 +282,19 @@ class TestViewController: UIViewController {
     
     private func setLayouts() {
         
-        view.addSubviews(uidTextField, pinCodeTextField, usernameTextField, recommendationTextField, setRecommendButton, getUserButton, setUserButton, setFruitInfoButton)
+        view.addSubviews(friendUidTextField, uidTextField, pinCodeTextField, usernameTextField, recommendationTextField, setRecommendButton, getUserButton, setUserButton, setFruitInfoButton, setFriendAdditionButton)
+        
+        let friendUidTextFieldConstraints = [
+            friendUidTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            friendUidTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            friendUidTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            friendUidTextField.heightAnchor.constraint(equalToConstant: 50)
+        ]
         
         let uidTextFieldConstraints = [
             uidTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             uidTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            uidTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            uidTextField.topAnchor.constraint(equalTo: friendUidTextField.bottomAnchor, constant: 30),
             uidTextField.heightAnchor.constraint(equalToConstant: 50)
         ]
         
@@ -298,7 +343,13 @@ class TestViewController: UIViewController {
             setFruitInfoButton.topAnchor.constraint(equalTo: setRecommendButton.bottomAnchor, constant: 20)
         ]
         
-        [uidTextFieldConstraints, pinCodeTextFieldConstraints, userNameTextFieldConstraints, recommendTextFieldConstraints, getUserButtonConstraints, setUserButtonConstraints, setRecommendButtonConstraints, setFruitInfoButtonConstraints].forEach { constraint in
+        let setFriendAdditionButtonConstraints = [
+            setFriendAdditionButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            setFriendAdditionButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            setFriendAdditionButton.topAnchor.constraint(equalTo: setFruitInfoButton.bottomAnchor, constant: 20)
+        ]
+        
+        [friendUidTextFieldConstraints, uidTextFieldConstraints, pinCodeTextFieldConstraints, userNameTextFieldConstraints, recommendTextFieldConstraints, getUserButtonConstraints, setUserButtonConstraints, setRecommendButtonConstraints, setFruitInfoButtonConstraints, setFriendAdditionButtonConstraints].forEach { constraint in
             NSLayoutConstraint.activate(constraint)
         }
     }
