@@ -149,6 +149,12 @@ class FriendAddViewController: UIViewController {
         }
     }
     
+    private func setNavigationBar() {
+        self.navigationController?.navigationBar.topItem?.title = "과연 추가"
+        self.navigationController?.navigationBar.tintColor = .mainColor
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(closeModal))
+    }
+    
     private func showResultView(users : [User]) {
         self.friendSearchResult.append(contentsOf: users)
         self.searchResultCellView.isHidden = false
@@ -166,25 +172,11 @@ class FriendAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
-        setNavigationBar()
         setLayout()
+        setNavigationBar()
         // 초기 검색 화면만 보이도록 설정
         noResultTextStack.isHidden = true
         searchResultCellView.isHidden = true
-    }
-    
-    private func setNavigationBar() {
-        view.addSubviews(customNavigationBar)
-        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        let customNavigationBarConstraints = [
-            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            customNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(customNavigationBarConstraints)
-        
     }
     
     private func setLayout() {

@@ -67,11 +67,9 @@ class HomeViewController: UIViewController {
     }()
     
     @objc private func tapFunction() {
-        let viewControllerToPresent = FriendAddViewController()
-        if let sheet = viewControllerToPresent.sheetPresentationController {
-            sheet.detents = [.large()]
-        }
-        present(viewControllerToPresent, animated: true, completion: nil)
+        let viewController = FriendAddViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
     }
     
     // MARK: Life Cycle Function
