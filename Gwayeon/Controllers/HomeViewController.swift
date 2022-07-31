@@ -34,6 +34,14 @@ class HomeViewController: UIViewController {
     
     private let fruitEmptyView = FruitEmptyView()
     
+    private let findFriendLabel: UILabel = {
+        let label = UILabel()
+        label.text = "과연 찾아보기"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.textColor = .mainColor
+        return label
+    }()
+    
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -66,9 +74,10 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         if !data.isEmpty {
             fruitEmptyView.isHidden = true
+            findFriendLabel.isHidden = true
         }
         
-        [titleLabel, fruitListView, fruitEmptyView, listCollectionView].forEach { component in
+        [titleLabel, fruitListView, fruitEmptyView, findFriendLabel, listCollectionView].forEach { component in
             view.addSubview(component)
         }
         
@@ -94,6 +103,12 @@ class HomeViewController: UIViewController {
             fruitEmptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
+        findFriendLabel.translatesAutoresizingMaskIntoConstraints = false
+        let findFriendLabelConstraints = [
+            findFriendLabel.topAnchor.constraint(equalTo: fruitEmptyView.canSeeLabel.bottomAnchor, constant: 30),
+            findFriendLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ]
+        
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let listCollectionViewConstraints = [
             listCollectionView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 20),
@@ -102,7 +117,7 @@ class HomeViewController: UIViewController {
             listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
-        [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, listCollectionViewConstraints].forEach { constraints in
+        [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, findFriendLabelConstraints, listCollectionViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
         

@@ -90,7 +90,7 @@ class FriendListViewController: UIViewController {
         label.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
         label.text = "과연 추가하기"
         
-        // label에 sheet 연결 위한 tap gesture 추가
+        // label에 과연 추가 sheet 연결 위한 tap gesture 추가
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(tap)
@@ -101,7 +101,7 @@ class FriendListViewController: UIViewController {
         self.navigationItem.title = "친구 리스트"
     }
     
-    @objc func tapFunction() {
+    @objc private func tapFunction() {
         let viewControllerToPresent = FriendAddViewController()
         if let sheet = viewControllerToPresent.sheetPresentationController {
             sheet.detents = [.large()]
