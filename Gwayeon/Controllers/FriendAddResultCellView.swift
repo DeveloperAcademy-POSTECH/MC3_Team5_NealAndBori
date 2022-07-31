@@ -41,7 +41,7 @@ class FriendAddResultCellView: UIView {
     
     func configure(data : User) {
         self.nameLabel.text = data.userName
-        self.codeLabel.text = "#" + data.pinCode
+        self.codeLabel.text = data.pinCode
         self.fruitImage.image = UIImage(named: "watermelon") // TODO: 서버에서 받아온 프로필로 변경
         guard let recommends = data.recommends, !recommends.isEmpty else {
             self.recommendCountLabel.text = "0"
