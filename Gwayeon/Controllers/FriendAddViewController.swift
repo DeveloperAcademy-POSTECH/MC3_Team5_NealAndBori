@@ -91,7 +91,7 @@ class FriendAddViewController: UIViewController {
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
-        //button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
+        button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
         return button
     }()
     
@@ -147,6 +147,19 @@ class FriendAddViewController: UIViewController {
                 self.showNoResultView()
             }
         }
+    }
+    
+    @objc private func addFriend() {
+        // TODO: uid 가져오는 함수 활용하기
+//        guard let uid = "RyEgFAfzMZoVfBySIekD", let friendId = friendSearchResult[0].id else {
+//            return
+//        }
+        guard let friendId = friendSearchResult[0].id else {
+            return
+        }
+        let uid = "RyEgFAfzMZoVfBySIekD"
+        
+        FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
     }
     
     private func setNavigationBar() {
