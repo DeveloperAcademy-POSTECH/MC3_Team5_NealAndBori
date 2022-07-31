@@ -21,6 +21,18 @@ final class FirebaseManager {
     
     private init() { }
     
+    func getUser() async -> User? {
+        guard let userId = FirebaseManager.auth.currentUser?.uid else { return nil }
+        do {
+            let data = try await FirebaseManager.db.collection("Users").document(userId).getDocument(as: User.self)
+            print("Success get user")
+            return data
+        } catch {
+            print("Get User error")
+            return nil
+        }
+    }
+    
     func createNewAccount(email: String, password: String) async {
         do {
             try await FirebaseManager.auth.createUser(withEmail: email, password: password)
