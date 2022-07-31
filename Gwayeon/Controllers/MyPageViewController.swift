@@ -241,10 +241,8 @@ extension MyPageViewController {
     }
     
     private func setMyStatusLayout() {
-        [myProfileImageView, myNameLabel, gwayeonCountLabel, disclosureButton].forEach { component in
-            component.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(component)
-        }
+        
+        view.addSubviews(myProfileImageView, myNameLabel, gwayeonCountLabel, disclosureButton)
         
         let myProfileImageViewConstraints = [
             myProfileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
