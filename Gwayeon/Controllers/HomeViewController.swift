@@ -34,11 +34,15 @@ class HomeViewController: UIViewController {
     
     private let fruitEmptyView = FruitEmptyView()
     
-    private let findFriendLabel: UILabel = {
+    private lazy var findFriendLabel: UILabel = {
         let label = UILabel()
         label.text = "과연 찾아보기"
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.textColor = .mainColor
+        // label에 과연 추가 sheet 연결 위한 tap gesture 추가
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tap)
         return label
     }()
     
@@ -62,6 +66,15 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    @objc private func tapFunction() {
+        print("hello main")
+        let viewControllerToPresent = FriendAddViewController()
+        if let sheet = viewControllerToPresent.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+        present(viewControllerToPresent, animated: true, completion: nil)
+    }
+    
     // MARK: Life Cycle Function
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +89,8 @@ class HomeViewController: UIViewController {
             fruitEmptyView.isHidden = true
             findFriendLabel.isHidden = true
         }
-        
-        [titleLabel, fruitListView, fruitEmptyView, findFriendLabel, listCollectionView].forEach { component in
+                
+        [titleLabel, fruitListView, fruitEmptyView, listCollectionView, findFriendLabel].forEach { component in
             view.addSubview(component)
         }
         

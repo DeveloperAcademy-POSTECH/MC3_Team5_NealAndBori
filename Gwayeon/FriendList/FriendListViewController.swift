@@ -87,7 +87,7 @@ class FriendListViewController: UIViewController {
     private lazy var recommendLinkLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .light)
-        label.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
+        label.textColor = UIColor.mainColor
         label.text = "과연 추가하기"
         
         // label에 과연 추가 sheet 연결 위한 tap gesture 추가
