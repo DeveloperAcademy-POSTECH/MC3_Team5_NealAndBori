@@ -57,7 +57,7 @@ final class FirebaseManager {
     }
     
     func sendRecommend(uid: String, nickname: String, fruitID: String, comment: String) {
-        let recommend = Recommend(uid: uid, fruitID: fruitID, nickname: nickname, comment: comment)
+        let recommend = Recommend(id: uid, comment: fruitID, userId: nickname, fruitId: comment)
         do {
             let ref = FirebaseManager.db.collection("Recommends").document()
             try ref.setData(from: recommend)

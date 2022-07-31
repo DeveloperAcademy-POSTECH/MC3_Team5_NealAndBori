@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FirebaseFirestoreSwift
 
 struct Recommend: Codable, Identifiable {
     @DocumentID var id: String?
