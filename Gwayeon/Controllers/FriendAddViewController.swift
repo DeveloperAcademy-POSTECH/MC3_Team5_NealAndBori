@@ -10,7 +10,8 @@ import Foundation
 
 class FriendAddViewController: UIViewController {
     
-    var friendSearchResult = [User]()
+    private var user: User? //사용자 정보
+    var friendSearchResult = [User]() //과연 검색 결과
     
     // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
     private enum ViewCase {
@@ -113,6 +114,13 @@ class FriendAddViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    // 현재 사용자 정보를 가져오는 함수
+    private func fetchData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+        }
+    }
+    
     @objc private func searchFriend() {
         // 이전 검색 결과 삭제
         friendSearchResult.removeAll()
@@ -150,14 +158,9 @@ class FriendAddViewController: UIViewController {
     }
     
     @objc private func addFriend() {
-        // TODO: uid 가져오는 함수 활용하기
-//        guard let uid = "RyEgFAfzMZoVfBySIekD", let friendId = friendSearchResult[0].id else {
-//            return
-//        }
-        guard let friendId = friendSearchResult[0].id else {
+        guard let uid = user?.id, let friendId = friendSearchResult[0].id else {
             return
         }
-        let uid = "RyEgFAfzMZoVfBySIekD"
         
         FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
         // 추가 버튼 클릭시 모달 close
@@ -186,6 +189,7 @@ class FriendAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData()
         hideKeyboardWhenTappedAround()
         setLayout()
         setNavigationBar()
