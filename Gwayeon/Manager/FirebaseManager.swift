@@ -170,7 +170,6 @@ final class FirebaseManager {
     ///   - friendId: 친구의 userId(문서 아이디)
     func requestFriendAddition(uid: String, friendId: String) {
         FirebaseManager.db.collection("Users").document(uid).updateData(["friends": FieldValue.arrayUnion([friendId])])
-        FirebaseManager.db.collection("Users").document(friendId).updateData(["friends": FieldValue.arrayUnion([uid])])
     }
     
     /// User가 과일을 등록하는 함수
