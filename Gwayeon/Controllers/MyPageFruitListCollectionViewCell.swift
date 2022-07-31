@@ -153,11 +153,13 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         self.parent = viewController
     }
     
-    func setButtonOrLabelHidden(status: Bool) {
-        if status {
+    func setButtonOrLabelHidden(status: SegmentStatus) {
+        
+        switch status {
+        case .myRecommendFruitList:
             fruitInfoLabel.isHidden = false
             recommendToFriendButton.isHidden = true
-        } else {
+        case .buyingList:
             fruitInfoLabel.isHidden = true
             recommendToFriendButton.isHidden = false
         }

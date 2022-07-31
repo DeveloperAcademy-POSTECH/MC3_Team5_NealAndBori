@@ -6,16 +6,22 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum CollectionViewCellSection: Int {
     case addingFarm = 0
 }
 
+enum SegmentStatus: Int {
+    case myRecommendFruitList
+    case buyingList
+}
+
 class MyPageViewController: UIViewController {
     
-    private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
+    private var user: User?
     
-    private var segmentButtonStatus: Bool = true
+    private var segmentButtonStatus: SegmentStatus = SegmentStatus.myRecommendFruitList
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
@@ -53,7 +59,7 @@ class MyPageViewController: UIViewController {
     }(UILabel())
     
     private let gwayeonCountLabel: UILabel = { label in
-        let str = "100명의 과연이 있어요"
+        let str = "0명의 과연이 있어요"
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         attributeString.setColor(color: .pointColor, forText: "100")
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
@@ -120,8 +126,34 @@ class MyPageViewController: UIViewController {
         setMyStatusLayout()
         setSegmentControlLayout()
         setCollectionViewLayout()
+        fetchData()
     }
     
+    private func update() {
+        guard let user = user else {
+            return
+        }
+        myProfileImageView.image = UIImage(named: user.userImageName)
+        myNameLabel.text = user.userName
+        guard let friends = user.friends else {
+            return
+        }
+        gwayeonCountLabel.text = "\(friends.count)명의 과연이 있어요"
+    }
+    private func fetchData() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        FirebaseManager.shared.fetchUserInformation(uid: uid) { [weak self] result in
+            switch result {
+            case .success(let user):
+                self?.user = user
+                self?.update()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         gearButton.isHidden = true
@@ -142,14 +174,17 @@ class MyPageViewController: UIViewController {
     }
     
     @objc func segmentButtonClicked(_ sender: Any) {
-        if segmentButtonStatus {
+        
+        switch segmentButtonStatus {
+        case SegmentStatus.myRecommendFruitList:
             myRecommendationButton.setButtonBlur()
             purchaseListButton.setButtonHighlight()
-        } else {
+            segmentButtonStatus = SegmentStatus.buyingList
+        case SegmentStatus.buyingList:
             myRecommendationButton.setButtonHighlight()
             purchaseListButton.setButtonBlur()
+            segmentButtonStatus = SegmentStatus.myRecommendFruitList
         }
-        segmentButtonStatus.toggle()
         DispatchQueue.main.async { [weak self] in
             self?.listCollectionView.reloadData()
         }
@@ -259,11 +294,23 @@ extension MyPageViewController {
 // MARK: - CollectionView DataSource
 extension MyPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count + 1
+        switch segmentButtonStatus {
+        case SegmentStatus.myRecommendFruitList:
+            guard let user = user, let recommends = user.recommends else {
+                return 1
+            }
+            return recommends.count + 1
+        case SegmentStatus.buyingList:
+            guard let user = user, let buyingFruits = user.buyingFruits else {
+                return 1
+            }
+            return buyingFruits.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if segmentButtonStatus {
+        switch segmentButtonStatus {
+        case .myRecommendFruitList:
             switch indexPath.row {
             case Section.first.rawValue:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmptyButtonCollectionViewCell.identifier, for: indexPath) as? EmptyButtonCollectionViewCell else {
@@ -279,7 +326,7 @@ extension MyPageViewController: UICollectionViewDataSource {
                 cell.setButtonOrLabelHidden(status: segmentButtonStatus)
                 return cell
             }
-        } else {
+        case .buyingList:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell else {
                 return UICollectionViewCell()
             }
@@ -292,7 +339,7 @@ extension MyPageViewController: UICollectionViewDataSource {
 // MARK: - CollectionView Delegate
 extension MyPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if segmentButtonStatus {
+        if segmentButtonStatus == .myRecommendFruitList {
             switch indexPath.row {
             case CollectionViewCellSection.addingFarm.rawValue:
                 let recommendFarmViewController = RecommendFarmViewController()

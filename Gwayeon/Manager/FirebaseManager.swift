@@ -128,7 +128,6 @@ final class FirebaseManager {
     }
     
     
-    
     /// 생성한 User정보를 Firebase Users로 보내는 함수
     /// - Parameters:
     ///   - userName: 유저가 설정한 이름
@@ -181,7 +180,6 @@ final class FirebaseManager {
             print("Error wrong to User to Firestore: \(error)")
         }
     }
-    
     
     
 }
