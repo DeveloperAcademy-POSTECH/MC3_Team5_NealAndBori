@@ -75,6 +75,7 @@ class UserProfileCompletionViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = .mainColor
         button.setTitle("시작하기", for: UIControl.State.normal)
+        button.addTarget(nil, action: #selector(didTapStartButton), for: .touchUpInside)
         return button
     }()
     
@@ -130,4 +131,32 @@ class UserProfileCompletionViewController: UIViewController {
         
     }
     
+    @objc private func didTapStartButton() {
+        let userName = username
+        let pinCodeMaker = { () -> String in
+            let randomNum = Int.random(in: 0...9999)
+            return String(format: "#04d", randomNum)
+        }
+        
+        let pinCode = pinCodeMaker()
+        
+        let email = userName + pinCode + "@gmail.com"
+        let password = "nilandbories"
+        
+        print(email)
+        
+        Task { [weak self] in
+            await FirebaseManager.shared.createNewAccount(email: email, password: password)
+            await FirebaseManager.shared.storeUserInformation(email: email, userName: userName, pinCode: pinCode, userImageName: "peach")
+            self?.goHome()
+        }
+    }
+    
+    private func goHome() {
+        let navigationController = UINavigationController(rootViewController: MainTabBarViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
 }
+

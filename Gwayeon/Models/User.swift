@@ -6,16 +6,11 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct User: Codable {
+struct User: Codable, Identifiable {
+    @DocumentID var id: String?
+    let uid, email, userName, pinCode, userImageName: String
+    let friends, buyingFruits, recommends: [String]?
     
-    var uid: String
-    var username: String
-    var friends: [String]
-    
-    enum CodingKeys: CodingKey {
-        case uid
-        case username
-        case friends
-    }
 }

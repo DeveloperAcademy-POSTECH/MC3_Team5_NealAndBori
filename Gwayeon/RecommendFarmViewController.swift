@@ -31,7 +31,7 @@ class RecommendFarmViewController: UIViewController {
     private lazy var finishButton: UIButton = {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
-        button.backgroundColor = UIColor(red: 246/255, green: 104/255, blue: 94/255, alpha: 1)
+        button.backgroundColor = UIColor.grey001
         button.layer.cornerRadius = 13
         button.isEnabled = false
         button.addTarget(nil, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
@@ -42,6 +42,7 @@ class RecommendFarmViewController: UIViewController {
         super.viewDidLoad()
         setLayout()
         setGesture()
+        setAction()
         hideKeyboardWhenTappedAround()
     }
     
@@ -84,12 +85,53 @@ class RecommendFarmViewController: UIViewController {
         categorySection.addGestureRecognizer(tapGesture)
     }
     
+    private func setAction() {
+        varietySection.endEditingAction = { self.checkInput() }
+        varietySection.returnAction = { self.farmNameSection.textField.becomeFirstResponder() }
+
+        farmNameSection.endEditingAction = { self.checkInput() }
+        farmNameSection.returnAction = { self.farmNumberSection.textField.becomeFirstResponder() }
+
+        farmNumberSection.startEditingAction = { self.categorySection.isHidden = true }
+        farmNumberSection.endEditingAction = { self.farmNameSection.isHidden = false; self.checkInput() }
+        farmNumberSection.returnAction = { self.recommendationSection.textView.becomeFirstResponder() }
+        
+        recommendationSection.startEditingAction = {
+            self.categorySection.isHidden = true
+            self.varietySection.isHidden = true
+            self.farmNameSection.isHidden = true
+        }
+        recommendationSection.endEditingAction = {
+            self.categorySection.isHidden = false
+            self.varietySection.isHidden = false
+            self.farmNameSection.isHidden = false
+            self.checkInput()
+        }
+    }
+    
+    private func checkInput() {
+        let checkCategory = categorySection.textField.placeholder != InputStyle.fruitCategory.placeholder
+        let checkVariety = varietySection.textField.text != ""
+        let checkFarmName = farmNameSection.textField.text != ""
+        let checkFarmNumber = farmNumberSection.textField.text != "" && farmNumberSection.textField.text?.count ?? 0 >= 10
+        let checkRecommendation = recommendationSection.textView.text != InputStyle.recommendation.placeholder
+        
+        if checkCategory && checkVariety && checkFarmName && checkFarmNumber && checkRecommendation {
+            finishButton.isEnabled = true
+            finishButton.backgroundColor = UIColor.mainRed
+        } else {
+            finishButton.isEnabled = true
+            finishButton.backgroundColor = UIColor.grey001
+        }
+    }
+    
     @objc private func didTapCategory() {
         let modalViewController = FruitSelectViewController()
         modalViewController.modalPresentationStyle = .pageSheet
         modalViewController.getSelectedItem = { item in
             self.categorySection.setTextFieldItem(FruitCategory.names[item])
             modalViewController.dismiss(animated: true)
+            self.varietySection.textField.becomeFirstResponder()
         }
         present(modalViewController, animated: true, completion: nil)
     }
