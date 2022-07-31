@@ -18,6 +18,7 @@ class RecommendToFriendViewController: UIViewController {
     
     // MARK: Properties
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
+    
     private lazy var farmLabel: UILabel = {
         let label = UILabel()
         label.text = farmName + "의"
@@ -33,14 +34,14 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    private lazy var objLabel: UILabel = {
+    private let objLabel: UILabel = {
         let label = UILabel()
         label.text = "를"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    private lazy var myFriendsLabel: UILabel = {
+    private let myFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "내 과연"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -55,14 +56,14 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    private lazy var recommendLabel: UILabel = {
+    private let recommendLabel: UILabel = {
         let label = UILabel()
         label.text = " 명에게 추천합니다"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    private lazy var recommendMessageLabel: UILabel = {
+    private let recommendMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "추천 한마디"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
@@ -70,7 +71,7 @@ class RecommendToFriendViewController: UIViewController {
         return label
     }()
     
-    lazy private var completionButton: UIButton = {
+    private let completionButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = UIColor.mainColor
         configuration.background.cornerRadius = 12
@@ -101,7 +102,7 @@ class RecommendToFriendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "과연에게 추천하기"
+   //     self.title = "과연에게 추천하기"
         setComponentLayouts()
     }
     
