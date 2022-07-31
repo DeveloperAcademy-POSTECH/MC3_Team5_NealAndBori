@@ -72,7 +72,7 @@ class DetailViewController: UIViewController {
     
     // MARK: Configures
     @objc private func phoneCall() {
-        guard let url = URL(string: "tel://01028735502"),
+        guard let url = URL(string: "tel://01012345678"),
             UIApplication.shared.canOpenURL(url) else {
             return
         }
