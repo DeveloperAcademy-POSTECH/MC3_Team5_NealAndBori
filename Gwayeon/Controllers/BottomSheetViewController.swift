@@ -13,7 +13,6 @@ class BottomSheetViewController: UIViewController {
     private lazy var fruitImageView: UIImageView = {
         let fruitImageView = UIImageView(image: UIImage(named: "peaches"))
         fruitImageView.contentMode = .scaleAspectFill
-        
         return fruitImageView
     }()
     
@@ -66,11 +65,7 @@ class BottomSheetViewController: UIViewController {
     // MARK: Configure
     private func setLayout() {
         view.backgroundColor = .white
-        
-        [fruitImageView, requiredComment, noticedComment, cancelButton, addButton].forEach { component in
-            view.addSubviews(component)
-            component.translatesAutoresizingMaskIntoConstraints = false
-        }
+        view.addSubviews(fruitImageView, requiredComment, noticedComment, cancelButton, addButton)
         
         let fruitImageViewConstraints = [
             fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),

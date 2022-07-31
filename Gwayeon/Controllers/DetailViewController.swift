@@ -60,7 +60,7 @@ class DetailViewController: UIViewController {
         return button
     }()
     
-    private var phoneNumber = "01083770805"
+    private var phoneNumber = ""
     
     // MARK: Life Cycle Function
     override func viewDidLoad() {
@@ -73,10 +73,10 @@ class DetailViewController: UIViewController {
     // MARK: Configures
     
     @objc private func bottomSheetButtonTapped() {
-        showMyViewControllerInACustomizedSheet()
+        showBottomSheet()
     }
     
-    func showMyViewControllerInACustomizedSheet() {
+    func showBottomSheet() {
         let viewControllerToPresent = BottomSheetViewController()
         if let sheet = viewControllerToPresent.sheetPresentationController {
             sheet.detents = [.medium()]
@@ -97,11 +97,7 @@ class DetailViewController: UIViewController {
     
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
-        
-        [fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton, modalButton].forEach { component in
-            view.addSubview(component)
-            component.translatesAutoresizingMaskIntoConstraints = false
-        }
+        view.addSubviews(fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton, modalButton)
         
         let fruitImageViewConstraints = [
             fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
