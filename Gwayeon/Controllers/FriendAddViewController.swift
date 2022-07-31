@@ -160,6 +160,8 @@ class FriendAddViewController: UIViewController {
         let uid = "RyEgFAfzMZoVfBySIekD"
         
         FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
+        // 추가 버튼 클릭시 모달 close
+        closeModal()
     }
     
     private func setNavigationBar() {
