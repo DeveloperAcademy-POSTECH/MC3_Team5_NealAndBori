@@ -95,6 +95,24 @@ class FriendAddViewController: UIViewController {
         return button
     }()
     
+    private lazy var customNavigationBar: UINavigationBar = {
+        let navigationBar = UINavigationBar()
+        // 네비게이션 바 배경 색깔 제거, 강조색 설정
+        navigationBar.barTintColor = .systemBackground
+        navigationBar.tintColor = .mainRed
+        // 네비게이션 바 아래 구분선 제거
+        navigationBar.shadowImage = UIImage()
+        // 타이틀, 취소 버튼 추가
+        let navigationItem = UINavigationItem(title: "과연 추가")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(closeModal))
+        navigationBar.items = [navigationItem]
+        return navigationBar
+    }()
+    
+    @objc private func closeModal() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func searchFriend() {
         // 이전 검색 결과 삭제
         friendSearchResult.removeAll()
@@ -148,10 +166,25 @@ class FriendAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+        setNavigationBar()
         setLayout()
-        
+        // 초기 검색 화면만 보이도록 설정
         noResultTextStack.isHidden = true
         searchResultCellView.isHidden = true
+    }
+    
+    private func setNavigationBar() {
+        view.addSubviews(customNavigationBar)
+        customNavigationBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        let customNavigationBarConstraints = [
+            customNavigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customNavigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(customNavigationBarConstraints)
+        
     }
     
     private func setLayout() {
@@ -206,7 +239,8 @@ class FriendAddViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 60)
         ]
         
-        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints, noResultTextStackConstraints, searchResultCellViewConstraints, addButtonConstraints].forEach { constraints in
+        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints,
+         noResultTextStackConstraints, searchResultCellViewConstraints, addButtonConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }

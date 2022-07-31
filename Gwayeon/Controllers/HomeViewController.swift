@@ -67,7 +67,6 @@ class HomeViewController: UIViewController {
     }()
     
     @objc private func tapFunction() {
-        print("hello main")
         let viewControllerToPresent = FriendAddViewController()
         if let sheet = viewControllerToPresent.sheetPresentationController {
             sheet.detents = [.large()]
