@@ -14,7 +14,7 @@ class UserProfileCompletionViewController: UIViewController {
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
-        let randomNumber = Int.random(in: 0...categoryImage.count)
+        let randomNumber = Int.random(in: 0...categoryImage.count-1)
         imageView.image = UIImage(named: categoryImage[randomNumber])
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
