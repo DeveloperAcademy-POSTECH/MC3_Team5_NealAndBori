@@ -43,6 +43,7 @@
 		768959102891238F00F979AE /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689590F2891238F00F979AE /* TestViewController.swift */; };
 		7689591328929B1400F979AE /* Recommend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689591228929B1400F979AE /* Recommend.swift */; };
 		7689591A28936D1800F979AE /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689591928936D1800F979AE /* Fruit.swift */; };
+		CB45C18A2896CBAD0098884B /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB45C1892896CBAD0098884B /* PushNotificationSender.swift */; };
 		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
@@ -88,6 +89,7 @@
 		7689590F2891238F00F979AE /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		7689591228929B1400F979AE /* Recommend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommend.swift; sourceTree = "<group>"; };
 		7689591928936D1800F979AE /* Fruit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fruit.swift; sourceTree = "<group>"; };
+		CB45C1892896CBAD0098884B /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 			isa = PBXGroup;
 			children = (
 				7689590A28911EC500F979AE /* FirebaseManager.swift */,
+				CB45C1892896CBAD0098884B /* PushNotificationSender.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				7689591A28936D1800F979AE /* Fruit.swift in Sources */,
 				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
 				452E628D288FAF760034E75B /* UserProfileCompletionViewController.swift in Sources */,
+				CB45C18A2896CBAD0098884B /* PushNotificationSender.swift in Sources */,
 				CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */,
 				1478662F28905C7F0029FE50 /* FriendAddResultCellView.swift in Sources */,
 				452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */,
