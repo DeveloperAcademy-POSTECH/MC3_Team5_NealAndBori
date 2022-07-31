@@ -9,6 +9,13 @@ import UIKit
 
 class RecommendToFriendViewController: UIViewController {
     
+    var userId: String = "abc111"
+    var username: String = "소니"
+    var fruitId: String = "복숭아"
+ //   var comment: String = "맛있어요!!"
+    
+ //   func requestRecommend(userId: String, userName: String, fruitId: String, comment: String)
+    
     // MARK: Properties
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
     private lazy var farmLabel: UILabel = {
@@ -171,8 +178,17 @@ class RecommendToFriendViewController: UIViewController {
     }
     
     @objc private func completeButtonClicked(_ sender: Any) {
+        
+        sendRecommend(uid: userId, userName: username, comment: textView.text)
         self.navigationController?.popViewController(animated: true)
         
+    }
+    
+    private func sendRecommend(uid: String?, userName: String?, comment: String?) {
+        guard let uid = uid, let userName = userName, let comment = comment else {
+            return
+        }
+        FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: fruitId, comment: comment)
     }
 }
 
