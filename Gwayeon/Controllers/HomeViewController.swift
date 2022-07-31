@@ -34,6 +34,18 @@ class HomeViewController: UIViewController {
     
     private let fruitEmptyView = FruitEmptyView()
     
+    private lazy var findFriendLabel: UILabel = {
+        let label = UILabel()
+        label.text = "과연 찾아보기"
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.textColor = .mainColor
+        // label에 과연 추가 sheet 연결 위한 tap gesture 추가
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tap)
+        return label
+    }()
+    
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -54,6 +66,12 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    @objc private func tapFunction() {
+        let viewController = FriendAddViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
+    }
+    
     // MARK: Life Cycle Function
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,9 +84,10 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         if !data.isEmpty {
             fruitEmptyView.isHidden = true
+            findFriendLabel.isHidden = true
         }
-        
-        [titleLabel, fruitListView, fruitEmptyView, listCollectionView].forEach { component in
+                
+        [titleLabel, fruitListView, fruitEmptyView, listCollectionView, findFriendLabel].forEach { component in
             view.addSubview(component)
         }
         
@@ -94,6 +113,12 @@ class HomeViewController: UIViewController {
             fruitEmptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
+        findFriendLabel.translatesAutoresizingMaskIntoConstraints = false
+        let findFriendLabelConstraints = [
+            findFriendLabel.topAnchor.constraint(equalTo: fruitEmptyView.canSeeLabel.bottomAnchor, constant: 30),
+            findFriendLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        ]
+        
         listCollectionView.translatesAutoresizingMaskIntoConstraints = false
         let listCollectionViewConstraints = [
             listCollectionView.topAnchor.constraint(equalTo: fruitListView.bottomAnchor, constant: 20),
@@ -102,7 +127,7 @@ class HomeViewController: UIViewController {
             listCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ]
         
-        [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, listCollectionViewConstraints].forEach { constraints in
+        [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, findFriendLabelConstraints, listCollectionViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
         
