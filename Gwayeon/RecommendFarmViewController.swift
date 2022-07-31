@@ -10,7 +10,7 @@ import UIKit
 class RecommendFarmViewController: UIViewController {
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.text = "농장 추천하기"
+        titleLabel.text = "과일 추천하기"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
         return titleLabel
     }()
