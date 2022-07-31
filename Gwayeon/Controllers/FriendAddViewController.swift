@@ -107,7 +107,7 @@ class FriendAddViewController: UIViewController {
         FirebaseManager.shared.fetchUserInformation(userName: seperatedSearchText[0], pinCode: seperatedSearchText[1]) { results in
             switch results {
             case .success(let users):
-c                if (!users.isEmpty) {
+                if (!users.isEmpty) {
                     self.showResultView(users: users)
                 } else {
                     self.showNoResultView()
