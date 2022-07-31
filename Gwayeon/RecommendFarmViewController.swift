@@ -12,8 +12,6 @@ class RecommendFarmViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.text = "농장 추천하기"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         return titleLabel
     }()
     private lazy var categorySection = InputSection(frame: .zero, style: .fruitCategory)
@@ -26,15 +24,7 @@ class RecommendFarmViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 30
         stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // TODO: addArrangedSubviews Extension으로 작성
-        stackView.addArrangedSubview(categorySection)
-        stackView.addArrangedSubview(varietySection)
-        stackView.addArrangedSubview(farmNameSection)
-        stackView.addArrangedSubview(farmNumberSection)
-        stackView.addArrangedSubview(recommendationSection)
-        
+        stackView.addArrangedSubviews(categorySection, varietySection, farmNameSection, farmNumberSection, recommendationSection)
         return stackView
     }()
     
@@ -43,14 +33,15 @@ class RecommendFarmViewController: UIViewController {
         button.setTitle("완료", for: .normal)
         button.backgroundColor = UIColor(red: 246/255, green: 104/255, blue: 94/255, alpha: 1)
         button.layer.cornerRadius = 13
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.isEnabled = false
         button.addTarget(nil, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
+        setLayout()
+        setGesture()
         hideKeyboardWhenTappedAround()
     }
     
@@ -64,42 +55,42 @@ class RecommendFarmViewController: UIViewController {
         
     }
     
-    // TODO: 함수명 통일
-    private func configureLayout() {
-        // TODO: addSubviews Extension으로 작성
-        view.addSubview(titleLabel)
-        view.addSubview(sectionStackView)
-        view.addSubview(finishButton)
+    private func setLayout() {
         view.backgroundColor = .white
+        view.addSubviews(titleLabel, sectionStackView, finishButton)
         
-        // TODO: 팀원과 상의 후 코드 스타일 변경
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+        let titleLabelConstraint = [
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
-        ])
-        NSLayoutConstraint.activate([
+        ]
+        let sectionStackViewConstraint = [
             sectionStackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             sectionStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             sectionStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-        ])
-        NSLayoutConstraint.activate([
+        ]
+        let finishButtonConstraint = [
             finishButton.heightAnchor.constraint(equalToConstant: 60),
             finishButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             finishButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             finishButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-        ])
-    }
-}
-
-// TODO: Extension 폴더 분리
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+        ]
+        [titleLabelConstraint, sectionStackViewConstraint, finishButtonConstraint].forEach { constraint in
+            NSLayoutConstraint.activate(constraint)
+        }
     }
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
+    private func setGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapCategory))
+        categorySection.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func didTapCategory() {
+        let modalViewController = FruitSelectViewController()
+        modalViewController.modalPresentationStyle = .pageSheet
+        modalViewController.getSelectedItem = { item in
+            self.categorySection.setTextFieldItem(FruitCategory.names[item])
+            modalViewController.dismiss(animated: true)
+        }
+        present(modalViewController, animated: true, completion: nil)
     }
 }

@@ -7,10 +7,18 @@
 import UIKit
 
 extension UIView {
-  func addSubviews(_ views: UIView...) {
-    for view in views {
-      view.translatesAutoresizingMaskIntoConstraints = false
-      self.addSubview(view)
+    func addSubviews(_ views: UIView...) {
+        for view in views {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(view)
+        }
     }
-  }
+}
+
+extension UIStackView {
+    func addArrangedSubviews(_ views: UIView...) {
+        for view in views {
+            self.addArrangedSubview(view)
+        }
+    }
 }
