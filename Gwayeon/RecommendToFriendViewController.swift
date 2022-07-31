@@ -9,8 +9,8 @@ import UIKit
 
 class RecommendToFriendViewController: UIViewController {
     
-    var userId: String = "abc111"
-    var userName: String = "소니"
+    private var user: User?
+    
     var fruitId: String = "복숭아"
     var farmName: String = "나무농장"
     var fruitName: String = "애플사과"
@@ -77,7 +77,7 @@ class RecommendToFriendViewController: UIViewController {
         configuration.background.cornerRadius = 12
         configuration.title = "완료"
         configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
-
+        
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
         button.addTarget(nil, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
@@ -102,8 +102,9 @@ class RecommendToFriendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   //     self.title = "과연에게 추천하기"
+        //     self.title = "과연에게 추천하기"
         setComponentLayouts()
+        fetchUserData()
     }
     
     private func setComponentLayouts() {
@@ -180,13 +181,21 @@ class RecommendToFriendViewController: UIViewController {
     }
     
     @objc private func completeButtonClicked(_ sender: Any) {
-        
+        guard let user = user else { return }
+        let userId = user.uid
+        let userName = user.userName
         if !textView.text.isEmpty {
             sendRecommend(uid: userId, userName: userName, comment: textView.text)
             self.navigationController?.popViewController(animated: true)
         } else {return}
     }
-
+    
+    private func fetchUserData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+        }
+    }
+    
     private func sendRecommend(uid: String?, userName: String?, comment: String?) {
         guard let uid = uid, let userName = userName, let comment = comment else {
             return
