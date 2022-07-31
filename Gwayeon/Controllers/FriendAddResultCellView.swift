@@ -42,12 +42,12 @@ class FriendAddResultCellView: UIView {
     func configure(data : User) {
         self.nameLabel.text = data.userName
         self.codeLabel.text = data.pinCode
-        self.fruitImage.image = UIImage(named: "watermelon") // TODO: 서버에서 받아온 프로필로 변경
+        self.fruitImage.image = UIImage(named: data.userImageName)
         guard let recommends = data.recommends, !recommends.isEmpty else {
             self.recommendCountLabel.text = "0"
             return
         }
-        self.recommendCountLabel.text = String(recommends.count) // TODO: 서버에서 받아온 추천 과일 수로 변경
+        self.recommendCountLabel.text = String(recommends.count)
     }
     
     override init(frame: CGRect) {
