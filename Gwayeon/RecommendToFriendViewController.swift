@@ -102,9 +102,15 @@ class RecommendToFriendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //     self.title = "과연에게 추천하기"
         setComponentLayouts()
+        setNavigationBar()
         fetchUserData()
+    }
+    
+    private func setNavigationBar() {
+        self.navigationController?.navigationBar.topItem?.title = "과연에게 추천하기"
+        self.navigationController?.navigationBar.tintColor = .mainColor
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(closeModal))
     }
     
     private func setComponentLayouts() {
@@ -174,6 +180,10 @@ class RecommendToFriendViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
         view.addGestureRecognizer(tapGesture)
         
+    }
+    
+    @objc private func closeModal() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func didTapTextView(_ sender: Any) {
