@@ -95,6 +95,10 @@ class FriendAddViewController: UIViewController {
         return button
     }()
     
+    @objc private func closeModal() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func searchFriend() {
         // 이전 검색 결과 삭제
         friendSearchResult.removeAll()
@@ -131,6 +135,12 @@ class FriendAddViewController: UIViewController {
         }
     }
     
+    private func setNavigationBar() {
+        self.navigationController?.navigationBar.topItem?.title = "과연 추가"
+        self.navigationController?.navigationBar.tintColor = .mainColor
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(closeModal))
+    }
+    
     private func showResultView(users : [User]) {
         self.friendSearchResult.append(contentsOf: users)
         self.searchResultCellView.isHidden = false
@@ -149,18 +159,10 @@ class FriendAddViewController: UIViewController {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
         setLayout()
-        
-        // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
-        if selectCase == .beforeSearch {
-            noResultTextStack.isHidden = true
-            searchResultCellView.isHidden = true
-        } else if selectCase == .noResult {
-            noResultTextStack.isHidden = false
-            searchResultCellView.isHidden = true
-        } else if selectCase == .showResult {
-            noResultTextStack.isHidden = true
-            searchResultCellView.isHidden = false
-        }
+        setNavigationBar()
+        // 초기 검색 화면만 보이도록 설정
+        noResultTextStack.isHidden = true
+        searchResultCellView.isHidden = true
     }
     
     private func setLayout() {
@@ -215,7 +217,8 @@ class FriendAddViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 60)
         ]
         
-        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints, noResultTextStackConstraints, searchResultCellViewConstraints, addButtonConstraints].forEach { constraints in
+        [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints,
+         noResultTextStackConstraints, searchResultCellViewConstraints, addButtonConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }

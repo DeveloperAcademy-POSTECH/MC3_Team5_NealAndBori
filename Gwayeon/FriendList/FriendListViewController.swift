@@ -84,23 +84,27 @@ class FriendListViewController: UIViewController {
         return label
     }()
 
-    private let recommendLinkLabel : UILabel = {
+    private lazy var recommendLinkLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .light)
-        label.textColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
-        label.text = "연락처에 있는 친구 과연으로 초대하기"
-
+        label.textColor = UIColor.mainColor
+        label.text = "과연 추가하기"
+        
+        // label에 과연 추가 sheet 연결 위한 tap gesture 추가
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(tap)
         return label
     }()
     
     private func setNavigationTitle() {
         self.navigationItem.title = "친구 리스트"
-        
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: nil, action: nil)
-        self.navigationItem.leftBarButtonItem = backButton
-        
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/256, green: 82/255, blue: 82/255, alpha: 1.00)
-        
+    }
+    
+    @objc private func tapFunction() {
+        let viewController = FriendAddViewController()
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {

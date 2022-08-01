@@ -9,31 +9,39 @@ import UIKit
 
 class RecommendToFriendViewController: UIViewController {
     
+    private var user: User?
+    
+    var fruitId: String = "복숭아"
+    var farmName: String = "나무농장"
+    var fruitName: String = "애플사과"
+    var friendCount: String = "113"
+    
     // MARK: Properties
     let textViewPlaceHolder = "가격, 맛, 배송에 대한 정보를 알려주면 내 친구들이 더 쉽게 살 수 있어요!"
+    
     private lazy var farmLabel: UILabel = {
         let label = UILabel()
-        label.text = "자연농원의"
+        label.text = farmName + "의"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
     private lazy var fruitLabel: UILabel = {
         let label = UILabel()
-        label.text = "청송사과"
+        label.text = fruitName
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         return label
     }()
     
-    private lazy var objLabel: UILabel = {
+    private let objLabel: UILabel = {
         let label = UILabel()
         label.text = "를"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    private lazy var myFriendsLabel: UILabel = {
+    private let myFriendsLabel: UILabel = {
         let label = UILabel()
         label.text = "내 과연"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
@@ -42,34 +50,37 @@ class RecommendToFriendViewController: UIViewController {
     
     private lazy var numOfFriendsLabel: UILabel = {
         let label = UILabel()
-        label.text = "213"
+        label.text = friendCount
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         label.textColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
         return label
     }()
     
-    private lazy var recommendLabel: UILabel = {
+    private let recommendLabel: UILabel = {
         let label = UILabel()
         label.text = " 명에게 추천합니다"
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
     
-    private lazy var recommendMessageLabel: UILabel = {
+    private let recommendMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "추천 한마디"
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         label.textColor = UIColor(red: 0.506, green: 0.506, blue: 0.506, alpha: 1)
-        
         return label
     }()
     
-    lazy private var completionButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor(red: 0.965, green: 0.408, blue: 0.369, alpha: 1)
-        button.setTitle("완료", for: UIControl.State.normal)
-        button.addTarget(self, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
+    private let completionButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.baseBackgroundColor = UIColor.mainColor
+        configuration.background.cornerRadius = 12
+        configuration.title = "완료"
+        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        
+        let button = UIButton(configuration: configuration)
+        button.isEnabled = false
+        button.addTarget(nil, action: #selector(completeButtonClicked(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -86,15 +97,14 @@ class RecommendToFriendViewController: UIViewController {
         textView.adjustsFontForContentSizeCategory = true
         textView.clipsToBounds = true
         textView.delegate = self
-        
         return textView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "과연에게 추천하기"
-        // Do any additional setup after loading the view.
+        //     self.title = "과연에게 추천하기"
         setComponentLayouts()
+        fetchUserData()
     }
     
     private func setComponentLayouts() {
@@ -171,8 +181,26 @@ class RecommendToFriendViewController: UIViewController {
     }
     
     @objc private func completeButtonClicked(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        
+        guard let user = user else { return }
+        let userId = user.uid
+        let userName = user.userName
+        if !textView.text.isEmpty {
+            sendRecommend(uid: userId, userName: userName, comment: textView.text)
+            self.navigationController?.popViewController(animated: true)
+        } else {return}
+    }
+    
+    private func fetchUserData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+        }
+    }
+    
+    private func sendRecommend(uid: String?, userName: String?, comment: String?) {
+        guard let uid = uid, let userName = userName, let comment = comment else {
+            return
+        }
+        FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: fruitId, comment: comment)
     }
 }
 
@@ -180,6 +208,7 @@ extension RecommendToFriendViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == textViewPlaceHolder {
             textView.text = nil
+            completionButton.isEnabled = true
             textView.textColor = .black
         }
     }
@@ -187,6 +216,7 @@ extension RecommendToFriendViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
+            completionButton.isEnabled = false
             textView.textColor = .lightGray
         }
     }

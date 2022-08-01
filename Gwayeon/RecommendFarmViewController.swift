@@ -8,9 +8,11 @@
 import UIKit
 
 class RecommendFarmViewController: UIViewController {
+    private var user: User?
+    private var fruitCode: Int?
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.text = "농장 추천하기"
+        titleLabel.text = "과일 추천하기"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
         return titleLabel
     }()
@@ -43,6 +45,7 @@ class RecommendFarmViewController: UIViewController {
         setLayout()
         setGesture()
         setAction()
+        fetchUserData()
         hideKeyboardWhenTappedAround()
     }
     
@@ -52,8 +55,16 @@ class RecommendFarmViewController: UIViewController {
     }
     
     @objc private func completeButtonClicked(_ sender: Any) {
+        guard let user = user else { return }
+        guard let fruitCode = fruitCode, let fruitName = varietySection.textField.text, let farmName = farmNameSection.textField.text, let farmNumber = farmNumberSection.textField.text, let comment = recommendationSection.textView.text else {
+            return
+        }
+        let uid = user.uid
+        let userName = user.userName
+        // TODO: - Fruit와 FruitBaseInfo의 fruitCategory Int로 변경 후 수정
+        let fruitBaseInfo = FruitBaseInfo(fruitCategory: String(describing: fruitCode), fruitName: fruitName, farmName: farmName, farmTelNumber: farmNumber)
+        sendFruitData(uid: uid, userName: userName, fruitBaseInfo: fruitBaseInfo, comment: comment)
         self.navigationController?.popViewController(animated: true)
-        
     }
     
     private func setLayout() {
@@ -130,9 +141,28 @@ class RecommendFarmViewController: UIViewController {
         modalViewController.modalPresentationStyle = .pageSheet
         modalViewController.getSelectedItem = { item in
             self.categorySection.setTextFieldItem(FruitCategory.names[item])
+            self.fruitCode = item
             modalViewController.dismiss(animated: true)
             self.varietySection.textField.becomeFirstResponder()
         }
         present(modalViewController, animated: true, completion: nil)
+    }
+    
+    private func fetchUserData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+        }
+    }
+
+    private func sendFruitData(uid: String, userName: String, fruitBaseInfo: FruitBaseInfo, comment: String) {
+        FirebaseManager.shared.requestFruitInformation(uid: uid, fruitBaseInfo: fruitBaseInfo) { results in
+            switch results {
+            case .success(let fruitId):
+                FirebaseManager.shared.requestRecommend(userId: uid, userName: userName, fruitId: fruitId, comment: comment)
+            case .failure(let error):
+                print(error)
+                return
+            }
+        }
     }
 }

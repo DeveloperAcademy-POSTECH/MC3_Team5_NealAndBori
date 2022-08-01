@@ -135,7 +135,7 @@ class UserProfileCompletionViewController: UIViewController {
         let userName = username
         let pinCodeMaker = { () -> String in
             let randomNum = Int.random(in: 0...9999)
-            return String(format: "#04d", randomNum)
+            return String(format: "#%04d", randomNum)
         }
         
         let pinCode = pinCodeMaker()

@@ -25,7 +25,7 @@ final class FruitEmptyView: UIView {
         return label
     }()
     
-    private let canSeeLabel: UILabel = {
+    let canSeeLabel: UILabel = {
         let label = UILabel()
         label.text = "친구가 추천한 과일을 볼 수 있습니다"
         label.font = UIFont.systemFont(ofSize: 22, weight: .regular)
@@ -52,7 +52,7 @@ final class FruitEmptyView: UIView {
     }
     
     private func setLayout() {
-        [emptyLabel, recommendLabel, canSeeLabel, findFriendLabel].forEach { component in
+        [emptyLabel, recommendLabel, canSeeLabel].forEach { component in
             self.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -72,12 +72,7 @@ final class FruitEmptyView: UIView {
             canSeeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         ]
         
-        let findFriendLabelConstraints = [
-            findFriendLabel.topAnchor.constraint(equalTo: canSeeLabel.bottomAnchor, constant: 30),
-            findFriendLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
-        ]
-        
-        [emptyLabelConstraints, recommendLabelConstraints, canSeeLabelConstraints, findFriendLabelConstraints].forEach { constraints in
+        [emptyLabelConstraints, recommendLabelConstraints, canSeeLabelConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
     }
