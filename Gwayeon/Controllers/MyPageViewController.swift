@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 enum CollectionViewCellSection: Int {
     case addingFarm = 0
