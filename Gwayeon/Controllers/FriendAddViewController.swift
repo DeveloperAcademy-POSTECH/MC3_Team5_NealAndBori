@@ -54,7 +54,7 @@ class FriendAddViewController: UIViewController {
     }()
     
     private let fruitImage : UIImageView = {
-        let mainImage = UIImage(named: "peach-1")
+        let mainImage = UIImage(named: "peach")
         let imageView = UIImageView(image: mainImage)
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
         return imageView

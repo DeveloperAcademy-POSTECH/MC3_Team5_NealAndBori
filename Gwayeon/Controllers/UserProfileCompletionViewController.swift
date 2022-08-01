@@ -12,7 +12,7 @@ class UserProfileCompletionViewController: UIViewController {
     var username: String = ""
     private var userImageName = ""
     
-    private let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach-1", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
+    private let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
