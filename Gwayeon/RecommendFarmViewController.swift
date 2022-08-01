@@ -8,6 +8,7 @@
 import UIKit
 
 class RecommendFarmViewController: UIViewController {
+    private var user: User?
     private var fruitCode: Int?
     private let titleLabel: UILabel = {
         let titleLabel = UILabel()
@@ -44,6 +45,7 @@ class RecommendFarmViewController: UIViewController {
         setLayout()
         setGesture()
         setAction()
+        fetchUserData()
         hideKeyboardWhenTappedAround()
     }
     
@@ -53,12 +55,12 @@ class RecommendFarmViewController: UIViewController {
     }
     
     @objc private func completeButtonClicked(_ sender: Any) {
+        guard let user = user else { return }
         guard let fruitCode = fruitCode, let fruitName = varietySection.textField.text, let farmName = farmNameSection.textField.text, let farmNumber = farmNumberSection.textField.text, let comment = recommendationSection.textView.text else {
             return
         }
-        // TODO: - uid, userName 로그인된 사용자 불러오는 것으로 변경
-        let uid = "9mCavkbJIbWSvLrKgiF3bucu1wl1"
-        let userName = "제리이"
+        let uid = user.uid
+        let userName = user.userName
         // TODO: - Fruit와 FruitBaseInfo의 fruitCategory Int로 변경 후 수정
         let fruitBaseInfo = FruitBaseInfo(fruitCategory: String(describing: fruitCode), fruitName: fruitName, farmName: farmName, farmTelNumber: farmNumber)
         sendFruitData(uid: uid, userName: userName, fruitBaseInfo: fruitBaseInfo, comment: comment)
@@ -146,6 +148,12 @@ class RecommendFarmViewController: UIViewController {
         present(modalViewController, animated: true, completion: nil)
     }
     
+    private func fetchUserData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+        }
+    }
+
     private func sendFruitData(uid: String, userName: String, fruitBaseInfo: FruitBaseInfo, comment: String) {
         FirebaseManager.shared.requestFruitInformation(uid: uid, fruitBaseInfo: fruitBaseInfo) { results in
             switch results {

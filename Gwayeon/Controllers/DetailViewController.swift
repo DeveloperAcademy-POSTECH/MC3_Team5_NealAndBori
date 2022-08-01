@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import CallKit
 
 class DetailViewController: UIViewController {
+    
+    let callObserver = CXCallObserver()
+    
+    private var buttonCheck = false
     
     // MARK: Properties
     private lazy var fruitImageView: UIImageView = {
@@ -52,15 +57,8 @@ class DetailViewController: UIViewController {
         button.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
         return button
     }()
-    
-    private lazy var modalButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("modal", for: .normal)
-        button.addTarget(self, action: #selector(bottomSheetButtonTapped), for: .touchUpInside)
-        return button
-    }()
 
-    private var phoneNumber = ""
+    private var phoneNumber = "01012345678"
     
     // MARK: Life Cycle Function
     override func viewDidLoad() {
@@ -68,13 +66,11 @@ class DetailViewController: UIViewController {
         
         configureViewComponent()
         self.tabBarController?.tabBar.isHidden = true
+        
+        callObserver.setDelegate(self, queue: nil)
     }
     
     // MARK: Configures
-    
-    @objc private func bottomSheetButtonTapped() {
-        showBottomSheet()
-    }
     
     func showBottomSheet() {
         let viewControllerToPresent = BottomSheetViewController()
@@ -88,6 +84,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func callButtonTapped() {
+        buttonCheck = true
         guard let url = URL(string: "tel://\(phoneNumber)"),
               UIApplication.shared.canOpenURL(url) else {
             return
@@ -97,7 +94,7 @@ class DetailViewController: UIViewController {
     
     private func configureViewComponent() {
         view.backgroundColor = .peachColor
-        view.addSubviews(fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton, modalButton)
+        view.addSubviews(fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton)
         
         let fruitImageViewConstraints = [
             fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
@@ -134,13 +131,23 @@ class DetailViewController: UIViewController {
             callButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65)
         ]
         
-        let modalConstraints = [
-            modalButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ]
-        
-        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints, modalConstraints].forEach { component in
+        [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
+        }
+    }
+}
+
+extension DetailViewController: CXCallObserverDelegate {
+    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+        if call.hasEnded && buttonCheck {
+            print("hasEnded")
+            showBottomSheet()
+        } else if call.hasConnected {
+            print("hasConnected")
+        } else if call.isOnHold {
+            print("isOnHold")
+        } else if call.isOutgoing {
+            print("isOutgoing")
         }
     }
 }
