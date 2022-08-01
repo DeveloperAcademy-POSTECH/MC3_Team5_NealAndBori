@@ -133,6 +133,21 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func configure(recommendModel model: RecommendFruitViewModel) {
+        self.farmLabel.text = model.farmName
+        self.fruitLabel.text = model.fruitName
+        self.purchaseDateLabel.text = model.date
+        self.fruitImageView.image = UIImage(named: model.fruitType)
+        self.fruitInfoLabel.text = model.fruitComment
+    }
+    
+    func configure(buyingModel model: BuyingFruitViewModel) {
+        self.farmLabel.text = model.farmName
+        self.fruitLabel.text = model.fruitName
+        self.purchaseDateLabel.text = model.date
+        self.fruitImageView.image = UIImage(named: model.fruitType)
+    }
+    
     private func setConfigureUI() {
         clipsToBounds = true
         backgroundColor = .white

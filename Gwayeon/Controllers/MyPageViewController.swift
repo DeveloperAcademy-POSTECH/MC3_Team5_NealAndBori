@@ -20,6 +20,9 @@ enum SegmentStatus: Int {
 class MyPageViewController: UIViewController {
     
     private var user: User?
+    private var buyingFruits: [Fruit]?
+    private var recommendFruits: [Fruit]?
+    private var recommends: [Recommend]?
     
     private var segmentButtonStatus: SegmentStatus = SegmentStatus.myRecommendFruitList
     
@@ -46,14 +49,14 @@ class MyPageViewController: UIViewController {
     }(UILabel())
     
     private let myProfileImageView: UIImageView = { imageView in
-        imageView.image = UIImage(named: "peaches")
+        //        imageView.image = UIImage(named: "peaches")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }(UIImageView())
     
     private let myNameLabel: UILabel = { label in
-        label.text = "코비"
+        //        label.text = "코비"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }(UILabel())
@@ -61,9 +64,9 @@ class MyPageViewController: UIViewController {
     private let gwayeonCountLabel: UILabel = { label in
         let str = "0명의 과연이 있어요"
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        attributeString.setColor(color: .pointColor, forText: "100")
+        //        attributeString.setColor(color: .pointColor, forText: "100")
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        label.attributedText = attributeString
+        //        label.attributedText = attributeString
         return label
     }(UILabel())
     
@@ -129,17 +132,144 @@ class MyPageViewController: UIViewController {
         fetchData()
     }
     
-    private func update() {
+    private func updateProfile() {
         guard let user = user else {
             return
         }
         myProfileImageView.image = UIImage(named: user.userImageName)
         myNameLabel.text = user.userName
+        
         guard let friends = user.friends else {
             return
         }
         gwayeonCountLabel.text = "\(friends.count)명의 과연이 있어요"
     }
+    
+    private func updateBuyingFruitData() {
+        guard let user = user else {
+            return
+        }
+        
+        if let fruitIds = user.buyingFruits {
+            FirebaseManager.shared.fetchMultipleFruitInformation(fruitUids: fruitIds) { [weak self] result in
+                switch result {
+                case .success(let fruits):
+                    if self?.buyingFruits == nil {
+                        self?.buyingFruits = []
+                    }
+                    self?.buyingFruits? += fruits
+                    DispatchQueue.main.async {
+                        if self?.segmentButtonStatus == .buyingList {
+                            self?.listCollectionView.reloadData()
+                        }
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
+        //        if let userBuyingfruits = user.buyingFruits {
+        //            userBuyingfruits.forEach { fruit in
+        //                FirebaseManager.shared.fetchFruitInformation(fruitId: fruit) { [weak self] result in
+        //                    switch result {
+        //                    case .success(let fruit):
+        //                        if self?.buyingFruits == nil {
+        //                            self?.buyingFruits = []
+        //                        }
+        //
+        //                        self?.buyingFruits?.append(fruit)
+        //                    case .failure(let error):
+        //                        print(error)
+        //                    }
+        //                }
+        //            }
+        //        }
+    }
+    
+    //    private func updateRecommendData() {
+    ////        let recommendGroup = DispatchGroup()
+    //        if let userRecommendFruits = user?.recommends {
+    //            userRecommendFruits.forEach { recommendId in
+    //                FirebaseManager.shared.fetchRecommendInformation(recommendId: recommendId) { [weak self] result in
+    //                    switch result {
+    //                    case .success(let recommend):
+    //                        if self?.recommends == nil {
+    //                            self?.recommends = []
+    //                        }
+    //                        self?.recommends?.append(recommend)
+    //                        FirebaseManager.shared.fetchFruitInformation(fruitId: recommend.fruitId) { [weak self] result in
+    //                            switch result {
+    //                            case .success(let fruit):
+    //                                if self?.recommendFruits == nil {
+    //                                    self?.recommendFruits = []
+    //                                }
+    //                                self?.recommendFruits?.append(fruit)
+    //                            case .failure(let error):
+    //                                print(error)
+    //                            }
+    //                        }
+    //
+    //                    case .failure(let error):
+    //                        print(error)
+    //
+    //                    }
+    //                }
+    //            }
+    ////            guard let recommends = self.recommends else {
+    ////                return
+    ////            }
+    ////            recommends.forEach { recommend in
+    ////                FirebaseManager.shared.fetchFruitInformation(fruitId: recommend.fruitId) { [weak self] result in
+    ////                    switch result {
+    ////                    case .success(let fruit):
+    ////                        if self?.recommendFruits == nil {
+    ////                            self?.recommendFruits = []
+    ////                        }
+    ////                        self?.recommendFruits?.append(fruit)
+    ////                    case .failure(let error):
+    ////                        print(error)
+    ////                    }
+    ////                }
+    ////            }
+    //        }
+    //    }
+    
+    
+    private func updateRecommendData() {
+        guard let recommendIds = self.user?.recommends else {
+            return
+        }
+        FirebaseManager.shared.fetchRecommendFruitInformation(recommendIds: recommendIds) { [weak self] result in
+            switch result {
+            case .success(let recommends):
+                if self?.recommends == nil {
+                    self?.recommends = []
+                }
+                self?.recommends? += recommends
+                let fruitUids = recommends.map { $0.fruitId }
+                FirebaseManager.shared.fetchMultipleFruitInformation(fruitUids: fruitUids) { [weak self] result in
+                    switch result {
+                    case .success(let fruits):
+                        if self?.recommendFruits == nil {
+                            self?.recommendFruits = []
+                        }
+                        self?.recommendFruits? += fruits
+                        DispatchQueue.main.async { [weak self] in
+                            if self?.segmentButtonStatus == .myRecommendFruitList {
+                                self?.listCollectionView.reloadData()
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     private func fetchData() {
         guard let uid = Auth.auth().currentUser?.uid else {
             return
@@ -148,12 +278,17 @@ class MyPageViewController: UIViewController {
             switch result {
             case .success(let user):
                 self?.user = user
-                self?.update()
+                self?.updateProfile()
+                
+                self?.updateRecommendData()
+                self?.updateBuyingFruitData()
+                
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         gearButton.isHidden = true
@@ -300,7 +435,7 @@ extension MyPageViewController: UICollectionViewDataSource {
             return recommends.count + 1
         case SegmentStatus.buyingList:
             guard let user = user, let buyingFruits = user.buyingFruits else {
-                return 1
+                return 0
             }
             return buyingFruits.count
         }
@@ -318,18 +453,26 @@ extension MyPageViewController: UICollectionViewDataSource {
                 return cell
                 
             default:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell , let fruits = recommendFruits, let recommends = recommends else {
                     return UICollectionViewCell()
                 }
+
+                let fruit = fruits[indexPath.row - 1]
+                let recommend = recommends[indexPath.row - 1]
+                cell.configure(recommendModel: RecommendFruitViewModel(date: Date().formatted(date: .numeric, time: .shortened), fruitName: fruit.fruitName, fruitType: fruit.fruitCategory, farmName: fruit.farmName, fruitComment: recommend.comment))
                 cell.setButtonOrLabelHidden(status: segmentButtonStatus)
                 return cell
             }
         case .buyingList:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageFruitListCollectionViewCell.identifier, for: indexPath) as? MyPageFruitListCollectionViewCell, let fruits = buyingFruits else {
                 return UICollectionViewCell()
             }
+            
+            let fruit = fruits[indexPath.row]
+            cell.configure(buyingModel: BuyingFruitViewModel(date: Date().formatted(date: .numeric, time: .shortened), fruitName: fruit.fruitName, fruitType: fruit.fruitCategory, farmName: fruit.farmName))
             cell.setParentViewController(viewController: self)
             cell.setButtonOrLabelHidden(status: segmentButtonStatus)
+            
             return cell
         }
     }
@@ -343,6 +486,7 @@ extension MyPageViewController: UICollectionViewDelegate {
                 let recommendFarmViewController = RecommendFarmViewController()
                 recommendFarmViewController.navigationItem.largeTitleDisplayMode = .never
                 self.navigationController?.pushViewController(recommendFarmViewController, animated: true)
+                
             default:
                 let detailViewController = DetailViewController()
                 detailViewController.navigationItem.largeTitleDisplayMode = .never
