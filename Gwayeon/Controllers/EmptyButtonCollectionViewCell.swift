@@ -35,6 +35,7 @@ class EmptyButtonCollectionViewCell: UICollectionViewCell {
     
     @objc private func plusButtonClicked(_ sender: Any) {
         let recommendFarmViewController = RecommendFarmViewController()
+        recommendFarmViewController.hidesBottomBarWhenPushed = true
         recommendFarmViewController.navigationItem.largeTitleDisplayMode = .never
         parent?.navigationController?.pushViewController(recommendFarmViewController, animated: true)
     }
