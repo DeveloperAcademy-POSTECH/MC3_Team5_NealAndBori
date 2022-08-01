@@ -114,7 +114,7 @@ final class FirebaseManager {
     /// - Parameters:
     ///   - fruitUids: 과일 문서 ID들
     ///   - completion: 리턴되는 과일들
-    func fetchMultipleFruitInformation(fruitUids: [String], completion: @escaping (Result<[Fruit], Error>) -> Void) {
+    func fetchFruitInformations(fruitUids: [String], completion: @escaping (Result<[Fruit], Error>) -> Void) {
         FirebaseManager.db.collection("Fruits").whereField(FieldPath.documentID(), in: fruitUids).getDocuments { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -126,8 +126,6 @@ final class FirebaseManager {
             }
         }
     }
-    
-    
     
     /// recommend 문서 ID를 가지고 Recommend를 가져오는 함수
     /// - Parameters:

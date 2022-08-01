@@ -148,7 +148,7 @@ class MyPageViewController: UIViewController {
         }
         
         if let fruitIds = user.buyingFruits {
-            FirebaseManager.shared.fetchMultipleFruitInformation(fruitUids: fruitIds) { [weak self] result in
+            FirebaseManager.shared.fetchFruitInformations(fruitUids: fruitIds) { [weak self] result in
                 switch result {
                 case .success(let fruits):
                     if self?.buyingFruits == nil {
@@ -179,7 +179,7 @@ class MyPageViewController: UIViewController {
                 }
                 self?.recommends? += recommends
                 let fruitUids = recommends.map { $0.fruitId }
-                FirebaseManager.shared.fetchMultipleFruitInformation(fruitUids: fruitUids) { [weak self] result in
+                FirebaseManager.shared.fetchFruitInformations(fruitUids: fruitUids) { [weak self] result in
                     switch result {
                     case .success(let fruits):
                         if self?.recommendFruits == nil {
@@ -203,9 +203,7 @@ class MyPageViewController: UIViewController {
     
     private func fetchData() {
         
-        guard let uid = Auth.auth().currentUser?.uid else {
-            return
-        }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
         FirebaseManager.shared.fetchUserInformation(uid: uid) { [weak self] result in
             switch result {
