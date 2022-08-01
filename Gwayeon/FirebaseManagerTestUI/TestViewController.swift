@@ -177,11 +177,11 @@ class TestViewController: UIViewController {
         sendFruitData(uid: uidTextField.text, userName: usernameTextField.text, comment: recommendationTextField.text)
     }
     
-    @objc private func didFriendAdditionButtonClicked(_ sender: Any) {
+    @objc private func didFriendAdditionButtonClicked(_ sender: Any) async {
         guard let uid = uidTextField.text, let friendId = friendUidTextField.text else {
             return
         }
-        FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
+        await FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
     }
     
     private func sendRecommend(uid: String?, userName: String?, comment: String?) {

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Foundation
 
 // temporary data
 struct FriendData {
@@ -18,14 +17,12 @@ struct FriendData {
 class FriendListViewController: UIViewController {
 
     private var user: User? //사용자 정보
-    private lazy var friendList = [User]()
     
     private let tableTitleLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = UIColor.systemGray
         label.text = "과연을 이용 중인 친구들"
-
         return label
     }()
         
@@ -54,13 +51,11 @@ class FriendListViewController: UIViewController {
         footerView.addSubview(recommendTextLabel)
         footerView.addSubview(recommendLinkLabel)
         tableView.tableFooterView = footerView
-        
         return tableView
     }()
     
     private let footerView : UIView = {
         let view = UIView()
-        
         return view
     }()
     
@@ -69,7 +64,6 @@ class FriendListViewController: UIViewController {
         label.font = .systemFont(ofSize: 22, weight: .medium)
         label.textColor = UIColor.black
         label.text = "찾으시는 친구가 없나요?"
-
         return label
     }()
 
@@ -86,7 +80,11 @@ class FriendListViewController: UIViewController {
         return label
     }()
     
-    // 현재 사용자 정보를 가져오는 함수
+    private func setNavigationTitle() {
+        self.navigationItem.title = "친구 리스트"
+    }
+    
+    // 현재 사용자 정보, 친구 정보 업데이트
     private func fetchData() {
         Task { [weak self] in
             self?.user = await FirebaseManager.shared.getUser()
@@ -94,19 +92,21 @@ class FriendListViewController: UIViewController {
         }
     }
     
-    private func setNavigationTitle() {
-        self.navigationItem.title = "친구 리스트"
-    }
-    
+    // "과연 추가하기" 클릭 시 모달뷰 띄우기
     @objc private func tapFunction() {
         let viewController = FriendAddViewController()
+        // FriendAdd 모달에서 친구 추가 시 FriendList View update 함수 실행
+        viewController.addNewFriend = {
+            self.fetchData()
+        }
+        // FriendAdd 모달에 navigation controller 추가
         let navigationController = UINavigationController(rootViewController: viewController)
         present(navigationController, animated: true, completion: nil)
     }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData() //현재 사용자 정보 가져오기, 테이블 업데이트
+        fetchData() // 현재 사용자 정보 가져오기, 테이블 업데이트
         setNavigationTitle()
         setLayout()
     }
