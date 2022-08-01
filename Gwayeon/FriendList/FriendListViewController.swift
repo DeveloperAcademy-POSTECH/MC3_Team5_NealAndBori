@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 // temporary data
 struct FriendData {
@@ -16,25 +17,13 @@ struct FriendData {
 
 class FriendListViewController: UIViewController {
 
-    let friendsList = [
-        FriendData(name: "메리", fruit: "apple", friendsCount: 10),
-        FriendData(name: "소니", fruit: "pear", friendsCount: 33),
-        FriendData(name: "제리", fruit: "grape", friendsCount: 22),
-        FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
-        FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
-        FriendData(name: "닐", fruit: "orange", friendsCount: 28),
-        FriendData(name: "메리", fruit: "apple", friendsCount: 10),
-        FriendData(name: "소니", fruit: "pear", friendsCount: 33),
-        FriendData(name: "제리", fruit: "grape", friendsCount: 22),
-        FriendData(name: "에이든", fruit: "strawberry", friendsCount: 55),
-        FriendData(name: "코비", fruit: "persimmon", friendsCount: 111),
-        FriendData(name: "닐", fruit: "orange", friendsCount: 28)
-    ]
+    private var user: User? //사용자 정보
+    private lazy var friendList = [User]()
     
     private let tableTitleLabel : UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.textColor = UIColor(red: 76/256, green: 76/256, blue: 76/256, alpha: 1.00)
+        label.textColor = UIColor.systemGray
         label.text = "과연을 이용 중인 친구들"
 
         return label
@@ -97,6 +86,14 @@ class FriendListViewController: UIViewController {
         return label
     }()
     
+    // 현재 사용자 정보를 가져오는 함수
+    private func fetchData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+            tableView.reloadData()
+        }
+    }
+    
     private func setNavigationTitle() {
         self.navigationItem.title = "친구 리스트"
     }
@@ -109,11 +106,12 @@ class FriendListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData() //현재 사용자 정보 가져오기
         setNavigationTitle()
-        setupComponentLayout()
+        setLayout()
     }
     
-    private func setupComponentLayout() {
+    private func setLayout() {
         
         view.backgroundColor = .systemBackground
         
@@ -126,7 +124,7 @@ class FriendListViewController: UIViewController {
         
         // table title layout
         let tableTitleLabelConstraints = [
-            tableTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 48),
+            tableTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             tableTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ]
         
@@ -159,7 +157,7 @@ class FriendListViewController: UIViewController {
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsList.count
+        return user?.friends?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -167,9 +165,20 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
                                                            for: indexPath) as? FriendListViewCell else { return UITableViewCell() }
         
-        cell.configure(data: friendsList[indexPath.row])
+        guard let friendUid = user?.friends?[indexPath.row]
+        else {
+            return cell
+        }
         
+        FirebaseManager.shared.fetchUserInformation(uid: friendUid) { results in
+            switch results {
+            case .success(let friendData):
+                cell.configure(data: friendData)
+            case .failure(let error):
+                return
+            }
+        }
         return cell
+        
     }
-    
 }

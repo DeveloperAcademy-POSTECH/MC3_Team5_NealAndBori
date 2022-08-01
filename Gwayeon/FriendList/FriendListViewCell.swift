@@ -14,7 +14,7 @@ class FriendListViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupComponentLayout()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -54,14 +54,14 @@ class FriendListViewCell: UITableViewCell {
         return stackView
     }()
     
-    func configure(data : FriendData) {
+    func configure(data : User) {
      
-        self.nameLabel.text = data.name
-        self.fruitImage.image = UIImage(named: "apple")
-        self.friendNumberLabel.text = String(data.friendsCount)
+        self.nameLabel.text = data.userName
+        self.fruitImage.image = UIImage(named: data.userImageName)
+        self.friendNumberLabel.text = "100"
     }
     
-    private func setupComponentLayout() {
+    private func setLayout() {
         
         [friendNumberLabel, friendTextLabel].forEach { component in
             self.friendView.addArrangedSubview(component)
