@@ -56,7 +56,7 @@ class DetailViewController: UIViewController {
         return button
     }()
 
-    private var phoneNumber = "01023655502"
+    private var phoneNumber = "01012345678"
     
     // MARK: Life Cycle Function
     override func viewDidLoad() {
