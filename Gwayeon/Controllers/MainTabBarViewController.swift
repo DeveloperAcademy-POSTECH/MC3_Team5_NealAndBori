@@ -16,7 +16,6 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-   //     homeViewController.tabBarItem.image = UIImage(systemName: "doc.text.image")
         homeViewController.tabBarItem.image = UIImage(systemName: "archivebox")
         homeViewController.tabBarItem.title = "둘러보기"
         
