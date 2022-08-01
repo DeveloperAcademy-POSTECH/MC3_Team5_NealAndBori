@@ -214,11 +214,7 @@ final class FirebaseManager {
             completion(.failure(error))
             print("Error wrong to User to Firestore: \(error)")
         }
+        
     }
     
-    
-
-    
-    
 }
-
