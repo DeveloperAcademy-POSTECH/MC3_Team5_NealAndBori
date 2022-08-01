@@ -170,7 +170,6 @@ class MyPageViewController: UIViewController {
         }
     }
     
-    
     private func updateRecommendData() {
         guard let recommendIds = self.user?.recommends else {
             return
