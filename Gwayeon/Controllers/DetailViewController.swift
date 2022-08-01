@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import CallKit
 
 class DetailViewController: UIViewController {
+    
+    let callObserver = CXCallObserver()
     
     // MARK: Properties
     private lazy var fruitImageView: UIImageView = {
@@ -68,6 +71,8 @@ class DetailViewController: UIViewController {
         
         configureViewComponent()
         self.tabBarController?.tabBar.isHidden = true
+        
+        callObserver.setDelegate(self, queue: nil)
     }
     
     // MARK: Configures
@@ -141,6 +146,20 @@ class DetailViewController: UIViewController {
         
         [fruitImageViewConstraints, fruitNameConstraints, farmNameConstraints, recommandLabelConstraints, reviewListViewConstraints, callButtonConstraints, modalConstraints].forEach { component in
             NSLayoutConstraint.activate(component)
+        }
+    }
+}
+
+extension DetailViewController: CXCallObserverDelegate {
+    func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
+        if call.hasEnded {
+            print("hasEnded")
+        } else if call.hasConnected {
+            print("hasConnected")
+        } else if call.isOnHold {
+            print("isOnHold")
+        } else if call.isOutgoing {
+            print("isOutgoing")
         }
     }
 }
