@@ -168,79 +168,14 @@ class MyPageViewController: UIViewController {
                 }
             }
         }
-        
-        //        if let userBuyingfruits = user.buyingFruits {
-        //            userBuyingfruits.forEach { fruit in
-        //                FirebaseManager.shared.fetchFruitInformation(fruitId: fruit) { [weak self] result in
-        //                    switch result {
-        //                    case .success(let fruit):
-        //                        if self?.buyingFruits == nil {
-        //                            self?.buyingFruits = []
-        //                        }
-        //
-        //                        self?.buyingFruits?.append(fruit)
-        //                    case .failure(let error):
-        //                        print(error)
-        //                    }
-        //                }
-        //            }
-        //        }
     }
-    
-    //    private func updateRecommendData() {
-    ////        let recommendGroup = DispatchGroup()
-    //        if let userRecommendFruits = user?.recommends {
-    //            userRecommendFruits.forEach { recommendId in
-    //                FirebaseManager.shared.fetchRecommendInformation(recommendId: recommendId) { [weak self] result in
-    //                    switch result {
-    //                    case .success(let recommend):
-    //                        if self?.recommends == nil {
-    //                            self?.recommends = []
-    //                        }
-    //                        self?.recommends?.append(recommend)
-    //                        FirebaseManager.shared.fetchFruitInformation(fruitId: recommend.fruitId) { [weak self] result in
-    //                            switch result {
-    //                            case .success(let fruit):
-    //                                if self?.recommendFruits == nil {
-    //                                    self?.recommendFruits = []
-    //                                }
-    //                                self?.recommendFruits?.append(fruit)
-    //                            case .failure(let error):
-    //                                print(error)
-    //                            }
-    //                        }
-    //
-    //                    case .failure(let error):
-    //                        print(error)
-    //
-    //                    }
-    //                }
-    //            }
-    ////            guard let recommends = self.recommends else {
-    ////                return
-    ////            }
-    ////            recommends.forEach { recommend in
-    ////                FirebaseManager.shared.fetchFruitInformation(fruitId: recommend.fruitId) { [weak self] result in
-    ////                    switch result {
-    ////                    case .success(let fruit):
-    ////                        if self?.recommendFruits == nil {
-    ////                            self?.recommendFruits = []
-    ////                        }
-    ////                        self?.recommendFruits?.append(fruit)
-    ////                    case .failure(let error):
-    ////                        print(error)
-    ////                    }
-    ////                }
-    ////            }
-    //        }
-    //    }
     
     
     private func updateRecommendData() {
         guard let recommendIds = self.user?.recommends else {
             return
         }
-        FirebaseManager.shared.fetchRecommendFruitInformation(recommendIds: recommendIds) { [weak self] result in
+        FirebaseManager.shared.fetchRecommends(recommendIds: recommendIds) { [weak self] result in
             switch result {
             case .success(let recommends):
                 if self?.recommends == nil {

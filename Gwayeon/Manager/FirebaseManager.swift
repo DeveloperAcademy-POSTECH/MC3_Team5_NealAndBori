@@ -93,7 +93,11 @@ final class FirebaseManager {
         }
     }
     
-    func fetchRecommendFruitInformation(recommendIds: [String], completion: @escaping (Result<[Recommend], Error>) -> Void) {
+    /// "Recommend ID들"을 가지고 Recommend들을 불러오는 함수
+    /// - Parameters:
+    ///   - recommendIds: Recommend 문서 ID Array
+    ///   - completion: Recommend Array
+    func fetchRecommends(recommendIds: [String], completion: @escaping (Result<[Recommend], Error>) -> Void) {
         FirebaseManager.db.collection("Recommends").whereField(FieldPath.documentID(), in: recommendIds).getDocuments { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -106,6 +110,10 @@ final class FirebaseManager {
         }
     }
     
+    /// "과일 문서 id들"을 가지고 과일정보들 한번에 불러오기
+    /// - Parameters:
+    ///   - fruitUids: 과일 문서 ID들
+    ///   - completion: 리턴되는 과일들
     func fetchMultipleFruitInformation(fruitUids: [String], completion: @escaping (Result<[Fruit], Error>) -> Void) {
         FirebaseManager.db.collection("Fruits").whereField(FieldPath.documentID(), in: fruitUids).getDocuments { querySnapshot, err in
             if let err = err {
