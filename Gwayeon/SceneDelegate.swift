@@ -17,10 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let mainViewController = Auth.auth().currentUser != nil ? MainTabBarViewController() : UsernameSettingViewController()
-        let navigationController = UINavigationController(rootViewController: mainViewController)
+        if Auth.auth().currentUser != nil {
+            window?.rootViewController = MainTabBarViewController()
+        } else {
+            let navigationController = UINavigationController(rootViewController: UsernameSettingViewController())
+            window?.rootViewController = navigationController
+        }
         
-        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
     
