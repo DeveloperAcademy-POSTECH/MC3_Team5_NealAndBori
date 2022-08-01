@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class TestViewController: UIViewController {
     
@@ -267,6 +268,7 @@ class TestViewController: UIViewController {
                 print(error)
             }
         }
+
     }
     
     override func viewDidLoad() {
