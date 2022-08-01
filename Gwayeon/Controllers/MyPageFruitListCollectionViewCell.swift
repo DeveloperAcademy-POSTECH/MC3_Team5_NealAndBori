@@ -161,7 +161,8 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     
     @objc private func recommendToFriendButtonClicked(_ sender: Any) {
         let recommendToFriendViewController = RecommendToFriendViewController()
-        parent?.navigationController?.pushViewController(recommendToFriendViewController, animated: true)
+        let navigationController = UINavigationController(rootViewController: recommendToFriendViewController)
+        parent?.present(navigationController, animated : true, completion : nil)
     }
     
     func setParentViewController(viewController: UIViewController) {
