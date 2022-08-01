@@ -60,10 +60,16 @@ final class FirebaseManager {
             try await user.friends?.asyncForEach { friendId in
                 let friend = try await FirebaseManager.db.collection("Users").document(friendId).getDocument(as: User.self)
          
-                await friend.recommends?.asyncForEach({ recommendId in
+                try await friend.recommends?.asyncForEach({ recommendId in
+                    print(recommendId)
+                    let recommend = try await FirebaseManager.db.collection("Recommend").document(recommendId).getDocument(as: Recommend.self)
+                    
+                    print(recommend)
+                    
+                    let fruitId = recommend.fruitId
                     var checkRecommend = true
-                    for (index, recommend) in recommendFruits.enumerated() {
-                        if recommend.recommendId == recommendId {
+                    for (index, recommendFruit) in recommendFruits.enumerated() {
+                        if recommendFruit.recommendFruit?.uid! == fruitId {
                             // 기존 과일
                             recommendFruits[index].recommendCount += 1
                             checkRecommend = false
@@ -97,6 +103,7 @@ final class FirebaseManager {
             
             let fruit = try await FirebaseManager.db.collection("Fruit").document(recommend.fruitId).getDocument(as: Fruit.self)
             recommendFruit.recommendFruit = fruit
+            recommendFruit.recommendFruit?.uid = fruit.uid
             
             return recommendFruit
         } catch {
