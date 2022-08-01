@@ -93,6 +93,33 @@ final class FirebaseManager {
         }
     }
     
+    func fetchRecommendFruitInformation(recommendIds: [String], completion: @escaping (Result<[Recommend], Error>) -> Void) {
+        FirebaseManager.db.collection("Recommends").whereField(FieldPath.documentID(), in: recommendIds).getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+                let datas = querySnapshot!.documents.map { try? $0.data(as: Recommend.self) }
+                let recommends = datas.compactMap({ $0 })
+                completion(.success(recommends))
+            }
+        }
+    }
+    
+    func fetchMultipleFruitInformation(fruitUids: [String], completion: @escaping (Result<[Fruit], Error>) -> Void) {
+        FirebaseManager.db.collection("Fruits").whereField(FieldPath.documentID(), in: fruitUids).getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+                let datas = querySnapshot!.documents.map { try? $0.data(as: Fruit.self) }
+                let fruits = datas.compactMap({ $0 })
+                completion(.success(fruits))
+            }
+        }
+    }
+    
+    
     
     /// recommend 문서 ID를 가지고 Recommend를 가져오는 함수
     /// - Parameters:
@@ -180,6 +207,9 @@ final class FirebaseManager {
             print("Error wrong to User to Firestore: \(error)")
         }
     }
+    
+    
+
     
     
 }
