@@ -212,8 +212,12 @@ final class FirebaseManager {
     /// - Parameters:
     ///   - uid: 나의 userId(문서 아이디)
     ///   - friendId: 친구의 userId(문서 아이디)
-    func requestFriendAddition(uid: String, friendId: String) {
-        FirebaseManager.db.collection("Users").document(uid).updateData(["friends": FieldValue.arrayUnion([friendId])])
+    func requestFriendAddition(uid: String, friendId: String) async {
+        do {
+            try await FirebaseManager.db.collection("Users").document(uid).updateData(["friends": FieldValue.arrayUnion([friendId])])
+        } catch {
+            print("Failed to add friend")
+        }
     }
     
     /// User가 과일을 등록하는 함수

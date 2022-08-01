@@ -225,6 +225,7 @@ class MyPageViewController: UIViewController {
     @objc func disclosureButtonClicked(_ sender: Any) {
         let friendListViewController = FriendListViewController()
         friendListViewController.navigationItem.largeTitleDisplayMode = .never
+        friendListViewController.hidesBottomBarWhenPushed = true
         let backButtonItem = UIBarButtonItem(title: "뒤로", style: .plain, target: nil, action: nil)
         backButtonItem.tintColor = .mainColor
         self.navigationItem.backBarButtonItem = backButtonItem
