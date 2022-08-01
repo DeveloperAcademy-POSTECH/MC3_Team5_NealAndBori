@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum CollectionViewCellSection: Int {
     case addingFarm = 0
@@ -48,14 +49,12 @@ class MyPageViewController: UIViewController {
     }(UILabel())
     
     private let myProfileImageView: UIImageView = { imageView in
-        //        imageView.image = UIImage(named: "peaches")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }(UIImageView())
     
     private let myNameLabel: UILabel = { label in
-        //        label.text = "코비"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         return label
     }(UILabel())
@@ -204,9 +203,11 @@ class MyPageViewController: UIViewController {
     }
     
     private func fetchData() {
+        
         guard let uid = Auth.auth().currentUser?.uid else {
             return
         }
+        
         FirebaseManager.shared.fetchUserInformation(uid: uid) { [weak self] result in
             switch result {
             case .success(let user):
