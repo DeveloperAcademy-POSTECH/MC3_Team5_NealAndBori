@@ -164,7 +164,10 @@ extension MyPageViewController {
         
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "나의 농장생활"
+        self.navigationItem.title = "나의 농장 생활"
+        self.navigationController?.navigationBar.largeTitleTextAttributes =
+        [NSAttributedString.Key.foregroundColor: UIColor.black,
+         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 28, weight: .bold)]
         self.navigationItem.largeTitleDisplayMode = .always
         guard let navigationBar = self.navigationController?.navigationBar else { return }
         
