@@ -65,7 +65,6 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewComponent()
-        self.tabBarController?.tabBar.isHidden = true
         
         callObserver.setDelegate(self, queue: nil)
     }
