@@ -258,7 +258,10 @@ extension MyPageViewController {
         
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "나의 농장생활"
+        self.navigationItem.title = "나의 농장 생활"
+        self.navigationController?.navigationBar.largeTitleTextAttributes =
+        [NSAttributedString.Key.foregroundColor: UIColor.black,
+         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 28, weight: .bold)]
         self.navigationItem.largeTitleDisplayMode = .always
         guard let navigationBar = self.navigationController?.navigationBar else { return }
         
@@ -304,7 +307,7 @@ extension MyPageViewController {
         view.addSubviews(myProfileImageView, myNameLabel, gwayeonCountLabel, disclosureButton)
         
         let myProfileImageViewConstraints = [
-            myProfileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            myProfileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             myProfileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             myProfileImageView.widthAnchor.constraint(equalToConstant: 68),
             myProfileImageView.heightAnchor.constraint(equalToConstant: 68)
@@ -312,7 +315,7 @@ extension MyPageViewController {
         
         let myNameLabelConstraints = [
             myNameLabel.leadingAnchor.constraint(equalTo: myProfileImageView.trailingAnchor, constant: 16),
-            myNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            myNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
             myNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -70)
         ]
         
@@ -324,7 +327,7 @@ extension MyPageViewController {
         
         let disclosureButtonConstraints = [
             disclosureButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -26),
-            disclosureButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 57)
+            disclosureButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 35)
         ]
         
         [myProfileImageViewConstraints, myNameLabelConstraints, gwayeonCountLabelConstraints, disclosureButtonConstraints].forEach { constraints in
