@@ -47,6 +47,7 @@
 		7689591A28936D1800F979AE /* Fruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689591928936D1800F979AE /* Fruit.swift */; };
 		CB672E40288F7CD8007C1902 /* FruitEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */; };
 		CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */; };
+		CB886E0D2897A99B007C871A /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB886E0C2897A99B007C871A /* Sequence.swift */; };
 		CBBAA62F28878639007E77C0 /* FruitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA62E28878639007E77C0 /* FruitListView.swift */; };
 		CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */; };
 		DD2F6BD028912CBB00AC7D22 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2F6BCF28912CBB00AC7D22 /* BottomSheetViewController.swift */; };
@@ -95,6 +96,7 @@
 		7689591928936D1800F979AE /* Fruit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fruit.swift; sourceTree = "<group>"; };
 		CB672E3F288F7CD8007C1902 /* FruitEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitEmptyView.swift; sourceTree = "<group>"; };
 		CB74DEAE288649A9004AD24E /* FarmCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmCollectionViewCell.swift; sourceTree = "<group>"; };
+		CB886E0C2897A99B007C871A /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		CBBAA62E28878639007E77C0 /* FruitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitListView.swift; sourceTree = "<group>"; };
 		CBBAA6302887868E007E77C0 /* FruitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitCollectionViewCell.swift; sourceTree = "<group>"; };
 		DD2F6BCF28912CBB00AC7D22 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				7605A022288974E500D66F41 /* UIButton+Extension.swift */,
 				768958FB2890E4EF00F979AE /* UIView+Extension.swift */,
 				373DD9D628923A06009A9E8B /* UIViewController+Extension.swift */,
+				CB886E0C2897A99B007C871A /* Sequence.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -398,7 +401,6 @@
 				760158C4289750D1009A8D42 /* RecommendFruitViewModel.swift in Sources */,
 				768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */,
 				DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */,
-				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
 				DD2F6BD028912CBB00AC7D22 /* BottomSheetViewController.swift in Sources */,
 				DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */,
 				37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */,
@@ -408,6 +410,7 @@
 				CB74DEAF288649A9004AD24E /* FarmCollectionViewCell.swift in Sources */,
 				CBBAA6312887868E007E77C0 /* FruitCollectionViewCell.swift in Sources */,
 				373DD9D228910079009A9E8B /* FruitSelectCollectionViewCell.swift in Sources */,
+				CB886E0D2897A99B007C871A /* Sequence.swift in Sources */,
 				764504E0287FB0D30048B3F0 /* AppDelegate.swift in Sources */,
 				7605A0252889833F00D66F41 /* EmptyButtonCollectionViewCell.swift in Sources */,
 				768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */,
