@@ -92,7 +92,7 @@ class FriendAddViewController: UIViewController {
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
-        button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
+        button.addTarget(self, action: #selector(didFriendAdditionButtonClicked), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
         return button
     }()
     
@@ -144,7 +144,7 @@ class FriendAddViewController: UIViewController {
     }
     
     // 검색한 과연 추가 서버 연결
-    @objc private func addFriend() {
+    @objc private func didFriendAdditionButtonClicked() {
         guard let uid = user?.id, let friendId = friendSearchResult[0].id else { return }
         
         // 과연 추가 후 FriendList View update 함수 실행, 모달 close

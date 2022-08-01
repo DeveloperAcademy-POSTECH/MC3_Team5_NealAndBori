@@ -183,7 +183,6 @@ final class FirebaseManager {
     func requestFriendAddition(uid: String, friendId: String) async {
         do {
             try await FirebaseManager.db.collection("Users").document(uid).updateData(["friends": FieldValue.arrayUnion([friendId])])
-            print("Successfully added friend")
         } catch {
             print("Failed to add friend")
         }
