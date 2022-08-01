@@ -60,11 +60,7 @@ class MyPageViewController: UIViewController {
     }(UILabel())
     
     private let gwayeonCountLabel: UILabel = { label in
-        let str = "0명의 과연이 있어요"
-        let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        //        attributeString.setColor(color: .pointColor, forText: "100")
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
-        //        label.attributedText = attributeString
         return label
     }(UILabel())
     
@@ -140,7 +136,10 @@ class MyPageViewController: UIViewController {
         guard let friends = user.friends else {
             return
         }
-        gwayeonCountLabel.text = "\(friends.count)명의 과연이 있어요"
+        
+        let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: "\(friends.count)명의 과연이 있어요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        attributeString.setColor(color: .pointColor, forText: "\(friends.count)")
+        gwayeonCountLabel.attributedText = attributeString
     }
     
     private func updateBuyingFruitData() {
