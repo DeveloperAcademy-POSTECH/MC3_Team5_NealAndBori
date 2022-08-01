@@ -105,6 +105,39 @@ final class FirebaseManager {
         }
     }
     
+    /// "Recommend ID들"을 가지고 Recommend들을 불러오는 함수
+    /// - Parameters:
+    ///   - recommendIds: Recommend 문서 ID Array
+    ///   - completion: Recommend Array
+    func fetchRecommends(recommendIds: [String], completion: @escaping (Result<[Recommend], Error>) -> Void) {
+        FirebaseManager.db.collection("Recommends").whereField(FieldPath.documentID(), in: recommendIds).getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+                let datas = querySnapshot!.documents.map { try? $0.data(as: Recommend.self) }
+                let recommends = datas.compactMap({ $0 })
+                completion(.success(recommends))
+            }
+        }
+    }
+    
+    /// "과일 문서 id들"을 가지고 과일정보들 한번에 불러오기
+    /// - Parameters:
+    ///   - fruitUids: 과일 문서 ID들
+    ///   - completion: 리턴되는 과일들
+    func fetchFruitInformations(fruitUids: [String], completion: @escaping (Result<[Fruit], Error>) -> Void) {
+        FirebaseManager.db.collection("Fruits").whereField(FieldPath.documentID(), in: fruitUids).getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(.failure(err))
+            } else {
+                let datas = querySnapshot!.documents.map { try? $0.data(as: Fruit.self) }
+                let fruits = datas.compactMap({ $0 })
+                completion(.success(fruits))
+            }
+        }
+    }
     
     /// recommend 문서 ID를 가지고 Recommend를 가져오는 함수
     /// - Parameters:
@@ -138,7 +171,6 @@ final class FirebaseManager {
             }
         }
     }
-    
     
     
     /// 생성한 User정보를 Firebase Users로 보내는 함수
@@ -180,8 +212,12 @@ final class FirebaseManager {
     /// - Parameters:
     ///   - uid: 나의 userId(문서 아이디)
     ///   - friendId: 친구의 userId(문서 아이디)
-    func requestFriendAddition(uid: String, friendId: String) {
-        FirebaseManager.db.collection("Users").document(uid).updateData(["friends": FieldValue.arrayUnion([friendId])])
+    func requestFriendAddition(uid: String, friendId: String) async {
+        do {
+            try await FirebaseManager.db.collection("Users").document(uid).updateData(["friends": FieldValue.arrayUnion([friendId])])
+        } catch {
+            print("Failed to add friend")
+        }
     }
     
     /// User가 과일을 등록하는 함수
@@ -200,9 +236,7 @@ final class FirebaseManager {
             completion(.failure(error))
             print("Error wrong to User to Firestore: \(error)")
         }
+        
     }
     
-    
-    
 }
-

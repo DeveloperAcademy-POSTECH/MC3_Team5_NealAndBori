@@ -133,6 +133,21 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func configure(recommendModel model: RecommendFruitViewModel) {
+        self.farmLabel.text = model.farmName
+        self.fruitLabel.text = model.fruitName
+        self.purchaseDateLabel.text = model.date
+        self.fruitImageView.image = UIImage(named: model.fruitType)
+        self.fruitInfoLabel.text = model.fruitComment
+    }
+    
+    func configure(buyingModel model: BuyingFruitViewModel) {
+        self.farmLabel.text = model.farmName
+        self.fruitLabel.text = model.fruitName
+        self.purchaseDateLabel.text = model.date
+        self.fruitImageView.image = UIImage(named: model.fruitType)
+    }
+    
     private func setConfigureUI() {
         clipsToBounds = true
         backgroundColor = .white
@@ -154,11 +169,13 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
         self.parent = viewController
     }
     
-    func setButtonOrLabelHidden(status: Bool) {
-        if status {
+    func setButtonOrLabelHidden(status: SegmentStatus) {
+        
+        switch status {
+        case .myRecommendFruitList:
             fruitInfoLabel.isHidden = false
             recommendToFriendButton.isHidden = true
-        } else {
+        case .buyingList:
             fruitInfoLabel.isHidden = true
             recommendToFriendButton.isHidden = false
         }

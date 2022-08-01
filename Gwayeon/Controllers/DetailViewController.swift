@@ -65,7 +65,6 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewComponent()
-        self.tabBarController?.tabBar.isHidden = true
         
         callObserver.setDelegate(self, queue: nil)
     }
@@ -97,7 +96,7 @@ class DetailViewController: UIViewController {
         view.addSubviews(fruitImageView, fruitName, farmName, reviewListView, recommandLabel, callButton)
         
         let fruitImageViewConstraints = [
-            fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             fruitImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
@@ -112,7 +111,7 @@ class DetailViewController: UIViewController {
         ]
         
         let recommandLabelConstraints = [
-            recommandLabel.topAnchor.constraint(equalTo: reviewListView.topAnchor, constant: 48),
+            recommandLabel.topAnchor.constraint(equalTo: reviewListView.topAnchor, constant: 32),
             recommandLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         ]
         

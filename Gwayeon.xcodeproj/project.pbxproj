@@ -20,6 +20,8 @@
 		452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */; };
 		452E628B288E8AF20034E75B /* UsernameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */; };
 		452E628D288FAF760034E75B /* UserProfileCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E628C288FAF760034E75B /* UserProfileCompletionViewController.swift */; };
+		760158C22896CE89009A8D42 /* BuyingFruitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760158C12896CE89009A8D42 /* BuyingFruitViewModel.swift */; };
+		760158C4289750D1009A8D42 /* RecommendFruitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760158C3289750D1009A8D42 /* RecommendFruitViewModel.swift */; };
 		7605A0042885383000D66F41 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0032885383000D66F41 /* HomeViewController.swift */; };
 		7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A0052885383D00D66F41 /* MyPageViewController.swift */; };
 		7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7605A00A2885703F00D66F41 /* Color+Extension.swift */; };
@@ -66,6 +68,8 @@
 		4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendToFriendViewController.swift; sourceTree = "<group>"; };
 		452E628A288E8AF20034E75B /* UsernameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameSettingViewController.swift; sourceTree = "<group>"; };
 		452E628C288FAF760034E75B /* UserProfileCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCompletionViewController.swift; sourceTree = "<group>"; };
+		760158C12896CE89009A8D42 /* BuyingFruitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingFruitViewModel.swift; sourceTree = "<group>"; };
+		760158C3289750D1009A8D42 /* RecommendFruitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendFruitViewModel.swift; sourceTree = "<group>"; };
 		76059FFE2884D17D00D66F41 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		7605A0012885381400D66F41 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		7605A0032885383000D66F41 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +144,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		760158C02896CE50009A8D42 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				760158C12896CE89009A8D42 /* BuyingFruitViewModel.swift */,
+				760158C3289750D1009A8D42 /* RecommendFruitViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		7605A000288537CA00D66F41 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +225,7 @@
 		764504DE287FB0D30048B3F0 /* Gwayeon */ = {
 			isa = PBXGroup;
 			children = (
+				760158C02896CE50009A8D42 /* ViewModels */,
 				768959112891390700F979AE /* FirebaseManagerTestUI */,
 				7689590928911EB800F979AE /* Manager */,
 				768959062891126D00F979AE /* Models */,
@@ -381,6 +395,7 @@
 				452609A0288685AC00C12279 /* RecommendToFriendViewController.swift in Sources */,
 				7605A00B2885703F00D66F41 /* Color+Extension.swift in Sources */,
 				7605A0062885383D00D66F41 /* MyPageViewController.swift in Sources */,
+				760158C4289750D1009A8D42 /* RecommendFruitViewModel.swift in Sources */,
 				768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */,
 				DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */,
 				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
@@ -397,6 +412,7 @@
 				7605A0252889833F00D66F41 /* EmptyButtonCollectionViewCell.swift in Sources */,
 				768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */,
 				7605A01C28878EA700D66F41 /* NSMutableAttributedString+Extension.swift in Sources */,
+				760158C22896CE89009A8D42 /* BuyingFruitViewModel.swift in Sources */,
 				7605A023288974E500D66F41 /* UIButton+Extension.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,

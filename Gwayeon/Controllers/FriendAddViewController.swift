@@ -92,9 +92,12 @@ class FriendAddViewController: UIViewController {
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
-        button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
+        button.addTarget(self, action: #selector(didFriendAdditionButtonClicked), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
         return button
     }()
+    
+    // 과연 추가 후 FriendList View update 위한 클로저 함수
+    var addNewFriend: (() -> Void)?
     
     @objc private func closeModal() {
         self.dismiss(animated: true, completion: nil)
@@ -107,6 +110,7 @@ class FriendAddViewController: UIViewController {
         }
     }
     
+    // 과연 검색 서버 연결
     @objc private func searchFriend() {
         // 이전 검색 결과 삭제
         friendSearchResult.removeAll()
@@ -121,12 +125,8 @@ class FriendAddViewController: UIViewController {
             return
         }
         
-        // TODO: pincode, username 으로 검색하기 (서버 구현 후 변경)
-        // 검색 텍스트 이름과 UID로 분리 후 UID로 검색
-        guard let seperatedSearchText = searchText?.components(separatedBy: "#")
-        else {
-            return
-        }
+        // pincode와 username으로 분리 후 검색
+        guard let seperatedSearchText = searchText?.components(separatedBy: "#") else { return }
         
         // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
         FirebaseManager.shared.fetchUserInformation(userName: seperatedSearchText[0], pinCode: "#"+seperatedSearchText[1]) { results in
@@ -143,14 +143,16 @@ class FriendAddViewController: UIViewController {
         }
     }
     
-    @objc private func addFriend() {
-        guard let uid = user?.id, let friendId = friendSearchResult[0].id else {
-            return
-        }
+    // 검색한 과연 추가 서버 연결
+    @objc private func didFriendAdditionButtonClicked() {
+        guard let uid = user?.id, let friendId = friendSearchResult[0].id else { return }
         
-        FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
-        // 추가 버튼 클릭시 모달 close
-        closeModal()
+        // 과연 추가 후 FriendList View update 함수 실행, 모달 close
+        Task { [weak self] in
+            await FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
+            self?.addNewFriend?()
+            closeModal()
+        }
     }
     
     private func setNavigationBar() {
