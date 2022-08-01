@@ -12,6 +12,8 @@ class DetailViewController: UIViewController {
     
     let callObserver = CXCallObserver()
     
+    private var buttonCheck = false
+    
     // MARK: Properties
     private lazy var fruitImageView: UIImageView = {
         let fruitImageView = UIImageView(image: UIImage(named: "peaches"))
@@ -82,6 +84,7 @@ class DetailViewController: UIViewController {
     }
     
     @objc private func callButtonTapped() {
+        buttonCheck = true
         guard let url = URL(string: "tel://\(phoneNumber)"),
               UIApplication.shared.canOpenURL(url) else {
             return
@@ -136,7 +139,7 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: CXCallObserverDelegate {
     func callObserver(_ callObserver: CXCallObserver, callChanged call: CXCall) {
-        if call.hasEnded {
+        if call.hasEnded && buttonCheck {
             print("hasEnded")
             showBottomSheet()
         } else if call.hasConnected {
