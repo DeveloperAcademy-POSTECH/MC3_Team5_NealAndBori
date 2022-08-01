@@ -10,7 +10,8 @@ import Foundation
 
 class FriendAddViewController: UIViewController {
     
-    var friendSearchResult = [User]()
+    private var user: User? //사용자 정보
+    var friendSearchResult = [User]() //과연 검색 결과
     
     // 검색 초기 화면, 결과 없을 때 화면, 결과 화면 구분하여 UI 구현, 확인하기 위해 임시로 사용
     private enum ViewCase {
@@ -91,12 +92,19 @@ class FriendAddViewController: UIViewController {
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
-        //button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
+        button.addTarget(self, action: #selector(addFriend), for: .touchUpInside) // TODO: 과연 추가 서버 구현 이후 추가 예정
         return button
     }()
     
     @objc private func closeModal() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // 현재 사용자 정보를 가져오는 함수
+    private func fetchData() {
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+        }
     }
     
     @objc private func searchFriend() {
@@ -121,7 +129,7 @@ class FriendAddViewController: UIViewController {
         }
         
         // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
-        FirebaseManager.shared.fetchUserInformation(userName: seperatedSearchText[0], pinCode: seperatedSearchText[1]) { results in
+        FirebaseManager.shared.fetchUserInformation(userName: seperatedSearchText[0], pinCode: "#"+seperatedSearchText[1]) { results in
             switch results {
             case .success(let users):
                 if (!users.isEmpty) {
@@ -133,6 +141,16 @@ class FriendAddViewController: UIViewController {
                 self.showNoResultView()
             }
         }
+    }
+    
+    @objc private func addFriend() {
+        guard let uid = user?.id, let friendId = friendSearchResult[0].id else {
+            return
+        }
+        
+        FirebaseManager.shared.requestFriendAddition(uid: uid, friendId: friendId)
+        // 추가 버튼 클릭시 모달 close
+        closeModal()
     }
     
     private func setNavigationBar() {
@@ -157,6 +175,7 @@ class FriendAddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData()
         hideKeyboardWhenTappedAround()
         setLayout()
         setNavigationBar()
