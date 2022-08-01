@@ -106,7 +106,7 @@ class FriendListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData() //현재 사용자 정보 가져오기
+        fetchData() //현재 사용자 정보 가져오기, 테이블 업데이트
         setNavigationTitle()
         setLayout()
     }
@@ -173,7 +173,8 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         FirebaseManager.shared.fetchUserInformation(uid: friendUid) { results in
             switch results {
             case .success(let friendData):
-                cell.configure(data: friendData)
+                let friendsNumber = friendData.friends?.count ?? 0
+                cell.configure(userName : friendData.userName, userImageName : friendData.userImageName, friendsNumber : friendsNumber)
             case .failure(let error):
                 return
             }
