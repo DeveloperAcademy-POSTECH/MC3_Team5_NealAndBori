@@ -126,10 +126,7 @@ class FriendAddViewController: UIViewController {
         }
         
         // pincode와 username으로 분리 후 검색
-        guard let seperatedSearchText = searchText?.components(separatedBy: "#")
-        else {
-            return
-        }
+        guard let seperatedSearchText = searchText?.components(separatedBy: "#") else { return }
         
         // 검색 결과가 nil이 아니라면 결과 출력, 결과가 nil이거나 error 발생시 결과 없음 출력
         FirebaseManager.shared.fetchUserInformation(userName: seperatedSearchText[0], pinCode: "#"+seperatedSearchText[1]) { results in
@@ -148,9 +145,7 @@ class FriendAddViewController: UIViewController {
     
     // 검색한 과연 추가 서버 연결
     @objc private func addFriend() {
-        guard let uid = user?.id, let friendId = friendSearchResult[0].id else {
-            return
-        }
+        guard let uid = user?.id, let friendId = friendSearchResult[0].id else { return }
         
         // 과연 추가 후 FriendList View update 함수 실행, 모달 close
         Task { [weak self] in

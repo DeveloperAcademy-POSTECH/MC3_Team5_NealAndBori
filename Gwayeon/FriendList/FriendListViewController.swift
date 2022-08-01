@@ -165,8 +165,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListViewCell.cellId,
                                                            for: indexPath) as? FriendListViewCell else { return UITableViewCell() }
         
-        guard let friendUid = user?.friends?[indexPath.row]
-        else {
+        guard let friendUid = user?.friends?[indexPath.row] else {
             return cell
         }
         
