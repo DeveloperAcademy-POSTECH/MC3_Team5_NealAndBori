@@ -151,10 +151,7 @@ class MyPageViewController: UIViewController {
             FirebaseManager.shared.fetchFruitInformations(fruitUids: fruitIds) { [weak self] result in
                 switch result {
                 case .success(let fruits):
-                    if self?.buyingFruits == nil {
-                        self?.buyingFruits = []
-                    }
-                    self?.buyingFruits? += fruits
+                    self?.buyingFruits = fruits
                     DispatchQueue.main.async {
                         if self?.segmentButtonStatus == .buyingList {
                             self?.listCollectionView.reloadData()
@@ -174,18 +171,13 @@ class MyPageViewController: UIViewController {
         FirebaseManager.shared.fetchRecommends(recommendIds: recommendIds) { [weak self] result in
             switch result {
             case .success(let recommends):
-                if self?.recommends == nil {
-                    self?.recommends = []
-                }
-                self?.recommends? += recommends
+                self?.recommends = recommends
                 let fruitUids = recommends.map { $0.fruitId }
+                
                 FirebaseManager.shared.fetchFruitInformations(fruitUids: fruitUids) { [weak self] result in
                     switch result {
                     case .success(let fruits):
-                        if self?.recommendFruits == nil {
-                            self?.recommendFruits = []
-                        }
-                        self?.recommendFruits? += fruits
+                        self?.recommendFruits = fruits
                         DispatchQueue.main.async { [weak self] in
                             if self?.segmentButtonStatus == .myRecommendFruitList {
                                 self?.listCollectionView.reloadData()
