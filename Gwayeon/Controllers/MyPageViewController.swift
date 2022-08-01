@@ -296,10 +296,12 @@ extension MyPageViewController: UICollectionViewDelegate {
             switch indexPath.row {
             case CollectionViewCellSection.addingFarm.rawValue:
                 let recommendFarmViewController = RecommendFarmViewController()
+                recommendFarmViewController.hidesBottomBarWhenPushed = true
                 recommendFarmViewController.navigationItem.largeTitleDisplayMode = .never
                 self.navigationController?.pushViewController(recommendFarmViewController, animated: true)
             default:
                 let detailViewController = DetailViewController()
+                detailViewController.hidesBottomBarWhenPushed = true
                 detailViewController.navigationItem.largeTitleDisplayMode = .never
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
