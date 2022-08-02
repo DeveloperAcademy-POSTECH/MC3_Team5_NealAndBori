@@ -72,6 +72,27 @@ class HomeViewController: UIViewController {
         present(navigationController, animated: true, completion: nil)
     }
     
+    
+    
+//    MARK: - Test용
+    private let signOutButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.filled()
+        config.buttonSize = .medium
+        config.title = "로그아웃"
+        button.configuration = config
+        button.addTarget(self, action: #selector(signOutButtonClicked(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func signOutButtonClicked(_ sender: Any)  {
+                do {
+                try  FirebaseManager.shared.requestSignOut()
+                } catch {
+                    print("error")
+                }
+    }
+    
     // MARK: Life Cycle Function
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +118,10 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.listCollectionView.reloadData()
                 
-                if ((self?.recommendFruits?.isEmpty) != nil) {
+                guard let recommenFruits = self?.recommendFruits else {
+                    return
+                }
+                if !recommenFruits.isEmpty {
                     self?.fruitEmptyView.isHidden = true
                     self?.findFriendLabel.isHidden = true
                 }
@@ -152,6 +176,13 @@ class HomeViewController: UIViewController {
         [titleLabelConstraints, fruitListViewConstraints, fruitEmptyViewConstraints, findFriendLabelConstraints, listCollectionViewConstraints].forEach { constraints in
             NSLayoutConstraint.activate(constraints)
         }
+        
+//        view.addSubviews(signOutButton)
+//        let signOutButtonConstraints = [
+//            signOutButton.topAnchor.constraint(equalTo: findFriendLabel.bottomAnchor, constant: 60),
+//            signOutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60)
+//        ]
+//        NSLayoutConstraint.activate(signOutButtonConstraints)
         
     }
 }

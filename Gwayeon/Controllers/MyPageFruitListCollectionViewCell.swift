@@ -136,7 +136,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     func configure(recommendModel model: RecommendFruitViewModel) {
         self.farmLabel.text = model.farmName
         self.fruitLabel.text = model.fruitName
-        self.purchaseDateLabel.text = model.date
+        self.purchaseDateLabel.text = model.dateToString
         self.fruitImageView.image = UIImage(named: model.fruitType)
         self.fruitInfoLabel.text = model.fruitComment
     }
@@ -144,7 +144,7 @@ class MyPageFruitListCollectionViewCell: UICollectionViewCell {
     func configure(buyingModel model: BuyingFruitViewModel) {
         self.farmLabel.text = model.farmName
         self.fruitLabel.text = model.fruitName
-        self.purchaseDateLabel.text = model.date
+        self.purchaseDateLabel.text = model.dateToString
         self.fruitImageView.image = UIImage(named: model.fruitType)
     }
     

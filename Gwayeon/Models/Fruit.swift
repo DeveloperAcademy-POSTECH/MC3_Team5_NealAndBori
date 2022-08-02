@@ -13,6 +13,7 @@ struct Fruit: Codable, Identifiable {
     var uid: String?
     let fruitCategory, fruitName, farmName, farmTelNumber: String
     let recommends: [String]?
+    let date: Date
 }
 
 

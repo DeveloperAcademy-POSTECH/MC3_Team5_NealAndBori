@@ -131,9 +131,16 @@ class MyPageViewController: UIViewController {
             return
         }
         myProfileImageView.image = UIImage(named: user.userImageName)
-        myNameLabel.text = user.userName
+        
+        let userNameAttributeString: NSMutableAttributedString = NSMutableAttributedString(string: "\(user.userName)\(user.pinCode)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .semibold)])
+        userNameAttributeString.setColor(color: .gray, forText: "\(user.pinCode)")
+        myNameLabel.attributedText = userNameAttributeString
+        
         
         guard let friends = user.friends else {
+            let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: "\(0)명의 과연이 있어요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+            attributeString.setColor(color: .pointColor, forText: "\(0)")
+            gwayeonCountLabel.attributedText = attributeString
             return
         }
         
@@ -196,29 +203,25 @@ class MyPageViewController: UIViewController {
     private func fetchData() {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        FirebaseManager.shared.fetchUserInformation(uid: uid) { [weak self] result in
-            switch result {
-            case .success(let user):
-                self?.user = user
-                self?.updateProfile()
-                
-                self?.updateRecommendData()
-                self?.updateBuyingFruitData()
-                
-            case .failure(let error):
-                print(error)
-            }
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+            self?.updateProfile()
+            
+            self?.updateRecommendData()
+            self?.updateBuyingFruitData()
         }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        fetchData()
         gearButton.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchData()
         gearButton.isHidden = false
     }
     
@@ -384,9 +387,10 @@ extension MyPageViewController: UICollectionViewDataSource {
                     return UICollectionViewCell()
                 }
 
+                
                 let fruit = fruits[indexPath.row - 1]
                 let recommend = recommends[indexPath.row - 1]
-                cell.configure(recommendModel: RecommendFruitViewModel(date: Date().formatted(date: .numeric, time: .shortened), fruitName: fruit.fruitName, fruitType: fruit.fruitCategory, farmName: fruit.farmName, fruitComment: recommend.comment))
+                cell.configure(recommendModel: RecommendFruitViewModel(date: fruit.date, fruitName: fruit.fruitName, fruitType: fruit.fruitCategory, farmName: fruit.farmName, fruitComment: recommend.comment))
                 cell.setButtonOrLabelHidden(status: segmentButtonStatus)
                 return cell
             }
@@ -396,7 +400,7 @@ extension MyPageViewController: UICollectionViewDataSource {
             }
             
             let fruit = fruits[indexPath.row]
-            cell.configure(buyingModel: BuyingFruitViewModel(date: Date().formatted(date: .numeric, time: .shortened), fruitName: fruit.fruitName, fruitType: fruit.fruitCategory, farmName: fruit.farmName))
+            cell.configure(buyingModel: BuyingFruitViewModel(date: fruit.date, fruitName: fruit.fruitName, fruitType: fruit.fruitCategory, farmName: fruit.farmName))
             cell.setParentViewController(viewController: self)
             cell.setButtonOrLabelHidden(status: segmentButtonStatus)
             

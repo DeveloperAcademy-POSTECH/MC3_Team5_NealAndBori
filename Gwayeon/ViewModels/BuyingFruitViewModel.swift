@@ -8,8 +8,11 @@
 import Foundation
 
 struct BuyingFruitViewModel {
-    let date: String
+    let date: Date
     let fruitName: String
     let fruitType: String
     let farmName: String
+    var dateToString: String {
+        return dateFormatter.string(from: date)
+    }
 }

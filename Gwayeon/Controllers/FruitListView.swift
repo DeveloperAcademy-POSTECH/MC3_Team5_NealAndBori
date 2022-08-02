@@ -103,7 +103,7 @@ extension FruitListView: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension FruitListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         parent?.setTagValue(tag: String(indexPath.item - 1))
         parent?.fetchData()
     }

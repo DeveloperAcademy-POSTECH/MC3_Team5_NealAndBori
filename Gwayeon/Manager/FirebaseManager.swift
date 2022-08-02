@@ -100,7 +100,6 @@ final class FirebaseManager {
             var recommendFruits = [RecommendFruit]()
             try await user.friends?.asyncForEach { friendId in
                 let friend = try await FirebaseManager.db.collection("Users").document(friendId).getDocument(as: User.self)
-         
                 try await friend.recommends?.asyncForEach({ recommendId in
                     print(recommendId)
                     let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
@@ -238,7 +237,7 @@ final class FirebaseManager {
     ///   - recommendIds: Recommend 문서 ID Array
     ///   - completion: Recommend Array
     func fetchRecommends(recommendIds: [String], completion: @escaping (Result<[Recommend], Error>) -> Void) {
-        FirebaseManager.db.collection("Recommends").whereField(FieldPath.documentID(), in: recommendIds).getDocuments { querySnapshot, err in
+        FirebaseManager.db.collection("Recommends").whereField(FieldPath.documentID(), in: recommendIds).order(by: "date").addSnapshotListener { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
                 completion(.failure(err))
@@ -255,7 +254,8 @@ final class FirebaseManager {
     ///   - fruitUids: 과일 문서 ID들
     ///   - completion: 리턴되는 과일들
     func fetchFruitInformations(fruitUids: [String], completion: @escaping (Result<[Fruit], Error>) -> Void) {
-        FirebaseManager.db.collection("Fruits").whereField(FieldPath.documentID(), in: fruitUids).getDocuments { querySnapshot, err in
+        
+        FirebaseManager.db.collection("Fruits").whereField(FieldPath.documentID(), in: fruitUids).order(by: "date", descending: true).addSnapshotListener { querySnapshot, err in
             if let err = err {
                 print("Error getting documents: \(err)")
                 completion(.failure(err))
@@ -323,7 +323,7 @@ final class FirebaseManager {
     ///   - fruitID: 과일 문서의 고유 ID
     ///   - comment: 추천평
     func requestRecommend(userId: String, userName: String, fruitId: String, comment: String) {
-        let recommend = Recommend(userId: userId, fruitId: fruitId, userName: userName, comment: comment)
+        let recommend = Recommend(userId: userId, fruitId: fruitId, userName: userName, comment: comment, date: Date())
         
         do {
             let ref = FirebaseManager.db.collection("Recommends").document()
@@ -354,7 +354,7 @@ final class FirebaseManager {
     ///   - fruitBaseInfo: 추천농장에서 등록하는 가장 기본적인 정보
     func requestFruitInformation(uid: String, fruitBaseInfo: FruitBaseInfo, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.farmName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil)
+        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.fruitName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil, date: Date())
         do {
             let ref = FirebaseManager.db.collection("Fruits").document()
             try ref.setData(from: fruit)
@@ -366,5 +366,14 @@ final class FirebaseManager {
         }
         
     }
-    
+        
+    func requestSignOut() {
+        do {
+            try  Auth.auth().signOut()
+            print("logout 성공")
+        } catch {
+            print("logout 실패")
+        }
+    }
 }
+
