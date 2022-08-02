@@ -195,7 +195,7 @@ final class FirebaseManager {
     ///   - fruitID: 과일 문서의 고유 ID
     ///   - comment: 추천평
     func requestRecommend(userId: String, userName: String, fruitId: String, comment: String) {
-        let recommend = Recommend(userId: userId, fruitId: fruitId, userName: userName, comment: comment)
+        let recommend = Recommend(userId: userId, fruitId: fruitId, userName: userName, comment: comment, date: Date())
         
         do {
             let ref = FirebaseManager.db.collection("Recommends").document()
@@ -226,7 +226,7 @@ final class FirebaseManager {
     ///   - fruitBaseInfo: 추천농장에서 등록하는 가장 기본적인 정보
     func requestFruitInformation(uid: String, fruitBaseInfo: FruitBaseInfo, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.farmName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil)
+        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.farmName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil, date: Date())
         do {
             let ref = FirebaseManager.db.collection("Fruits").document()
             try ref.setData(from: fruit)
@@ -238,5 +238,15 @@ final class FirebaseManager {
         }
         
     }
+        
     
+    func requestSignOut()  {
+        do {
+            try  Auth.auth().signOut()
+            print("logout 성공")
+        } catch {
+            print("logout 실패")
+        }
+    }
 }
+

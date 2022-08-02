@@ -33,6 +33,7 @@
 		764504E7287FB0D30048B3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504E5287FB0D30048B3F0 /* Main.storyboard */; };
 		764504E9287FB0D50048B3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 764504E8287FB0D50048B3F0 /* Assets.xcassets */; };
 		764504EC287FB0D50048B3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 764504EA287FB0D50048B3F0 /* LaunchScreen.storyboard */; };
+		765AD1F82898C2880039A6FB /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765AD1F72898C2880039A6FB /* DateFormatter.swift */; };
 		768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */; };
 		768958FC2890E4EF00F979AE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768958FB2890E4EF00F979AE /* UIView+Extension.swift */; };
 		768958FE28910F7F00F979AE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 768958FD28910F7F00F979AE /* GoogleService-Info.plist */; };
@@ -85,6 +86,7 @@
 		764504E8287FB0D50048B3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		764504EB287FB0D50048B3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		764504ED287FB0D50048B3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		765AD1F72898C2880039A6FB /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		768958F6288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFruitListCollectionViewCell.swift; sourceTree = "<group>"; };
 		768958FB2890E4EF00F979AE /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		768958FD28910F7F00F979AE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		7605A00728856C6100D66F41 /* Globals */ = {
 			isa = PBXGroup;
 			children = (
+				765AD1F62898C27A0039A6FB /* Literals */,
 				7605A00928856F7A00D66F41 /* Resources */,
 				7605A00828856F4F00D66F41 /* Extension */,
 			);
@@ -244,6 +247,14 @@
 				4526099F288685AC00C12279 /* RecommendToFriendViewController.swift */,
 			);
 			path = Gwayeon;
+			sourceTree = "<group>";
+		};
+		765AD1F62898C27A0039A6FB /* Literals */ = {
+			isa = PBXGroup;
+			children = (
+				765AD1F72898C2880039A6FB /* DateFormatter.swift */,
+			);
+			path = Literals;
 			sourceTree = "<group>";
 		};
 		768959062891126D00F979AE /* Models */ = {
@@ -398,7 +409,6 @@
 				760158C4289750D1009A8D42 /* RecommendFruitViewModel.swift in Sources */,
 				768958F7288FBE1C00F979AE /* MyPageFruitListCollectionViewCell.swift in Sources */,
 				DDF625A528879918008E441D /* ReviewCollectionViewCell.swift in Sources */,
-				7605A0022885381400D66F41 /* MainTabBarViewController.swift in Sources */,
 				DD2F6BD028912CBB00AC7D22 /* BottomSheetViewController.swift in Sources */,
 				DDF625AA28899D49008E441D /* ReviewCollectionView.swift in Sources */,
 				37F1FA182887AC6D009FB2DA /* InputSection.swift in Sources */,
@@ -415,6 +425,7 @@
 				760158C22896CE89009A8D42 /* BuyingFruitViewModel.swift in Sources */,
 				7605A023288974E500D66F41 /* UIButton+Extension.swift in Sources */,
 				764504E2287FB0D30048B3F0 /* SceneDelegate.swift in Sources */,
+				765AD1F82898C2880039A6FB /* DateFormatter.swift in Sources */,
 				7605A0042885383000D66F41 /* HomeViewController.swift in Sources */,
 				7689591A28936D1800F979AE /* Fruit.swift in Sources */,
 				DDF625A02886D435008E441D /* DetailViewController.swift in Sources */,
@@ -569,7 +580,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3Y8YH8GWMM;
+				DEVELOPMENT_TEAM = 2RG6A633V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -597,7 +608,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3Y8YH8GWMM;
+				DEVELOPMENT_TEAM = 2RG6A633V9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gwayeon/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
