@@ -52,6 +52,47 @@ final class FirebaseManager {
         }
     }
     
+    func getFruits(tag: String) async -> [RecommendFruit]? {
+        guard let userId = FirebaseManager.auth.currentUser?.uid else { return nil }
+        do {
+            let user = try await FirebaseManager.db.collection("Users").document(userId).getDocument(as: User.self)
+            var recommendFruits = [RecommendFruit]()
+            try await user.friends?.asyncForEach { friendId in
+                let friend = try await FirebaseManager.db.collection("Users").document(friendId).getDocument(as: User.self)
+                
+                try await friend.recommends?.reversed().asyncForEach({ recommendId in
+                    print(recommendId)
+                    let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
+                    
+                    print(recommend)
+                    
+                    let fruitId = recommend.fruitId
+                    var checkRecommend = true
+                    for (index, recommendFruit) in recommendFruits.enumerated() {
+                        guard let recommendFruitId = recommendFruit.recommendFruit?.uid else { return }
+                        if recommendFruitId == fruitId {
+                            // 기존 과일
+                            recommendFruits[index].recommendCount += 1
+                            checkRecommend = false
+                            break
+                        }
+                    }
+                    if checkRecommend {
+                        // 새로운 과일
+                        let newRecommends = await getRecommendFruit(recommendId: recommendId, tag: tag)
+                        if newRecommends == nil { return }
+                        recommendFruits.append(newRecommends!)
+                    }
+                })
+            }
+            
+            return recommendFruits
+        } catch {
+            print("Get Fruits error")
+            return nil
+        }
+    }
+    
     func getFruits() async -> [RecommendFruit]? {
         guard let userId = FirebaseManager.auth.currentUser?.uid else { return nil }
         do {
@@ -77,6 +118,8 @@ final class FirebaseManager {
                             break
                         }
                     }
+                    
+//                    새로운 걸 넣을때 해당 태그만을 사용하는 것만 하면 됨
                     if checkRecommend {
                         // 새로운 과일
                         let newRecommends = await getRecommendFruit(recommendId: recommendId)
@@ -89,6 +132,30 @@ final class FirebaseManager {
             return recommendFruits
         } catch {
             print("Get Fruits error")
+            return nil
+        }
+    }
+    
+    func getRecommendFruit(recommendId: String, tag: String) async -> RecommendFruit? {
+        do {
+            var recommendFruit = RecommendFruit(recommendId: recommendId, recommendCount: 0)
+            
+            let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
+            
+            recommendFruit.recommendUser = recommend.userName
+            recommendFruit.comment = recommend.comment
+            
+            let fruit = try await FirebaseManager.db.collection("Fruits").document(recommend.fruitId).getDocument(as: Fruit.self)
+            recommendFruit.recommendFruit = fruit
+            recommendFruit.recommendFruit?.uid = fruit.id
+            
+            if fruit.fruitCategory == tag {
+                return recommendFruit
+            }
+            return nil
+            
+        } catch {
+            print("failed to get recommendFruit")
             return nil
         }
     }
