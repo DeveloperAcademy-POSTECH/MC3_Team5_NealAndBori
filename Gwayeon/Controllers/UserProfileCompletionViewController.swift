@@ -163,8 +163,8 @@ class UserProfileCompletionViewController: UIViewController {
     private func goHome() {
         let navigationController = UINavigationController(rootViewController: MainTabBarViewController())
         navigationController.modalPresentationStyle = .fullScreen
+        navigationController.setNavigationBarHidden(true, animated: true)
         self.present(navigationController, animated: true, completion: nil)
     }
     
 }
-
