@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private var recommendFruits = [RecommendFruit]()
+    private var recommendFruits: [RecommendFruit]? = []
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
@@ -78,13 +78,13 @@ class HomeViewController: UIViewController {
         configureViewComponent()
         
         Task { [weak self] in
-            self?.recommendFruits = await FirebaseManager.shared.getFruits()!
+            self?.recommendFruits = await FirebaseManager.shared.getFruits()
             print(self?.recommendFruits)
             
             DispatchQueue.main.async {
                 self?.collectionViewFlowLayout.collectionView?.reloadData()
                 
-                if !(self?.recommendFruits.isEmpty)! {
+                if ((self?.recommendFruits?.isEmpty) != nil) {
                     self?.fruitEmptyView.isHidden = true
                     self?.findFriendLabel.isHidden = true
                 }
@@ -146,7 +146,8 @@ class HomeViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recommendFruits.count
+        if recommendFruits == nil { return 0 }
+        return recommendFruits!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

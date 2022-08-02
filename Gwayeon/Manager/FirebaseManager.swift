@@ -62,7 +62,7 @@ final class FirebaseManager {
          
                 try await friend.recommends?.asyncForEach({ recommendId in
                     print(recommendId)
-                    let recommend = try await FirebaseManager.db.collection("Recommend").document(recommendId).getDocument(as: Recommend.self)
+                    let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
                     
                     print(recommend)
                     
@@ -96,18 +96,18 @@ final class FirebaseManager {
         do {
             var recommendFruit = RecommendFruit(recommendId: recommendId, recommendCount: 0)
             
-            let recommend = try await FirebaseManager.db.collection("Recommend").document(recommendId).getDocument(as: Recommend.self)
+            let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
             
             recommendFruit.recommendUser = recommend.userName
             recommendFruit.comment = recommend.comment
             
-            let fruit = try await FirebaseManager.db.collection("Fruit").document(recommend.fruitId).getDocument(as: Fruit.self)
+            let fruit = try await FirebaseManager.db.collection("Fruits").document(recommend.fruitId).getDocument(as: Fruit.self)
             recommendFruit.recommendFruit = fruit
-            recommendFruit.recommendFruit?.uid = fruit.uid
+            recommendFruit.recommendFruit?.uid = fruit.id
             
             return recommendFruit
         } catch {
-            print("failed to get recommend")
+            print("failed to get recommendFruit")
             return nil
         }
     }
