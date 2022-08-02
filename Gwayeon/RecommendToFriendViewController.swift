@@ -170,7 +170,7 @@ class RecommendToFriendViewController: UIViewController {
             completionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             completionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             completionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            completionButton.heightAnchor.constraint(equalToConstant: 50)
+            completionButton.heightAnchor.constraint(equalToConstant: 55)
         ]
         
         [farmLabelConstraints, fruitLabelConstraints, objLabelConstraints, myFriendsLabelConstraints, numOfFriendsLabelConstraints, recommendLabelConstraints, recommendMessageLabelConstraints, textViewConstraints, completionButtonConstraints].forEach { component in
