@@ -132,7 +132,7 @@ class RecommendFarmViewController: UIViewController {
             finishButton.isEnabled = true
             finishButton.backgroundColor = UIColor.mainRed
         } else {
-            finishButton.isEnabled = true
+            finishButton.isEnabled = false
             finishButton.backgroundColor = UIColor.grey001
         }
     }
