@@ -72,9 +72,10 @@ class UserProfileCompletionViewController: UIViewController {
     
     private let gwayeonStartButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 13
         button.backgroundColor = .mainColor
         button.setTitle("시작하기", for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.addTarget(nil, action: #selector(didTapStartButton), for: .touchUpInside)
         return button
     }()
@@ -128,7 +129,7 @@ class UserProfileCompletionViewController: UIViewController {
         
         let gwayeonStartButtonConstraints = [
             gwayeonStartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
-            gwayeonStartButton.heightAnchor.constraint(equalToConstant: 50),
+            gwayeonStartButton.heightAnchor.constraint(equalToConstant: 55),
             gwayeonStartButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             gwayeonStartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ]
