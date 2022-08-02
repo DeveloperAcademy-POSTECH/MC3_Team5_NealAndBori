@@ -203,20 +203,14 @@ class MyPageViewController: UIViewController {
     private func fetchData() {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        FirebaseManager.shared.fetchUserInformation(uid: uid) { [weak self] result in
-            switch result {
-            case .success(let user):
-                self?.user = user
-                self?.updateProfile()
-                
-                self?.updateRecommendData()
-                self?.updateBuyingFruitData()
-                
-            case .failure(let error):
-                print(error)
-            }
+        Task { [weak self] in
+            self?.user = await FirebaseManager.shared.getUser()
+            self?.updateProfile()
+            
+            self?.updateRecommendData()
+            self?.updateBuyingFruitData()
         }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
