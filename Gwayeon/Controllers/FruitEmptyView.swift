@@ -57,6 +57,7 @@ final class FruitEmptyView: UIView {
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
+        
         let emptyLabelConstraints = [
             emptyLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             emptyLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
