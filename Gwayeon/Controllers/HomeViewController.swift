@@ -186,6 +186,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         detailViewController.hidesBottomBarWhenPushed = true
+        detailViewController.fruit = recommendFruits?[indexPath.item].recommendFruit
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
