@@ -159,7 +159,8 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.fruitLabel.text = recommendFruits![indexPath.item].recommendFruit!.fruitName
         cell.farmLabel.text = recommendFruits![indexPath.item].recommendFruit!.farmName
         cell.fruitInfoLabel.text = recommendFruits![indexPath.item].comment
-//        cell.fruitImageView.image = UIImage(named: recommendFruits![indexPath.item].recommendFruit!.fruitCategory)ㄹ
+        let fruitCategory = recommendFruits![indexPath.item].recommendFruit!.fruitCategory
+        cell.fruitImageView.image = UIImage(named: FruitCategory.images[Int(fruitCategory)!])
         
         return cell
     }
