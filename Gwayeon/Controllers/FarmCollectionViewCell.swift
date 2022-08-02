@@ -13,7 +13,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
     
     // MARK: - property
     
-    private let peoplePickLabel: UILabel = {
+    var peoplePickLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         label.textColor = .grey001
@@ -21,7 +21,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let fruitLabel: UILabel = {
+    var fruitLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
         label.textColor = .mainRed
@@ -29,7 +29,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let farmLabel: UILabel = {
+    var farmLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textColor = .black
@@ -37,7 +37,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let fruitInfoLabel: UILabel = {
+    var fruitInfoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         label.textColor = .black
@@ -45,7 +45,7 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private var fruitImageView: UIImageView = { imageView in
+    var fruitImageView: UIImageView = { imageView in
         imageView.image = UIImage(named: "peach")
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -109,7 +109,8 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         let fruitImageViewConstraints = [
             fruitImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             fruitImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            fruitImageView.widthAnchor.constraint(equalToConstant: 80)
+            fruitImageView.widthAnchor.constraint(equalToConstant: 40),
+            fruitImageView.heightAnchor.constraint(equalToConstant: 40)
         ]
         
         [peoplePickLabelConstraints, fruitLabelConstraints, farmLabelConstraints, fruitInfoLabelConstraints, fruitImageViewConstraints].forEach { constraints in

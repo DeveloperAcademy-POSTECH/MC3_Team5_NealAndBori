@@ -151,11 +151,17 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
-        return dequeuedCell
+        cell.peoplePickLabel.text = "\(recommendFruits![indexPath.item].recommendUser!) 외 \(recommendFruits![indexPath.item].recommendCount)명 Pick!"
+        cell.fruitLabel.text = recommendFruits![indexPath.item].recommendFruit!.fruitName
+        cell.farmLabel.text = recommendFruits![indexPath.item].recommendFruit!.farmName
+        cell.fruitInfoLabel.text = recommendFruits![indexPath.item].comment
+        cell.fruitImageView.image = UIImage(named: recommendFruits![indexPath.item].recommendFruit!.fruitCategory)
+        
+        return cell
     }
 }
 
