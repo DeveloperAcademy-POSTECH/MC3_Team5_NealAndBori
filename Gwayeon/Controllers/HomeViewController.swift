@@ -146,8 +146,8 @@ class HomeViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if recommendFruits == nil { return 0 }
-        return recommendFruits!.count
+        guard let recommendFruits = recommendFruits else { return 0 }
+        return recommendFruits.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -155,11 +155,13 @@ extension HomeViewController: UICollectionViewDataSource {
             assert(false, "Wrong Cell")
         }
         
-        cell.peoplePickLabel.text = "\(recommendFruits![indexPath.item].recommendUser!) 외 \(recommendFruits![indexPath.item].recommendCount)명 Pick!"
-        cell.fruitLabel.text = recommendFruits![indexPath.item].recommendFruit!.fruitName
-        cell.farmLabel.text = recommendFruits![indexPath.item].recommendFruit!.farmName
-        cell.fruitInfoLabel.text = recommendFruits![indexPath.item].comment
-        let fruitCategory = recommendFruits![indexPath.item].recommendFruit!.fruitCategory
+        guard let recommendFruits = recommendFruits else { return cell }
+        
+        cell.peoplePickLabel.text = "\(recommendFruits[indexPath.item].recommendUser!) 외 \(recommendFruits[indexPath.item].recommendCount)명 Pick!"
+        cell.fruitLabel.text = recommendFruits[indexPath.item].recommendFruit!.fruitName
+        cell.farmLabel.text = recommendFruits[indexPath.item].recommendFruit!.farmName
+        cell.fruitInfoLabel.text = recommendFruits[indexPath.item].comment
+        let fruitCategory = recommendFruits[indexPath.item].recommendFruit!.fruitCategory
         cell.fruitImageView.image = UIImage(named: FruitCategory.images[Int(fruitCategory)!])
         
         return cell

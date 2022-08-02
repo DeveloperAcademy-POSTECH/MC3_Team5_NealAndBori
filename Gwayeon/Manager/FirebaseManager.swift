@@ -69,7 +69,8 @@ final class FirebaseManager {
                     let fruitId = recommend.fruitId
                     var checkRecommend = true
                     for (index, recommendFruit) in recommendFruits.enumerated() {
-                        if recommendFruit.recommendFruit?.uid! == fruitId {
+                        guard let recommendFruitId = recommendFruit.recommendFruit?.uid else { return }
+                        if recommendFruitId == fruitId {
                             // 기존 과일
                             recommendFruits[index].recommendCount += 1
                             checkRecommend = false
