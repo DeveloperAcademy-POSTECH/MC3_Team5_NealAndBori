@@ -47,13 +47,12 @@ class DetailViewController: UIViewController {
     
     private lazy var callButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.cornerStyle = .medium
         config.baseBackgroundColor = .mainColor
         config.image = UIImage(systemName: "phone.fill")
         config.title = " 전화하기"
-        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
-        config.buttonSize = .large
+        config.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         let button = UIButton(configuration: config)
+        button.layer.cornerRadius = 13
         button.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -126,7 +125,7 @@ class DetailViewController: UIViewController {
             callButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             callButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             callButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            callButton.heightAnchor.constraint(equalToConstant: 56),
+            callButton.heightAnchor.constraint(equalToConstant: 55),
             callButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.65)
         ]
         

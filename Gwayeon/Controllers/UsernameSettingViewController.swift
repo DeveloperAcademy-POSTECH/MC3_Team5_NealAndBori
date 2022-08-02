@@ -29,7 +29,7 @@ class UsernameSettingViewController: UIViewController {
         configuration.baseBackgroundColor = UIColor.mainColor
         configuration.background.cornerRadius = 12
         configuration.title = "다음"
-        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        configuration.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
@@ -90,7 +90,7 @@ class UsernameSettingViewController: UIViewController {
             nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -22),
             nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            nextButton.heightAnchor.constraint(equalToConstant: 50)
+            nextButton.heightAnchor.constraint(equalToConstant: 55)
         ]
         
         [usernameLabelConstraints,usernameTextFieldConstraints,nextButtonConstraints].forEach { component in

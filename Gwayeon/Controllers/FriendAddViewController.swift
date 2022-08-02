@@ -46,7 +46,7 @@ class FriendAddViewController: UIViewController {
         var configuration = UIButton.Configuration.filled()
         configuration.image = UIImage(systemName: "magnifyingglass")
         configuration.baseBackgroundColor = UIColor.mainColor
-        configuration.background.cornerRadius = 12
+        configuration.background.cornerRadius = 13
         
         let button = UIButton(configuration: configuration)
         button.addTarget(self, action: #selector(searchFriend), for: .touchUpInside)
@@ -86,9 +86,9 @@ class FriendAddViewController: UIViewController {
     private lazy var addButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = UIColor.mainColor
-        configuration.background.cornerRadius = 12
+        configuration.background.cornerRadius = 13
         configuration.title = "추가"
-        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        configuration.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
@@ -235,7 +235,7 @@ class FriendAddViewController: UIViewController {
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            addButton.heightAnchor.constraint(equalToConstant: 60)
+            addButton.heightAnchor.constraint(equalToConstant: 55)
         ]
         
         [fruitImageConstraints, guideLabelConstraints, searchButtonConstraints, searchTextFieldConstraints,

@@ -74,9 +74,9 @@ class RecommendToFriendViewController: UIViewController {
     private let completionButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = UIColor.mainColor
-        configuration.background.cornerRadius = 12
+        configuration.background.cornerRadius = 13
         configuration.title = "완료"
-        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        configuration.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
@@ -170,7 +170,7 @@ class RecommendToFriendViewController: UIViewController {
             completionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             completionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             completionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            completionButton.heightAnchor.constraint(equalToConstant: 50)
+            completionButton.heightAnchor.constraint(equalToConstant: 55)
         ]
         
         [farmLabelConstraints, fruitLabelConstraints, objLabelConstraints, myFriendsLabelConstraints, numOfFriendsLabelConstraints, recommendLabelConstraints, recommendMessageLabelConstraints, textViewConstraints, completionButtonConstraints].forEach { component in

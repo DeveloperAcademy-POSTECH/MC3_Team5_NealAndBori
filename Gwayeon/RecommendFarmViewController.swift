@@ -33,6 +33,7 @@ class RecommendFarmViewController: UIViewController {
     private lazy var finishButton: UIButton = {
         let button = UIButton()
         button.setTitle("완료", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.backgroundColor = UIColor.grey001
         button.layer.cornerRadius = 13
         button.isEnabled = false
@@ -81,7 +82,7 @@ class RecommendFarmViewController: UIViewController {
             sectionStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ]
         let finishButtonConstraint = [
-            finishButton.heightAnchor.constraint(equalToConstant: 60),
+            finishButton.heightAnchor.constraint(equalToConstant: 55),
             finishButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5),
             finishButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             finishButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)

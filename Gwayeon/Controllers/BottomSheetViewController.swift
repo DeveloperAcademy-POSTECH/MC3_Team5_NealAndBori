@@ -35,24 +35,22 @@ class BottomSheetViewController: UIViewController {
     
     private lazy var cancelButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.cornerStyle = .medium
         config.baseBackgroundColor = .systemGray2
         config.title = "아니요"
-        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
-        config.buttonSize = .large
+        config.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         let button = UIButton(configuration: config)
+        button.layer.cornerRadius = 13
         button.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
         return button
     }()
     
     private lazy var addButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.cornerStyle = .medium
         config.baseBackgroundColor = .mainColor
         config.title = "추가할게요"
-        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
-        config.buttonSize = .large
+        config.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         let button = UIButton(configuration: config)
+        button.layer.cornerRadius = 13
         return button
     }()
     
@@ -85,7 +83,7 @@ class BottomSheetViewController: UIViewController {
         let cancelButtonConstraints = [
             cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            cancelButton.heightAnchor.constraint(equalToConstant: 56),
+            cancelButton.heightAnchor.constraint(equalToConstant: 55),
             cancelButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.45)
         ]
         
@@ -93,7 +91,7 @@ class BottomSheetViewController: UIViewController {
             addButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             addButton.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: 16),
-            addButton.heightAnchor.constraint(equalToConstant: 56),
+            addButton.heightAnchor.constraint(equalToConstant: 55),
             addButton.widthAnchor.constraint(equalToConstant: view.frame.width * 0.5)
         ]
         
