@@ -46,7 +46,7 @@ class FriendAddViewController: UIViewController {
         var configuration = UIButton.Configuration.filled()
         configuration.image = UIImage(systemName: "magnifyingglass")
         configuration.baseBackgroundColor = UIColor.mainColor
-        configuration.background.cornerRadius = 12
+        configuration.background.cornerRadius = 13
         
         let button = UIButton(configuration: configuration)
         button.addTarget(self, action: #selector(searchFriend), for: .touchUpInside)
