@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
         config.baseBackgroundColor = .mainColor
         config.image = UIImage(systemName: "phone.fill")
         config.title = " 전화하기"
-        config.attributedTitle?.font = .systemFont(ofSize: 20, weight: .bold)
+        config.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         config.buttonSize = .large
         let button = UIButton(configuration: config)
         button.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)

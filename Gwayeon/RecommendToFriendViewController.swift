@@ -74,9 +74,9 @@ class RecommendToFriendViewController: UIViewController {
     private let completionButton: UIButton = {
         var configuration = UIButton.Configuration.filled()
         configuration.baseBackgroundColor = UIColor.mainColor
-        configuration.background.cornerRadius = 12
+        configuration.background.cornerRadius = 13
         configuration.title = "완료"
-        configuration.attributedTitle?.font = .systemFont(ofSize: 24, weight: .medium)
+        configuration.attributedTitle?.font = .systemFont(ofSize: 17, weight: .bold)
         
         let button = UIButton(configuration: configuration)
         button.isEnabled = false
