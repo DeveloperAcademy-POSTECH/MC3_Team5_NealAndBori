@@ -109,8 +109,8 @@ final class FarmCollectionViewCell: UICollectionViewCell {
         let fruitImageViewConstraints = [
             fruitImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             fruitImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            fruitImageView.widthAnchor.constraint(equalToConstant: 40),
-            fruitImageView.heightAnchor.constraint(equalToConstant: 40)
+            fruitImageView.widthAnchor.constraint(equalToConstant: 100),
+            fruitImageView.heightAnchor.constraint(equalToConstant: 100)
         ]
         
         [peoplePickLabelConstraints, fruitLabelConstraints, farmLabelConstraints, fruitInfoLabelConstraints, fruitImageViewConstraints].forEach { constraints in
