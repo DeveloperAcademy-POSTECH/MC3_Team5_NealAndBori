@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private var recommendFruits: [RecommendFruit]? = []
+    private var tag: String = "-1"
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
@@ -76,13 +77,25 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewComponent()
-        
+        fruitListView.setParentViewController(viewController: self)
+        fetchData()
+    }
+    
+    func setTagValue(tag: String) {
+        self.tag = tag
+    }
+    
+    func fetchData() {
         Task { [weak self] in
-            self?.recommendFruits = await FirebaseManager.shared.getFruits()
+            if tag == "-1" {
+                self?.recommendFruits = await FirebaseManager.shared.getFruits()
+            } else {
+                self?.recommendFruits = await FirebaseManager.shared.getFruits(tag: tag)
+            }
             print(self?.recommendFruits)
             
-            DispatchQueue.main.async {
-                self?.collectionViewFlowLayout.collectionView?.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.listCollectionView.reloadData()
                 
                 if ((self?.recommendFruits?.isEmpty) != nil) {
                     self?.fruitEmptyView.isHidden = true
@@ -90,8 +103,8 @@ class HomeViewController: UIViewController {
                 }
             }
         }
+        
     }
-    
     // MARK: Configures
     private func configureViewComponent() {
         view.backgroundColor = .white
