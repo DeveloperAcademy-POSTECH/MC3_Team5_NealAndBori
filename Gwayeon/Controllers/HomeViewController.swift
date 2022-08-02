@@ -217,6 +217,8 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         detailViewController.hidesBottomBarWhenPushed = true
+        detailViewController.navigationItem.backButtonTitle = ""
+        detailViewController.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
