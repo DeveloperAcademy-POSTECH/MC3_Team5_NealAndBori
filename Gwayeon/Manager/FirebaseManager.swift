@@ -226,7 +226,7 @@ final class FirebaseManager {
     ///   - fruitBaseInfo: 추천농장에서 등록하는 가장 기본적인 정보
     func requestFruitInformation(uid: String, fruitBaseInfo: FruitBaseInfo, completion: @escaping (Result<String, Error>) -> Void) {
         
-        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.farmName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil)
+        let fruit = Fruit(fruitCategory: fruitBaseInfo.fruitCategory, fruitName: fruitBaseInfo.fruitName, farmName: fruitBaseInfo.farmName, farmTelNumber: fruitBaseInfo.farmTelNumber, recommends: nil)
         do {
             let ref = FirebaseManager.db.collection("Fruits").document()
             try ref.setData(from: fruit)
