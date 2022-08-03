@@ -219,6 +219,7 @@ extension HomeViewController: UICollectionViewDelegate {
         detailViewController.hidesBottomBarWhenPushed = true
         detailViewController.navigationItem.backButtonTitle = ""
         detailViewController.navigationController?.navigationBar.tintColor = .black
+        detailViewController.fruit = recommendFruits?[indexPath.item].recommendFruit
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
