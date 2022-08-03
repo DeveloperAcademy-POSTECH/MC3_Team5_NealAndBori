@@ -89,10 +89,10 @@ extension FruitListView: UICollectionViewDataSource {
             assert(false, "Wrong Cell")
         }
         
-        if indexPath.item == 0 {
-            cell.isSelected = true
-            collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
-        }
+//        if indexPath.item == 0 {
+//            cell.isSelected = true
+//            collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
+//        }
         
         cell.nameLabel.text = categoryName[indexPath.item]
     

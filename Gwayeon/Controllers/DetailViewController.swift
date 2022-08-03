@@ -86,7 +86,7 @@ class DetailViewController: UIViewController {
     
     @objc private func callButtonTapped() {
         buttonCheck = true
-        guard let url = URL(string: "tel://\(String(describing: fruit?.farmTelNumber))"),
+        guard let telNumber = fruit?.farmTelNumber, let url = URL(string: "tel://\(telNumber)"),
               UIApplication.shared.canOpenURL(url) else {
             return
         }
@@ -99,7 +99,9 @@ class DetailViewController: UIViewController {
         
         let fruitImageViewConstraints = [
             fruitImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            fruitImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            fruitImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            fruitImageView.widthAnchor.constraint(equalToConstant: 100),
+            fruitImageView.heightAnchor.constraint(equalToConstant: 100)
         ]
         
         let fruitNameConstraints = [
