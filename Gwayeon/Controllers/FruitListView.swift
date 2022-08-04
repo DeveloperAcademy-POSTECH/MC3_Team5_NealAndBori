@@ -10,7 +10,10 @@ import UIKit
 final class FruitListView: UIView {
     
 //    private let data = ["전체"]
-    private let data = ["전체", "사과", "자두", "수박", "복숭아", "참외", "포도"]
+    private let categoryName = ["전체"] + FruitCategory.names
+    private let categoryImage = ["apple", "pear", "tangerine", "watermelon", "grape", "peach", "tomato", "plum", "blueberry", "strawberry", "korean_melon", "melon", "kiwi", "fig", "mango", "persimmon", "other"]
+    
+    private var parent: HomeViewController?
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 16.0
@@ -69,12 +72,16 @@ final class FruitListView: UIView {
         ]
         NSLayoutConstraint.activate(listCollectionViewConstraints)
     }
+    
+    func setParentViewController(viewController: HomeViewController) {
+        self.parent = viewController
+    }
 }
 
 // MARK: - UICollectionViewDataSource
 extension FruitListView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return categoryName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -87,8 +94,8 @@ extension FruitListView: UICollectionViewDataSource {
             collectionView.selectItem(at: indexPath, animated: false , scrollPosition: .init())
         }
         
-        cell.nameLabel.text = data[indexPath.item]
-        
+        cell.nameLabel.text = categoryName[indexPath.item]
+    
         return cell
     }
 }
@@ -97,5 +104,7 @@ extension FruitListView: UICollectionViewDataSource {
 extension FruitListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        parent?.setTagValue(tag: String(indexPath.item - 1))
+        parent?.fetchData()
     }
 }

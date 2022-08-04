@@ -9,8 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-//    private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
-    private let data = [String]()
+    private var recommendFruits: [RecommendFruit]? = []
+    private var tag: String = "-1"
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
@@ -77,15 +77,37 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewComponent()
+        fruitListView.setParentViewController(viewController: self)
+        fetchData()
     }
     
+    func setTagValue(tag: String) {
+        self.tag = tag
+    }
+    
+    func fetchData() {
+        Task { [weak self] in
+            if tag == "-1" {
+                self?.recommendFruits = await FirebaseManager.shared.getFruits()
+            } else {
+                self?.recommendFruits = await FirebaseManager.shared.getFruits(tag: tag)
+            }
+            print(self?.recommendFruits)
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.listCollectionView.reloadData()
+                
+                if ((self?.recommendFruits?.isEmpty) != nil) {
+                    self?.fruitEmptyView.isHidden = true
+                    self?.findFriendLabel.isHidden = true
+                }
+            }
+        }
+        
+    }
     // MARK: Configures
     private func configureViewComponent() {
         view.backgroundColor = .white
-        if !data.isEmpty {
-            fruitEmptyView.isHidden = true
-            findFriendLabel.isHidden = true
-        }
                 
         [titleLabel, fruitListView, fruitEmptyView, listCollectionView, findFriendLabel].forEach { component in
             view.addSubview(component)
@@ -137,15 +159,25 @@ class HomeViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        guard let recommendFruits = recommendFruits else { return 0 }
+        return recommendFruits.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
-        return dequeuedCell
+        guard let recommendFruits = recommendFruits else { return cell }
+        
+        cell.peoplePickLabel.text = "\(recommendFruits[indexPath.item].recommendUser!) 외 \(recommendFruits[indexPath.item].recommendCount)명 Pick!"
+        cell.fruitLabel.text = recommendFruits[indexPath.item].recommendFruit?.fruitName
+        cell.farmLabel.text = recommendFruits[indexPath.item].recommendFruit?.farmName
+        cell.fruitInfoLabel.text = recommendFruits[indexPath.item].comment
+        guard let fruitCategory = Int(recommendFruits[indexPath.item].recommendFruit?.fruitCategory ?? "0") else { return cell }
+        cell.fruitImageView.image = UIImage(named: FruitCategory.images[fruitCategory])
+        
+        return cell
     }
 }
 
@@ -154,6 +186,7 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         detailViewController.hidesBottomBarWhenPushed = true
+        detailViewController.fruit = recommendFruits?[indexPath.item].recommendFruit
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

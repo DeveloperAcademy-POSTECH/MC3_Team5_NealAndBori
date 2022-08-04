@@ -12,18 +12,22 @@ class DetailViewController: UIViewController {
     
     let callObserver = CXCallObserver()
     
+    var fruit: Fruit?
+    
     private var buttonCheck = false
     
     // MARK: Properties
     private lazy var fruitImageView: UIImageView = {
-        let fruitImageView = UIImageView(image: UIImage(named: "peaches"))
+        let fruitImageView = UIImageView()
+        let fruitCategory = Int(fruit?.fruitCategory ?? "0")
+        fruitImageView.image = UIImage(named: FruitCategory.images[fruitCategory!])
         fruitImageView.contentMode = .scaleAspectFill
         return fruitImageView
     }()
     
     private lazy var fruitName: UILabel = {
         let label = UILabel()
-        label.text = "대극천 복숭아"
+        label.text = fruit?.fruitName
         label.font = .systemFont(ofSize: 28, weight: .bold)
         label.textColor = .mainColor
         return label
@@ -31,7 +35,7 @@ class DetailViewController: UIViewController {
 
     private lazy var farmName: UILabel = {
         let label = UILabel()
-        label.text = "오로라 농장"
+        label.text = fruit?.farmName
         label.font = .preferredFont(forTextStyle: .title3)
         return label
     }()
@@ -56,8 +60,6 @@ class DetailViewController: UIViewController {
         button.addTarget(self, action: #selector(callButtonTapped), for: .touchUpInside)
         return button
     }()
-
-    private var phoneNumber = "01012345678"
     
     // MARK: Life Cycle Function
     override func viewDidLoad() {
@@ -83,7 +85,7 @@ class DetailViewController: UIViewController {
     
     @objc private func callButtonTapped() {
         buttonCheck = true
-        guard let url = URL(string: "tel://\(phoneNumber)"),
+        guard let url = URL(string: "tel://\(String(describing: fruit?.farmTelNumber))"),
               UIApplication.shared.canOpenURL(url) else {
             return
         }
