@@ -1,5 +1,5 @@
 <div align="center">
-<img width=700 alt="Gwayeon_logo_dark" src="https://user-images.githubusercontent.com/67336936/182755689-31a9b77d-a287-4bdd-b3d5-d7b808edb538.png#gh-dark-mode-only">
+<img width=700 alt="Gwayeon_logo_dark" src="https://user-images.githubusercontent.com/67336936/182758417-9c0c83e1-4041-4175-b2e5-3c1fec234e4e.png#gh-dark-mode-only">
 <img width=700 alt="Gwayeon_logo_light" src="https://user-images.githubusercontent.com/67336936/182755742-76c0d7fe-fefa-4338-842d-c99df0abb918.png#gh-light-mode-only">
 </div>
 
