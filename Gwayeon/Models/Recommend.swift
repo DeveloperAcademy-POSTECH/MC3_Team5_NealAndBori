@@ -13,3 +13,11 @@ struct Recommend: Codable, Identifiable {
     let userId, fruitId, userName, comment: String
 //    let comment, userId, fruitId, userName: String
 }
+
+struct RecommendFruit {
+    let recommendId: String
+    var recommendFruit: Fruit?
+    var recommendUser: String?
+    var recommendCount: Int
+    var comment: String?
+}

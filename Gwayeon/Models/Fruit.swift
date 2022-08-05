@@ -10,6 +10,7 @@ import FirebaseFirestoreSwift
 
 struct Fruit: Codable, Identifiable {
     @DocumentID var id: String?
+    var uid: String?
     let fruitCategory, fruitName, farmName, farmTelNumber: String
     let recommends: [String]?
 }
