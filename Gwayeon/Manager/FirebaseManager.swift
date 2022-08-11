@@ -52,6 +52,67 @@ final class FirebaseManager {
         }
     }
     
+    func getFruits() async -> [RecommendFruit]? {
+        guard let userId = FirebaseManager.auth.currentUser?.uid else { return nil }
+        do {
+            let user = try await FirebaseManager.db.collection("Users").document(userId).getDocument(as: User.self)
+            var recommendFruits = [RecommendFruit]()
+            try await user.friends?.asyncForEach { friendId in
+                let friend = try await FirebaseManager.db.collection("Users").document(friendId).getDocument(as: User.self)
+         
+                try await friend.recommends?.asyncForEach({ recommendId in
+                    print(recommendId)
+                    let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
+                    
+                    print(recommend)
+                    
+                    let fruitId = recommend.fruitId
+                    var checkRecommend = true
+                    for (index, recommendFruit) in recommendFruits.enumerated() {
+                        guard let recommendFruitId = recommendFruit.recommendFruit?.uid else { return }
+                        if recommendFruitId == fruitId {
+                            // 기존 과일
+                            recommendFruits[index].recommendCount += 1
+                            checkRecommend = false
+                            break
+                        }
+                    }
+                    if checkRecommend {
+                        // 새로운 과일
+                        let newRecommends = await getRecommendFruit(recommendId: recommendId)
+                        if newRecommends == nil { return }
+                        recommendFruits.append(newRecommends!)
+                    }
+                })
+            }
+            
+            return recommendFruits
+        } catch {
+            print("Get Fruits error")
+            return nil
+        }
+    }
+    
+    func getRecommendFruit(recommendId: String) async -> RecommendFruit? {
+        do {
+            var recommendFruit = RecommendFruit(recommendId: recommendId, recommendCount: 0)
+            
+            let recommend = try await FirebaseManager.db.collection("Recommends").document(recommendId).getDocument(as: Recommend.self)
+            
+            recommendFruit.recommendUser = recommend.userName
+            recommendFruit.comment = recommend.comment
+            
+            let fruit = try await FirebaseManager.db.collection("Fruits").document(recommend.fruitId).getDocument(as: Fruit.self)
+            recommendFruit.recommendFruit = fruit
+            recommendFruit.recommendFruit?.uid = fruit.id
+            
+            return recommendFruit
+        } catch {
+            print("failed to get recommendFruit")
+            return nil
+        }
+    }
+    
     
     /// 유저이름과 pinCode(4자리)를 가지고 유저정보인 "User들을" 가져오는 함수(파베에선 해당 field값을 가진 문서가 유일하다고 판단 불가)
     /// - Parameters:

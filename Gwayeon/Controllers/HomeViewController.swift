@@ -9,8 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-//    private let data = ["농장농장", "농장농장", "농장농장", "농장농장"]
-    private let data = [String]()
+    private var recommendFruits: [RecommendFruit]? = []
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 20.0
@@ -77,15 +76,25 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewComponent()
+        
+        Task { [weak self] in
+            self?.recommendFruits = await FirebaseManager.shared.getFruits()
+            print(self?.recommendFruits)
+            
+            DispatchQueue.main.async {
+                self?.collectionViewFlowLayout.collectionView?.reloadData()
+                
+                if ((self?.recommendFruits?.isEmpty) != nil) {
+                    self?.fruitEmptyView.isHidden = true
+                    self?.findFriendLabel.isHidden = true
+                }
+            }
+        }
     }
     
     // MARK: Configures
     private func configureViewComponent() {
         view.backgroundColor = .white
-        if !data.isEmpty {
-            fruitEmptyView.isHidden = true
-            findFriendLabel.isHidden = true
-        }
                 
         [titleLabel, fruitListView, fruitEmptyView, listCollectionView, findFriendLabel].forEach { component in
             view.addSubview(component)
@@ -137,15 +146,25 @@ class HomeViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        guard let recommendFruits = recommendFruits else { return 0 }
+        return recommendFruits.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FarmCollectionViewCell.identifier, for: indexPath) as? FarmCollectionViewCell else {
             assert(false, "Wrong Cell")
         }
         
-        return dequeuedCell
+        guard let recommendFruits = recommendFruits else { return cell }
+        
+        cell.peoplePickLabel.text = "\(recommendFruits[indexPath.item].recommendUser!) 외 \(recommendFruits[indexPath.item].recommendCount)명 Pick!"
+        cell.fruitLabel.text = recommendFruits[indexPath.item].recommendFruit?.fruitName
+        cell.farmLabel.text = recommendFruits[indexPath.item].recommendFruit?.farmName
+        cell.fruitInfoLabel.text = recommendFruits[indexPath.item].comment
+        guard let fruitCategory = Int(recommendFruits[indexPath.item].recommendFruit?.fruitCategory ?? "0") else { return cell }
+        cell.fruitImageView.image = UIImage(named: FruitCategory.images[fruitCategory])
+        
+        return cell
     }
 }
 
